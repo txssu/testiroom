@@ -7,6 +7,8 @@ defmodule Testiroom.Application do
 
   @impl true
   def start(_type, _args) do
+    {:ok, _} = EctoBootMigration.migrate(:testiroom)
+
     children = [
       TestiroomWeb.Telemetry,
       Testiroom.Repo,

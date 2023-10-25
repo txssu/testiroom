@@ -1,0 +1,26 @@
+services:
+  database:
+    image: postgres:latest
+    environment:
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: testiroom_prod
+      PGDATA: /data/postgres
+    volumes:
+      - postgres:/data/postgres
+    restart: unless-stopped
+
+  app:
+    build:
+      context: .
+    depends_on:
+      - database
+    environment:
+      IN_DOCKER: true
+      SECRET_KEY_BASE: ${SECRET_KEY_BASE}
+    ports:
+      - 4000:4000
+    restart: unless-stopped
+
+volumes:
+  postgres:

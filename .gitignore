@@ -35,3 +35,5 @@ testiroom-*.tar
 npm-debug.log
 /assets/node_modules/
 
+# Secrets
+.env
