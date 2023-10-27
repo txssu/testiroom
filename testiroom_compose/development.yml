@@ -4,12 +4,27 @@ services:
     environment:
       POSTGRES_USER: ${POSTGRES_USER:-postgres}
       POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:-postgres}
+      POSTGRES_DB: testiroom_dev
       PGDATA: /data/postgres
     ports:
       - "5432:5432"
     volumes:
       - postgres:/data/postgres
     restart: unless-stopped
+
+  app:
+    depends_on:
+      - database
+    build:
+      dockerfile: ./development.Dockerfile
+    environment:
+      REPO_HOSTNAME: "database"
+    ports:
+      - "4000:4000"
+    volumes:
+      - ../:/app
+    profiles:
+      - "app"
 
 volumes:
   postgres:
