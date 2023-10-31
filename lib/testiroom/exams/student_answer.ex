@@ -17,6 +17,7 @@ defmodule Testiroom.Exams.StudentAnswer do
   @doc false
   def changeset(student_answer, attrs) do
     student_answer
-    |> cast(attrs, [:text])
+    |> cast(attrs, [:text, :task_id])
+    |> validate_required([:task_id])
   end
 end
