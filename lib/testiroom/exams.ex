@@ -1,4 +1,5 @@
 defmodule Testiroom.Exams do
+  alias Testiroom.Exams.TestResult
   alias Testiroom.Repo
 
   alias Testiroom.Exams.Task
@@ -32,9 +33,15 @@ defmodule Testiroom.Exams do
     StudentAnswer.changeset(student_answer, attrs)
   end
 
-  def create_student_answer(%StudentAnswer{} = student_answer) do
-    student_answer
+  def save_results(student_answers, test) do
+    %TestResult{student_answers: student_answers, test: test}
     |> Repo.insert!()
-    |> Repo.preload(:selected_task_options)
+    |> Repo.preload(student_answers: [:selected_task_options])
+  end
+
+  def get_result(result_id) do
+    TestResult
+    |> Repo.get!(result_id)
+    |> Repo.preload(student_answers: [task: [:options], selected_task_options: []])
   end
 end

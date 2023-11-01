@@ -19,6 +19,7 @@ defmodule TestiroomWeb.Router do
 
     get "/", PageController, :home
     live "/exam", ExamLive
+    live "/results/:id", ExamResultLive
   end
 
   # Other scopes may use custom stacks.

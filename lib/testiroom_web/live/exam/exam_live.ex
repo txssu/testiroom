@@ -43,54 +43,6 @@ defmodule TestiroomWeb.ExamLive do
     """
   end
 
-  def render_body(%{status: :ended} = assigns) do
-    ~H"""
-    <div :for={answer <- @results} class="mb-3">
-      <%= render_result(assign(assigns, :answer, answer)) %>
-    </div>
-    """
-  end
-
-  def render_result(%{answer: %{task: %{type: :shortanswer}}} = assigns) do
-    ~H"""
-    <div><%= @answer.task.question %></div>
-    <%= if @answer.text do %>
-      <div>Ваш ответ: <%= @answer.text %></div>
-    <% else %>
-      <div>Нет ответа</div>
-    <% end %>
-    <div>
-      <%= if @answer.task.answer == @answer.text do %>
-        Верно!
-      <% else %>
-        Неверно! Правильный ответ - <%= @answer.task.answer %>
-      <% end %>
-    </div>
-    """
-  end
-
-  def render_result(%{answer: %{task: %{type: type}}} = assigns) when type in ~w[multiple single]a do
-    ~H"""
-    <div><%= @answer.task.question %></div>
-    <div>
-      <div>Вы выбрали:</div>
-      <div>
-        <ul>
-          <li :for={option <- @answer.selected_task_options}><%= option.text %></li>
-        </ul>
-      </div>
-      <div>Правильный ответ:</div>
-      <div>
-        <ul>
-          <li :for={option <- Enum.filter(@answer.task.options, & &1.is_correct)}>
-            <%= option.text %>
-          </li>
-        </ul>
-      </div>
-    </div>
-    """
-  end
-
   @impl true
   @spec mount(any(), any(), Phoenix.LiveView.Socket.t()) :: {:ok, any()}
   def mount(_params, _session, socket) do
@@ -117,12 +69,12 @@ defmodule TestiroomWeb.ExamLive do
   end
 
   def handle_event("end", _params, socket) do
-    results =
+    result =
       socket.assigns.answers
-      |> map_to_ordered_list()
-      |> Enum.map(fn {_order, answer} -> Exams.create_student_answer(answer) end)
+      |> Enum.map(fn {_order, answer} -> answer end)
+      |> Exams.save_results(socket.assigns.test)
 
-    {:noreply, assign(socket, status: :ended, results: results)}
+    {:noreply, push_navigate(socket, to: ~p"/results/#{result}")}
   end
 
   @impl true
