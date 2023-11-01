@@ -10,7 +10,8 @@ defmodule Testiroom.Exams do
   def get_test_by_title(title) do
     ordered_tasks =
       from task in Task,
-        order_by: task.order
+        order_by: task.order,
+        preload: :options
 
     Repo.one(
       from test in Test,
@@ -22,7 +23,8 @@ defmodule Testiroom.Exams do
   def new_student_answer(%Task{} = task) do
     %StudentAnswer{
       task: task,
-      task_id: task.id
+      task_id: task.id,
+      selected_options: []
     }
   end
 
@@ -31,6 +33,8 @@ defmodule Testiroom.Exams do
   end
 
   def create_student_answer(%StudentAnswer{} = student_answer) do
-    Repo.insert!(student_answer)
+    student_answer
+    |> Repo.insert!()
+    |> Repo.preload(:selected_task_options)
   end
 end
