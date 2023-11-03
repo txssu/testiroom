@@ -33,7 +33,7 @@ defmodule TestiroomWeb.ExamLive do
         phx-click="goto"
         phx-value-order={order}
       >
-        <%= order %>
+        <%= order + 1 %>
         <%= if order == @current_order, do: "Текущий" %>
         <%= if answer.text || answer.selected_options != [], do: "Решён" %>
       </.button>
@@ -61,7 +61,7 @@ defmodule TestiroomWeb.ExamLive do
         {task.order, Exams.new_student_answer(task)}
       end)
 
-    {:noreply, assign(socket, status: :started, answers: answers, current_order: 1)}
+    {:noreply, assign(socket, status: :started, answers: answers, current_order: 0)}
   end
 
   def handle_event("goto", %{"order" => order}, socket) do
