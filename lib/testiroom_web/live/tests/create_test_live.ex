@@ -57,7 +57,7 @@ defmodule TestiroomWeb.CreateTestLive do
   end
 
   def handle_event("create", %{"test" => test_params}, socket) do
-    case Exams.create_test(test_params) |> IO.inspect() do
+    case Exams.create_test(test_params) do
       {:ok, _test} ->
         socket =
           socket
@@ -76,7 +76,13 @@ defmodule TestiroomWeb.CreateTestLive do
       update(socket, :form, fn %{source: changeset} ->
         original_tasks = Ecto.Changeset.get_change(changeset, :tasks)
 
-        changed_tasks = List.update_at(original_tasks, index, fn _changeset -> task_changeset end)
+        changed_tasks =
+          if not Ecto.Changeset.get_change(task_changeset, :delete, false) ||
+               task_changeset.data.id do
+            List.update_at(original_tasks, index, fn _changeset -> task_changeset end)
+          else
+            List.delete_at(original_tasks, index)
+          end
 
         changeset = Ecto.Changeset.put_change(changeset, :tasks, changed_tasks)
         to_form(changeset)
