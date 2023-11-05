@@ -23,7 +23,7 @@ defmodule TestiroomWeb.ExamLive do
 
   def render(%{status: :started} = assigns) do
     ~H"""
-    <div class="h-screen px-12 py-9 flex lg:grid lg:grid-cols-[320px_minmax(0px,672px)_320px] justify-center">
+    <div class="h-[100dvh] px-12 py-9 flex lg:grid lg:grid-cols-[320px_minmax(0px,672px)_320px] justify-center">
       <div class="hidden lg:block"></div>
       <div class="flex-1 h-full w-full flex flex-col justify-between max-w-2xl">
         <div class="text-2xl leading-8 font-medium">
