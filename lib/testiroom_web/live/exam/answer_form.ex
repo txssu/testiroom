@@ -14,7 +14,7 @@ defmodule TestiroomWeb.AnswerForm do
         class="mb-5"
         autocomplete="off"
       >
-        <.input type="text" field={@form[:text]} label={@answer.task.question} />
+        <.input type="text" field={@form[:text]} placeholder="Введите свой ответ" />
       </.simple_form>
     </div>
     """
@@ -32,21 +32,32 @@ defmodule TestiroomWeb.AnswerForm do
         autocomplete="off"
       >
         <fieldset>
-          <legend><%= @answer.task.question %></legend>
-          <label
-            :for={{option, index} <- Stream.with_index(@answer.task.options)}
-            class="block"
-            for={"option-" <>option.id}
-          >
-            <input
-              type={task_type_to_input_type(@answer.task.type)}
-              id={"option-" <> option.id}
-              value={option.id}
-              name={@form.name <> "[selected_options][#{task_type_to_index(@answer.task.type, index)}][task_option_id]"}
-              checked={option.id in Enum.map(@answer.selected_options, & &1.task_option_id)}
-            />
-            <%= option.text %>
-          </label>
+          <div class="flex gap-y-2.5 flex-col">
+            <span class="text-sm leading-5 text-center text-inkgray">
+              <%= if assigns.answer.task.type == :multiple do %>
+                один или несколько ответов
+              <% else %>
+                один ответ
+              <% end %>
+            </span>
+            <div :for={{option, index} <- Stream.with_index(@answer.task.options)}>
+              <input
+                class="peer invisible absolute h-0 w-0"
+                type={task_type_to_input_type(@answer.task.type)}
+                id={"option-" <> option.id}
+                value={option.id}
+                name={@form.name <> "[selected_options][#{task_type_to_index(@answer.task.type, index)}][task_option_id]"}
+                checked={option.id in Enum.map(@answer.selected_options, & &1.task_option_id)}
+              />
+              <label
+                class="flex py-4 px-6 rounded-lg select-none outline outline-1 outline-inkgray text-inkdark
+                       peer-checked:outline-2 peer-checked:outline-primary peer-checked:bg-inklightgray"
+                for={"option-" <>option.id}
+              >
+                <%= option.text %>
+              </label>
+            </div>
+          </div>
         </fieldset>
       </.simple_form>
     </div>

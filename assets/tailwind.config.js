@@ -15,6 +15,10 @@ module.exports = {
     extend: {
       colors: {
         brand: "#FD4F00",
+        primary: "#E3562A",
+        inkgray: "#BEBAB3",
+        inkdark: "#3C3A36",
+        inklightgray: "#FFF5EE",
       }
     },
   },
