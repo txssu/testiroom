@@ -64,6 +64,16 @@ defmodule TestiroomWeb.TaskForm do
           <div class="row">
             <.input type="checkbox" field={option[:is_correct]} label="Верный?" />
           </div>
+          <div class="row">
+            <.button
+              type="button"
+              phx-target={@myself}
+              phx-click="delete-option"
+              phx-value-index={option.index}
+            >
+              Удалить
+            </.button>
+          </div>
         </div>
       </.inputs_for>
       <.input_error field={@form[:options]} />
@@ -100,6 +110,31 @@ defmodule TestiroomWeb.TaskForm do
         changeset = Ecto.Changeset.change(changeset, delete: true)
 
         send_change(changeset, index)
+
+        to_form(changeset)
+      end)
+
+    {:noreply, socket}
+  end
+
+  def handle_event("delete-option", %{"index" => index}, socket) do
+    index = String.to_integer(index)
+
+    socket =
+      update(socket, :form, fn %{source: changeset, index: changeset_index} ->
+        existing = Ecto.Changeset.get_field(changeset, :options)
+        {to_delete, rest} = List.pop_at(existing, index)
+
+        options =
+          if Ecto.Changeset.change(to_delete).data.id do
+            List.replace_at(existing, index, Ecto.Changeset.change(to_delete, delete: true))
+          else
+            rest
+          end
+
+        changeset = Ecto.Changeset.put_change(changeset, :options, options)
+
+        send_change(changeset, changeset_index)
 
         to_form(changeset)
       end)
