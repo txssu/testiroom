@@ -59,10 +59,11 @@ defmodule TestiroomWeb.CreateTestLive do
 
   def handle_event("create", %{"test" => test_params}, socket) do
     case Exams.create_test(test_params) do
-      {:ok, _test} ->
+      {:ok, test} ->
         socket =
           socket
           |> put_flash(:info, "Тест успешно создан")
+          |> push_navigate(to: ~p"/tests/#{test}/exam")
 
         {:noreply, socket}
 
