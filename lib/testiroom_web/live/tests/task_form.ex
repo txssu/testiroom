@@ -66,6 +66,7 @@ defmodule TestiroomWeb.TaskForm do
           </div>
         </div>
       </.inputs_for>
+      <.input_error field={@form[:options]} />
       <.button type="button" phx-click="add-option" phx-target={@myself} phx-value-index={@form.index}>
         Добавить вариант ответа
       </.button>
