@@ -13,6 +13,10 @@ defmodule Testiroom.Exams do
     %Test{tasks: []}
   end
 
+  def list_tests do
+    Repo.all(Test)
+  end
+
   def create_test(attrs) do
     %Test{}
     |> Test.changeset(attrs)

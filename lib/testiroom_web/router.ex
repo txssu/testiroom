@@ -19,9 +19,11 @@ defmodule TestiroomWeb.Router do
 
     get "/", PageController, :home
 
+    live "/tests", TestsLive
     live "/tests/create", CreateTestLive
 
-    live "/exam", ExamLive
+    live "/tests/:id/exam", ExamLive
+
     live "/results/:id", ExamResultLive
   end
 
