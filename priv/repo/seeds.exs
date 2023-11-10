@@ -19,7 +19,7 @@ test = Testiroom.Repo.insert!(%Test{title: "Контрольная работа 
 Testiroom.Repo.insert!(%Task{
   type: :shortanswer,
   question: "Сколько будет 2+2?",
-  order: 0,
+  order: 1,
   answer: "4",
   test_id: test.id
 })
@@ -28,7 +28,7 @@ task =
   Testiroom.Repo.insert!(%Task{
     type: :single,
     question: "Верно ли утверждение, что через три точки всегда можно провести ровно одну прямую?",
-    order: 1,
+    order: 2,
     test_id: test.id
   })
 
@@ -49,7 +49,7 @@ task =
   Testiroom.Repo.insert!(%Task{
     type: :multiple,
     question: "Выберете все ответы, где x = 1 является решением уравнения.",
-    order: 2,
+    order: 3,
     test_id: test.id
   })
 

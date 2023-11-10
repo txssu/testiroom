@@ -18,9 +18,6 @@ defmodule TestiroomWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    live "/tests/create", CreateTestLive
-
     live "/exam", ExamLive
     live "/results/:id", ExamResultLive
   end

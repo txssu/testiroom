@@ -6,13 +6,10 @@ defmodule Testiroom.Exams.Task do
   alias Testiroom.Exams.TaskOption
   alias Testiroom.Exams.StudentAnswer
 
-  @task_types ~w[shortanswer multiple single]a
-  @task_types_rus ["Открытый ответ", "Множественный выбор", "Одиночный выбор"]
-
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tasks" do
-    field :type, Ecto.Enum, values: @task_types, default: :shortanswer
+    field :type, Ecto.Enum, values: ~w[shortanswer multiple single]a
     field :question, :string
     field :order, :integer
     field :answer, :string
@@ -28,11 +25,6 @@ defmodule Testiroom.Exams.Task do
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:question, :order, :answer, :type])
-    |> cast_assoc(:options)
-    |> validate_required([:question, :order, :type])
-  end
-
-  def get_type_options do
-    Enum.zip(@task_types_rus, @task_types)
+    |> validate_required([:question, :order, :answer, :type])
   end
 end
