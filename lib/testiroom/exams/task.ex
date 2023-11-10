@@ -3,6 +3,7 @@ defmodule Testiroom.Exams.Task do
 
   alias Testiroom.Exams.Test
   alias Testiroom.Exams.Task.Option
+  alias Testiroom.Exams.Task.TextAnswer
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -12,6 +13,7 @@ defmodule Testiroom.Exams.Task do
 
     belongs_to :test, Test
 
+    has_many :text_answers, TextAnswer
     has_many :options, Option
 
     timestamps(type: :utc_datetime)
