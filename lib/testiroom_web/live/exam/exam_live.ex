@@ -131,9 +131,9 @@ defmodule TestiroomWeb.ExamLive do
 
   @impl true
   @spec mount(any(), any(), Phoenix.LiveView.Socket.t()) :: {:ok, any()}
-  def mount(%{"id" => test_id}, _session, socket) do
+  def mount(_params, _session, socket) do
     if connected?(socket) do
-      test = Exams.get_test!(test_id)
+      test = Exams.get_test_by_title("Контрольная работа по математике №1")
       {:ok, assign(socket, status: :pending, test: test)}
     else
       {:ok, assign(socket, status: :loading)}
