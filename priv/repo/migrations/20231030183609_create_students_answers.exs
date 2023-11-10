@@ -6,7 +6,6 @@ defmodule Testiroom.Repo.Migrations.CreateStudentsAnswers do
       add :id, :binary_id, primary_key: true
       add :text, :string
       add :task_id, references(:tasks, on_delete: :delete_all, type: :binary_id), null: false
-      add :test_result_id, references(:test_results, on_delete: :nothing, type: :binary_id)
 
       timestamps(type: :utc_datetime)
     end
