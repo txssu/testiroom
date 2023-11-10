@@ -13,8 +13,8 @@ defmodule Testiroom.Exams.Task do
 
     belongs_to :test, Test
 
-    has_many :text_answers, TextAnswer
-    has_many :options, Option
+    has_many :text_answers, TextAnswer, on_delete: :delete_all
+    has_many :options, Option, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
   end
