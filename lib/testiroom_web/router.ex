@@ -18,13 +18,6 @@ defmodule TestiroomWeb.Router do
     pipe_through :browser
 
     get "/", PageController, :home
-
-    live "/tests", TestsLive
-    live "/tests/create", CreateTestLive
-
-    live "/tests/:id/exam", ExamLive
-
-    live "/results/:id", ExamResultLive
   end
 
   # Other scopes may use custom stacks.
