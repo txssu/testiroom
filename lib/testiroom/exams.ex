@@ -10,7 +10,7 @@ defmodule Testiroom.Exams do
   import Ecto.Query, warn: false
 
   def new_test() do
-    %Test{tasks: []}
+    %Test{}
   end
 
   def create_test(attrs) do

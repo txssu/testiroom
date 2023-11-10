@@ -458,16 +458,6 @@ defmodule TestiroomWeb.CoreComponents do
     """
   end
 
-  attr :field, Phoenix.HTML.FormField, required: true
-
-  def input_error(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
-    assigns = assign(assigns, :errors, Enum.map(field.errors, &translate_error(&1)))
-
-    ~H"""
-    <.error :for={msg <- @errors}><%= msg %></.error>
-    """
-  end
-
   @doc """
   Renders a header with title.
   """

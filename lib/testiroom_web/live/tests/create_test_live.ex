@@ -14,7 +14,6 @@ defmodule TestiroomWeb.CreateTestLive do
           <.live_component id={System.unique_integer()} module={TaskForm} form={task_form} />
         </.inputs_for>
         <.button type="button" phx-click="add-task">Добавить вопрос</.button>
-        <.input_error field={@form[:tasks]} />
       </fieldset>
       <:actions>
         <.button>Создать</.button>

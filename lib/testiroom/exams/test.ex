@@ -18,7 +18,7 @@ defmodule Testiroom.Exams.Test do
   def changeset(test, attrs) do
     test
     |> cast(attrs, [:title])
-    |> cast_assoc(:tasks, required: true, required_message: "нужно добавить хотя бы один вопрос")
+    |> cast_assoc(:tasks)
     |> validate_required([:title])
   end
 end
