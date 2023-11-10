@@ -6,8 +6,6 @@ defmodule Testiroom.Exams.Task do
   alias Testiroom.Exams.TaskOption
   alias Testiroom.Exams.StudentAnswer
 
-  alias Testiroom.Exams.Helper
-
   @task_types ~w[shortanswer multiple single]a
   @task_types_rus ["Открытый ответ", "Множественный выбор", "Одиночный выбор"]
 
@@ -23,18 +21,15 @@ defmodule Testiroom.Exams.Task do
     has_many :options, TaskOption
     has_many :students_answers, StudentAnswer
 
-    field :delete, :boolean, default: false, virtual: true
-
     timestamps(type: :utc_datetime)
   end
 
   @doc false
   def changeset(task, attrs) do
     task
-    |> cast(attrs, [:question, :order, :answer, :type, :delete])
+    |> cast(attrs, [:question, :order, :answer, :type])
     |> cast_assoc(:options)
     |> validate_required([:question, :order, :type])
-    |> Helper.cast_delete_action()
   end
 
   def get_type_options do
