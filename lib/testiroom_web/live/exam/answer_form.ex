@@ -99,7 +99,7 @@ defmodule TestiroomWeb.AnswerForm do
 
     send(self(), {__MODULE__, Ecto.Changeset.apply_changes(changeset)})
 
-    {:noreply, socket}
+    {:noreply, assign_changeset(socket, changeset)}
   end
 
   def handle_event("ignore", _params, socket) do
