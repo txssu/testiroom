@@ -12,7 +12,6 @@
 
 alias Testiroom.Exams.Test
 alias Testiroom.Exams.Task
-alias Testiroom.Exams.TaskOption
 
 test = Testiroom.Repo.insert!(%Test{title: "Контрольная работа по математике №1"})
 
@@ -24,49 +23,18 @@ Testiroom.Repo.insert!(%Task{
   test_id: test.id
 })
 
-task =
-  Testiroom.Repo.insert!(%Task{
-    type: :single,
-    question: "Верно ли утверждение, что через три точки всегда можно провести ровно одну прямую?",
-    order: 2,
-    test_id: test.id
-  })
-
-Testiroom.Repo.insert!(%TaskOption{
-  task_id: task.id,
-  text: "Верно",
-  is_correct: false
+Testiroom.Repo.insert!(%Task{
+  type: :shortanswer,
+  question: "Сколько будет 7+1?",
+  order: 2,
+  answer: "8",
+  test_id: test.id
 })
 
-Testiroom.Repo.insert!(%TaskOption{
-  task_id: task.id,
-  text: "Неверно",
-  is_correct: true
-})
-
-
-task =
-  Testiroom.Repo.insert!(%Task{
-    type: :multiple,
-    question: "Выберете все ответы, где x = 1 является решением уравнения.",
-    order: 3,
-    test_id: test.id
-  })
-
-Testiroom.Repo.insert!(%TaskOption{
-  task_id: task.id,
-  text: "x + 1 = 1",
-  is_correct: false
-})
-
-Testiroom.Repo.insert!(%TaskOption{
-  task_id: task.id,
-  text: "2 - x = 1",
-  is_correct: true
-})
-
-Testiroom.Repo.insert!(%TaskOption{
-  task_id: task.id,
-  text: "x - 1 = 0",
-  is_correct: true
+Testiroom.Repo.insert!(%Task{
+  type: :shortanswer,
+  question: "Сколько будет 8-3?",
+  order: 3,
+  answer: "5",
+  test_id: test.id
 })

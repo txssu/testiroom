@@ -3,8 +3,6 @@ defmodule Testiroom.Exams.StudentAnswer do
   import Ecto.Changeset
 
   alias Testiroom.Exams.Task
-  alias Testiroom.Exams.TaskOption
-  alias Testiroom.Exams.StudentSelectedOption
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -13,9 +11,6 @@ defmodule Testiroom.Exams.StudentAnswer do
 
     belongs_to :task, Task
 
-    has_many :selected_options, StudentSelectedOption
-    many_to_many :selected_task_options, TaskOption, join_through: StudentSelectedOption
-
     timestamps(type: :utc_datetime)
   end
 
@@ -23,7 +18,6 @@ defmodule Testiroom.Exams.StudentAnswer do
   def changeset(student_answer, attrs) do
     student_answer
     |> cast(attrs, [:text, :task_id])
-    |> cast_assoc(:selected_options)
     |> validate_required([:task_id])
   end
 end

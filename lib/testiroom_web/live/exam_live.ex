@@ -29,13 +29,11 @@ defmodule TestiroomWeb.ExamLive do
     ~H"""
     <div class="mb-4">
       <.button
-        :for={{order, answer} <- map_to_ordered_list(@answers)}
+        :for={{order, _answer} <- map_to_ordered_list(@answers)}
         phx-click="goto"
         phx-value-order={order}
       >
         <%= order %>
-        <%= if order == @current_order, do: "Текущий" %>
-        <%= if answer.text || answer.selected_options != [], do: "Решён" %>
       </.button>
     </div>
     <.live_component id="answer-form" module={AnswerForm} answer={@answers[@current_order]} />
@@ -46,46 +44,18 @@ defmodule TestiroomWeb.ExamLive do
   def render_body(%{status: :ended} = assigns) do
     ~H"""
     <div :for={answer <- @results} class="mb-3">
-      <%= render_result(assign(assigns, :answer, answer)) %>
-    </div>
-    """
-  end
-
-  def render_result(%{answer: %{task: %{type: :shortanswer}}} = assigns) do
-    ~H"""
-    <div><%= @answer.task.question %></div>
-    <%= if @answer.text do %>
-      <div>Ваш ответ: <%= @answer.text %></div>
-    <% else %>
-      <div>Нет ответа</div>
-    <% end %>
-    <div>
-      <%= if @answer.task.answer == @answer.text do %>
-        Верно!
+      <div><%= answer.task.question %></div>
+      <%= if answer.text do %>
+        <div>Ваш ответ: <%= answer.text %></div>
       <% else %>
-        Неверно! Правильный ответ - <%= @answer.task.answer %>
+        <div>Нет ответа</div>
       <% end %>
-    </div>
-    """
-  end
-
-  def render_result(%{answer: %{task: %{type: type}}} = assigns) when type in ~w[multiple single]a do
-    ~H"""
-    <div><%= @answer.task.question %></div>
-    <div>
-      <div>Вы выбрали:</div>
       <div>
-        <ul>
-          <li :for={option <- @answer.selected_task_options}><%= option.text %></li>
-        </ul>
-      </div>
-      <div>Правильный ответ:</div>
-      <div>
-        <ul>
-          <li :for={option <- Enum.filter(@answer.task.options, & &1.is_correct)}>
-            <%= option.text %>
-          </li>
-        </ul>
+        <%= if answer.task.answer == answer.text do %>
+          Верно!
+        <% else %>
+          Неверно! Правильный ответ - <%= answer.task.answer %>
+        <% end %>
       </div>
     </div>
     """

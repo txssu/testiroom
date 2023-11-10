@@ -6,7 +6,7 @@ defmodule Testiroom.Repo.Migrations.CreateTasks do
       add :id, :binary_id, primary_key: true
       add :question, :string, null: false
       add :order, :integer, null: false
-      add :answer, :string
+      add :answer, :string, null: false
       add :type, :string, null: false
       add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id), null: false
 
