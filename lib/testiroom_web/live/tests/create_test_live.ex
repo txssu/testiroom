@@ -9,7 +9,7 @@ defmodule TestiroomWeb.CreateTestLive do
     ~H"""
     <.simple_form for={@form} phx-change="validate" phx-submit="create">
       <.input field={@form[:title]} label="Название теста" />
-      <fieldset phx-feedback-for={@form[:options].name}>
+      <fieldset>
         <.inputs_for :let={task_form} field={@form[:tasks]}>
           <.live_component id={System.unique_integer()} module={TaskForm} form={task_form} />
         </.inputs_for>

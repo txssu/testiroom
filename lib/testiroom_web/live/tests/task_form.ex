@@ -54,7 +54,7 @@ defmodule TestiroomWeb.TaskForm do
 
   def input_by_type(%{type: type} = assigns) when type in ~w[single multiple]a do
     ~H"""
-    <fieldset phx-feedback-for={@form.name}>
+    <fieldset>
       <legend>Варианты ответа</legend>
       <.inputs_for :let={option} field={@form[:options]}>
         <div class="flex gap-4 items-end">
@@ -72,10 +72,6 @@ defmodule TestiroomWeb.TaskForm do
       </.button>
     </fieldset>
     """
-  end
-
-  def update(assigns, socket) do
-    {:ok, assign(socket, form: assigns.form)}
   end
 
   def handle_event("add-option", _params, socket) do
@@ -109,5 +105,9 @@ defmodule TestiroomWeb.TaskForm do
 
   def send_change(changeset, index) do
     send(self(), {__MODULE__, changeset, index})
+  end
+
+  def update(assigns, socket) do
+    {:ok, assign(socket, form: assigns.form)}
   end
 end
