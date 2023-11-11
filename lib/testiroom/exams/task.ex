@@ -18,4 +18,18 @@ defmodule Testiroom.Exams.Task do
 
     timestamps(type: :utc_datetime)
   end
+
+  def new(fields) do
+    fields = Keyword.merge(fields, options: [], text_answers: [])
+
+    struct!(__MODULE__, fields)
+  end
+
+  def add_answer(task = %__MODULE__{}, answer = %TextAnswer{}) do
+    Map.update!(task, :text_answers, &[answer | &1])
+  end
+
+  def add_option(task = %__MODULE__{}, option = %Option{}) do
+    Map.update!(task, :options, &[option | &1])
+  end
 end

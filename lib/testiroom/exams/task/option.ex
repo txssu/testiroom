@@ -13,4 +13,8 @@ defmodule Testiroom.Exams.Task.Option do
 
     timestamps(type: :utc_datetime)
   end
+
+  def new(text, correct?) do
+    %__MODULE__{text: text, is_correct: correct?}
+  end
 end

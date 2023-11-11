@@ -17,4 +17,12 @@ defmodule Testiroom.Exams.StudentAnswer do
 
     timestamps(type: :utc_datetime)
   end
+
+  def new_with_options(task, options) do
+    %__MODULE__{task: task, selected_options: options}
+  end
+
+  def new_with_text(task, text) do
+    %__MODULE__{task: task, text: text}
+  end
 end

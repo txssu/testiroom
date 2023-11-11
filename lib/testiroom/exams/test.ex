@@ -12,4 +12,12 @@ defmodule Testiroom.Exams.Test do
 
     timestamps(type: :utc_datetime)
   end
+
+  def new(title) do
+    %__MODULE__{title: title, tasks: []}
+  end
+
+  def add_task(test = %__MODULE__{}, task = %Task{}) do
+    Map.update!(test, :tasks, &[task | &1])
+  end
 end
