@@ -3,7 +3,12 @@ defmodule Testiroom.Exams do
 
   def start_attempt(user, test) do
     attempt = StudentAttempt.new(test)
-    GenServer.start_link(AttemptManager, {user, attempt})
+
+    with {:ok, _pid} <- AttemptManager.start_attempt(user, attempt) do
+      {:ok, {user.id, test.id}}
+    else
+      error -> error
+    end
   end
 
   def get_task_and_answer(attempt, index) do
