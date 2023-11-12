@@ -18,8 +18,12 @@ defmodule Testiroom.Exams.StudentAnswer do
     timestamps(type: :utc_datetime)
   end
 
-  def new_with_options(task, options) do
-    %__MODULE__{task: task, selected_options: options}
+  def new_with_options(task) do
+    %__MODULE__{task: task, selected_options: []}
+  end
+
+  def select_option(%__MODULE__{} = student_answer, option) do
+    Map.update!(student_answer, :selected_options, &[option | &1])
   end
 
   def new_with_text(task, text) do
