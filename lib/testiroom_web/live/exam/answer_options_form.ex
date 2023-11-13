@@ -4,10 +4,22 @@ defmodule TestiroomWeb.AnswerOptionsForm do
   alias Testiroom.Exams.StudentAnswer
 
   def render(assigns) do
+    info =
+      case assigns.task.type do
+        :checkbox -> "один или несколько ответов"
+        :radio -> "один ответ"
+      end
+
+    assigns =
+      assign(assigns,
+        info: info
+      )
+
     ~H"""
     <div>
       <.form for={@form} phx-change="validate" phx-submit="validate" phx-target={@myself}>
-        <fieldset class="flex flex-col gap-2.5">
+        <fieldset class="flex flex-col">
+          <legend class="w-full text-sm mb-2.5 leading-5 text-center text-ink-gray"><%= @info %></legend>
           <.option
             :for={{option, index} <- Stream.with_index(@task.options)}
             field={@form[:selected_options]}
@@ -34,7 +46,7 @@ defmodule TestiroomWeb.AnswerOptionsForm do
     assigns = assign(assigns, name: name, checked?: checked?, type: type, id: id)
 
     ~H"""
-    <div phx-feedback-for={@name}>
+    <div phx-feedback-for={@name} class="mb-2.5">
       <input
         class="peer invisible absolute h-0 w-0"
         id={@id}
