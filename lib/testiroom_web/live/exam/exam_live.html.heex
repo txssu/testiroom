@@ -15,4 +15,12 @@
   <p><%= @current_index + 1 %> из <%= @tasks_count %></p>
   <.link patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}>Назад</.link>
   <.link patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}>Вперёд</.link>
+
+  <ul>
+    <li :for={order <- 1..@tasks_count}>
+      <.link patch={~p"/tests/#{@test}/exam/#{order - 1}"}><%= order %></.link>
+    </li>
+  </ul>
+
+  <.button phx-click="wrap-up">Закончить тест</.button>
 <% end %>
