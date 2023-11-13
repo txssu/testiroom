@@ -34,7 +34,7 @@ defmodule TestiroomWeb.AnswerOptionsForm do
     <div phx-feedback-for={@name}>
       <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
         <input
-          id={@field.id}
+          id={@field.id <> "-" <> @option.id}
           type={@type}
           name={@name}
           value={@option.id}

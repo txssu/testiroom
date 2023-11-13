@@ -9,17 +9,17 @@ body {
 }
 
 .btn {
-  @apply inline-block py-4 px-8 font-medium rounded-[16px] leading-[18px]
+  @apply inline-block py-4 px-8 font-medium rounded-[16px] active:text-black/80
+}
 
-  &-primary {
-    @apply bg-primary text-white active:text-white/80
-  }
+.btn-primary {
+  @apply bg-primary text-white active:text-white/80
+}
 
-  &-secondary {
-    @apply bg-white border-2 text-ink-dark border-primary active:text-ink-dark/80
-  }
+.btn-secondary {
+  @apply bg-white border-2 border-primary
+}
 
-  &-inactive {
-    @apply bg-white border-2 text-ink-dark border-ink-gray active:text-ink-dark/80
-  }
+.btn-seconday-inactive {
+  @apply bg-white border-2 border-ink-gray
 }
