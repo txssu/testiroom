@@ -49,7 +49,7 @@ defmodule TestiroomWeb.AnswerOptionsForm do
           "outline-ink-gray text-ink-dark",
           "peer-checked:outline-2 peer-checked:outline-primary peer-checked:bg-ink-light-gray"
         ]}
-        for={id}
+        for={@id}
       >
         <%= @option.text %>
       </label>
