@@ -28,12 +28,12 @@
           Вперёд
         </.link>
       </div>
-      <.button class="btn-primary w-full" phx-click="wrap-up">Закончить тест</.button>
+      <.button class="btn-primary w-full" phx-click={show_modal("review")}>Обзор</.button>
     </div>
   </div>
-  <div class="hidden">
-    <ul class="flex gap-2.5 flex-wrap">
-      <li :for={order <- 1..100}>
+  <.bottom_modal id="review">
+    <ul class="flex gap-2.5 flex-wrap mb-16">
+      <li :for={order <- 1..@tasks_count}>
         <.link
           class={[
             "inline-block h-9 min-w-[36px] px-2 bg-primary text-white rounded-[12px]"
@@ -46,5 +46,6 @@
         </.link>
       </li>
     </ul>
-  </div>
+    <.button class="btn-primary w-full" phx-click="wrap-up">Закончить тест</.button>
+  </.bottom_modal>
 <% end %>
