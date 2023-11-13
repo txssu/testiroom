@@ -7,13 +7,15 @@ defmodule TestiroomWeb.AnswerOptionsForm do
     ~H"""
     <div>
       <.form for={@form} phx-change="validate" phx-submit="validate" phx-target={@myself}>
-        <.option
-          :for={{option, index} <- Stream.with_index(@task.options)}
-          field={@form[:selected_options]}
-          type={@task.type}
-          option={option}
-          index={index}
-        />
+        <fieldset class="flex flex-col gap-2.5">
+          <.option
+            :for={{option, index} <- Stream.with_index(@task.options)}
+            field={@form[:selected_options]}
+            type={@task.type}
+            option={option}
+            index={index}
+          />
+        </fieldset>
       </.form>
     </div>
     """
@@ -28,19 +30,27 @@ defmodule TestiroomWeb.AnswerOptionsForm do
 
     name = field.name <> name_index
     checked? = option.id in Enum.map(field.form.data.selected_options, & &1.id)
-    assigns = assign(assigns, name: name, checked?: checked?, type: type)
+    id = "#{field.id}-#{option.id}"
+    assigns = assign(assigns, name: name, checked?: checked?, type: type, id: id)
 
     ~H"""
     <div phx-feedback-for={@name}>
-      <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
-        <input
-          id={@field.id <> "-" <> @option.id}
-          type={@type}
-          name={@name}
-          value={@option.id}
-          checked={@checked?}
-          class="rounded border-zinc-300 text-zinc-900 focus:ring-0"
-        />
+      <input
+        class="peer invisible absolute h-0 w-0"
+        id={@id}
+        type={@type}
+        name={@name}
+        value={@option.id}
+        checked={@checked?}
+      />
+      <label
+        class={[
+          "flex py-4 px-6 rounded-lg select-none outline outline-1",
+          "outline-ink-gray text-ink-dark",
+          "peer-checked:outline-2 peer-checked:outline-primary peer-checked:bg-ink-lightgray"
+        ]}
+        for={id}
+      >
         <%= @option.text %>
       </label>
     </div>

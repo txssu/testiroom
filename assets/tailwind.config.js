@@ -19,6 +19,7 @@ module.exports = {
         "ink-gray": "#BEBAB3",
         "ink-dark": "#3C3A36",
         "ink-lightgray": "#FFF5EE",
+        "ink-dark-gray": "#78746D",
       }
     },
   },
