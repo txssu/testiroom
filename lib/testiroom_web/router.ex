@@ -16,8 +16,6 @@ defmodule TestiroomWeb.Router do
 
   scope "/", TestiroomWeb do
     pipe_through :browser
-
-    get "/", PageController, :home
   end
 
   # Other scopes may use custom stacks.
