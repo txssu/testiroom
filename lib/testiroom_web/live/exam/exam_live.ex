@@ -60,6 +60,24 @@ defmodule TestiroomWeb.ExamLive do
     {:noreply, socket}
   end
 
+  def handle_event("wrap-up", _params, socket) do
+    result = Exams.wrap_up_attempt(socket.assigns.attempt)
+
+    answers =
+      result.answers
+      |> Enum.map(&elem(&1, 1))
+
+    correct =
+      Enum.count(answers, &Exams.StudentAnswer.correct?/1)
+
+    socket =
+      socket
+      |> push_patch(to: ~p"/tests/#{socket.assigns.test}/exam")
+      |> put_flash(:info, "Верных ответов: #{correct}")
+
+    {:noreply, socket}
+  end
+
   def handle_info({:answer_form, answer}, socket) do
     %{attempt: attempt, current_index: index} = socket.assigns
     Exams.answer_task(attempt, index, answer)

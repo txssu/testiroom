@@ -72,7 +72,7 @@ defmodule TestiroomWeb.AnswerOptionsForm do
     {:noreply, assign_form(socket, changeset)}
   end
 
-  def fetch_options({_index, param} = x, options) do
+  def fetch_options({_index, param}, options) do
     option_id = param["id"]
     Enum.find(options, &(option_id == &1.id))
   end
