@@ -1,6 +1,6 @@
 <%= if @live_action == :begin do %>
   <h1><%= @test.title %></h1>
-  <.button phx-click="start">Начать тест</.button>
+  <.button class="btn-primary" phx-click="start">Начать тест</.button>
 <% end %>
 
 <%= if @live_action == :started do %>
@@ -13,14 +13,29 @@
     task={@current_task}
   />
   <p><%= @current_index + 1 %> из <%= @tasks_count %></p>
-  <.link patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}>Назад</.link>
-  <.link patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}>Вперёд</.link>
+  <div>
+    <.link class="btn btn-secondary" patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}>
+      Назад
+    </.link>
+    <.link class="btn btn-secondary" patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}>
+      Вперёд
+    </.link>
+  </div>
 
-  <ul>
-    <li :for={order <- 1..@tasks_count}>
-      <.link patch={~p"/tests/#{@test}/exam/#{order - 1}"}><%= order %></.link>
+  <ul class="flex gap-2.5 flex-wrap">
+    <li :for={order <- 1..100}>
+      <.link
+        class={[
+          "inline-block h-9 min-w-[36px] px-2 bg-primary text-white rounded-[12px]"
+        ]}
+        patch={~p"/tests/#{@test}/exam/#{order - 1}"}
+      >
+        <div class="flex h-full justify-center items-center">
+          <%= order %>
+        </div>
+      </.link>
     </li>
   </ul>
 
-  <.button phx-click="wrap-up">Закончить тест</.button>
+  <.button class="btn-primary" phx-click="wrap-up">Закончить тест</.button>
 <% end %>
