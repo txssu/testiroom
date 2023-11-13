@@ -5,6 +5,7 @@ defmodule TestiroomWeb.Router do
     plug :accepts, ["html"]
     plug :fetch_session
     plug :fetch_live_flash
+    plug TestiroomWeb.AnonymousToken
     plug :put_root_layout, html: {TestiroomWeb.Layouts, :root}
     plug :protect_from_forgery
     plug :put_secure_browser_headers
@@ -17,7 +18,12 @@ defmodule TestiroomWeb.Router do
   scope "/", TestiroomWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live "/tests", TestLive
+
+    live_session :exam do
+      live "/tests/:id/exam", ExamLive, :begin
+      live "/tests/:id/exam/:index", ExamLive, :started
+    end
   end
 
   # Other scopes may use custom stacks.

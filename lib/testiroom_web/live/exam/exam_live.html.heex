@@ -1,0 +1,26 @@
+<%= if @live_action == :begin do %>
+  <h1><%= @test.title %></h1>
+  <.button phx-click="start">Начать тест</.button>
+<% end %>
+
+<%= if @live_action == :started do %>
+  <h1><%= @test.title %></h1>
+  <h2><%= @current_task.question %></h2>
+  <.live_component
+    id="answer-component"
+    module={form_module(@current_task.type)}
+    answer={@current_answer}
+    task={@current_task}
+  />
+  <p><%= @current_index + 1 %> из <%= @tasks_count %></p>
+  <.link patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}>Назад</.link>
+  <.link patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}>Вперёд</.link>
+
+  <ul>
+    <li :for={order <- 1..@tasks_count}>
+      <.link patch={~p"/tests/#{@test}/exam/#{order - 1}"}><%= order %></.link>
+    </li>
+  </ul>
+
+  <.button phx-click="wrap-up">Закончить тест</.button>
+<% end %>

@@ -1,5 +1,22 @@
 defmodule Testiroom.Exams do
-  alias Testiroom.Exams.{StudentAnswer, StudentAttempt, AttemptManager}
+  alias Testiroom.Exams.StudentAnswer
+  alias Testiroom.Repo
+  import Ecto.Query, warn: false
+
+  alias Testiroom.Exams.Test
+  alias Testiroom.Exams.{AttemptManager, StudentAnswer, StudentAttempt}
+
+  def list_tests do
+    Repo.all(Test)
+  end
+
+  def get_test(id) do
+    Test
+    |> Repo.get(id)
+    |> Repo.preload(tasks: [:options, :text_answers])
+  end
+
+  # StudentAttempt API
 
   def start_attempt(user, test) do
     attempt = StudentAttempt.new(test)
@@ -9,6 +26,10 @@ defmodule Testiroom.Exams do
     else
       error -> error
     end
+  end
+
+  def get_tasks_count(attempt) do
+    AttemptManager.get_tasks_count(attempt)
   end
 
   def get_task_and_answer(attempt, index) do
@@ -37,6 +58,10 @@ defmodule Testiroom.Exams do
       {:error, changeset} ->
         {:error, changeset}
     end
+  end
+
+  def answer_task(attempt, index, answer) do
+    AttemptManager.answer_task(attempt, index, answer)
   end
 
   def wrap_up_attempt(attempt) do
