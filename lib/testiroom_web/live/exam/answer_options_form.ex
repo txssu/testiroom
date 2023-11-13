@@ -47,7 +47,7 @@ defmodule TestiroomWeb.AnswerOptionsForm do
         class={[
           "flex py-4 px-6 rounded-lg select-none outline outline-1",
           "outline-ink-gray text-ink-dark",
-          "peer-checked:outline-2 peer-checked:outline-primary peer-checked:bg-ink-lightgray"
+          "peer-checked:outline-2 peer-checked:outline-primary peer-checked:bg-ink-light-gray"
         ]}
         for={id}
       >

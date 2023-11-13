@@ -18,7 +18,7 @@ module.exports = {
         primary: "#E3562A",
         "ink-gray": "#BEBAB3",
         "ink-dark": "#3C3A36",
-        "ink-lightgray": "#FFF5EE",
+        "ink-light-gray": "#FFF5EE",
         "ink-dark-gray": "#78746D",
       }
     },
