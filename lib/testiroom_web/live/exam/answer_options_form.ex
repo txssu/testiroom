@@ -58,9 +58,11 @@ defmodule TestiroomWeb.AnswerOptionsForm do
     {:ok, socket}
   end
 
-  def handle_event("validate", %{"student_answer" => %{"selected_options" => params}}, socket) do
+  def handle_event("validate", params, socket) do
+    selected_options_params = params["student_answer"]["selected_options"] || []
+
     options = socket.assigns.task.options
-    selected_options = Enum.map(params, &fetch_options(&1, options))
+    selected_options = Enum.map(selected_options_params, &fetch_options(&1, options))
 
     answer =
       socket.assigns.answer
