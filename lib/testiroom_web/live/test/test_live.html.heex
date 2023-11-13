@@ -1,0 +1,6 @@
+<ul>
+    <li :for={test <- @tests}>
+        <span><%= test.title %></span>
+        <.link class="btn" navigate={~p"/tests/#{test}/exam"}>К тесту</.link>
+    </li>
+</ul>
