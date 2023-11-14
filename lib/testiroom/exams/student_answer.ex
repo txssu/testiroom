@@ -3,6 +3,7 @@ defmodule Testiroom.Exams.StudentAnswer do
 
   import Ecto.Changeset
 
+  alias Testiroom.Exams.StudentAttemptResult
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Task.Option
 
@@ -12,6 +13,8 @@ defmodule Testiroom.Exams.StudentAnswer do
     field :text, :string
 
     belongs_to :task, Task
+
+    belongs_to :attempt_result, StudentAttemptResult
 
     many_to_many :selected_options, Option,
       join_through: "test_task_student_answer_selected_options",
@@ -33,8 +36,9 @@ defmodule Testiroom.Exams.StudentAnswer do
   end
 
   def new(fields \\ []) do
-    fields = [selected_options: []]
-    |> Keyword.merge(fields)
+    fields =
+      [selected_options: []]
+      |> Keyword.merge(fields)
 
     struct!(__MODULE__, fields)
   end

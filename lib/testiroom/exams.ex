@@ -1,10 +1,10 @@
 defmodule Testiroom.Exams do
-  alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Repo
   import Ecto.Query, warn: false
 
   alias Testiroom.Exams.Test
-  alias Testiroom.Exams.{AttemptManager, StudentAnswer, StudentAttempt}
+  alias Testiroom.Exams.{StudentAttempt, AttemptManager, StudentAttemptResult}
+  alias Testiroom.Exams.StudentAnswer
 
   def list_tests do
     Repo.all(Test)
@@ -14,6 +14,18 @@ defmodule Testiroom.Exams do
     Test
     |> Repo.get(id)
     |> Repo.preload(tasks: [:options, :text_answers])
+  end
+
+  def insert_answers(answers) do
+    answers
+    |> StudentAttemptResult.new()
+    |> Repo.insert()
+  end
+
+  def get_attempt_result(result_id) do
+    StudentAttemptResult
+    |> Repo.get!(result_id)
+    |> Repo.preload(answers: [task: [:options, :text_answers], selected_options: []])
   end
 
   # StudentAttempt API
