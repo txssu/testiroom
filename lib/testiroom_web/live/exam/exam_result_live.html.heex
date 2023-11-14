@@ -1,0 +1,42 @@
+<div class="px-12 py-2.5">
+  <%= for {answer, index} <- Stream.with_index(@result.answers) do %>
+    <h2 class="text-2xl"><%= index + 1 %>. <%= answer.task.question %></h2>
+    <div>
+      <span>
+        Ваш ответ:
+      </span>
+      <%= case answer.task.type do %>
+        <% :text -> %>
+          <span><%= answer.text %></span>
+        <% type when type in [:checkbox, :radio] -> %>
+          <ul>
+            <li :for={option <- answer.selected_options}><%= option.text %></li>
+          </ul>
+      <% end %>
+    </div>
+    <div>
+      <span>
+        Верный ответ:
+      </span>
+      <%= case answer.task.type do %>
+        <% :text -> %>
+          <ul>
+            <%= for text_answer <- answer.task.text_answers do %>
+              <li><%= text_answer.text %></li>
+            <% end %>
+          </ul>
+        <% type when type in [:checkbox, :radio] -> %>
+          <ul>
+            <li :for={option <- answer.selected_options}><%= option.text %></li>
+          </ul>
+      <% end %>
+    </div>
+    <span>
+      <%= if StudentAnswer.correct?(answer) do %>
+        Верно!
+      <% else %>
+        Неверно!
+      <% end %>
+    </span>
+  <% end %>
+</div>
