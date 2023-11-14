@@ -1,5 +1,25 @@
 @import "tailwindcss/base";
 @import "tailwindcss/components";
 @import "tailwindcss/utilities";
+@import url('https://fonts.googleapis.com/css2?family=Rubik:ital,wght@0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
-/* This file is for your main application CSS */
+
+body {
+  font-family: 'Rubik', 'sans-serif';
+}
+
+.btn {
+  @apply inline-block py-4 px-8 font-medium rounded-[16px] text-center active:text-black/80
+}
+
+.btn-primary {
+  @apply bg-primary text-white active:text-white/80
+}
+
+.btn-secondary {
+  @apply bg-white border-2 border-primary
+}
+
+.btn-seconday-inactive {
+  @apply bg-white border-2 border-ink-gray
+}

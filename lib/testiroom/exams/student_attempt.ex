@@ -39,6 +39,13 @@ defmodule Testiroom.Exams.StudentAttempt do
     Map.update!(student_attempt, :answers, &Map.put(&1, task_index, answer))
   end
 
+  def done_status(%__MODULE__{} = student_attempt) do
+    0..(student_attempt.count - 1)
+    |> Enum.map(fn index ->
+      not is_nil(get_answer(student_attempt, index))
+    end)
+  end
+
   defp get_variant(test) do
     test.tasks
     |> Stream.with_index()

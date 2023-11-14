@@ -1,26 +1,56 @@
 <%= if @live_action == :begin do %>
   <h1><%= @test.title %></h1>
-  <.button phx-click="start">Начать тест</.button>
+  <.button class="btn-primary" phx-click="start">Начать тест</.button>
 <% end %>
 
 <%= if @live_action == :started do %>
-  <h1><%= @test.title %></h1>
-  <h2><%= @current_task.question %></h2>
-  <.live_component
-    id="answer-component"
-    module={form_module(@current_task.type)}
-    answer={@current_answer}
-    task={@current_task}
-  />
-  <p><%= @current_index + 1 %> из <%= @tasks_count %></p>
-  <.link patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}>Назад</.link>
-  <.link patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}>Вперёд</.link>
-
-  <ul>
-    <li :for={order <- 1..@tasks_count}>
-      <.link patch={~p"/tests/#{@test}/exam/#{order - 1}"}><%= order %></.link>
-    </li>
-  </ul>
-
-  <.button phx-click="wrap-up">Закончить тест</.button>
+  <div class="flex flex-col justify-between h-[100dvh] px-12 py-2.5">
+    <h2 class="text-2xl font-medium"><%= @current_task.question %></h2>
+    <.live_component
+      id="answer-component"
+      module={form_module(@current_task.type)}
+      answer={@current_answer}
+      task={@current_task}
+    />
+    <div class="flex flex-col gap-2.5">
+      <p class="text-center"><%= @current_index + 1 %> из <%= @tasks_count %></p>
+      <div class="flex gap-2.5">
+        <.link
+          class="btn btn-secondary w-full !px-4"
+          patch={~p"/tests/#{@test}/exam/#{@current_index - 1}"}
+        >
+          Назад
+        </.link>
+        <.link
+          class="btn btn-secondary w-full !px-4"
+          patch={~p"/tests/#{@test}/exam/#{@current_index + 1}"}
+        >
+          Вперёд
+        </.link>
+      </div>
+      <.button class="btn-primary w-full" phx-click={show_modal("review")}>Обзор</.button>
+    </div>
+  </div>
+  <.bottom_modal id="review">
+    <ul class="flex gap-2.5 flex-wrap mb-16">
+      <li :for={{order, done?} <- Enum.zip(1..@tasks_count, @done_status)}>
+        <.link
+          class={[
+            "inline-block h-9 min-w-[36px] px-2 rounded-[12px]",
+            cond do
+              order - 1 == @current_index -> "border-2 border-primary"
+              done? -> "bg-primary text-white"
+              true -> "border-2 border-ink-gray"
+            end
+          ]}
+          patch={~p"/tests/#{@test}/exam/#{order - 1}"}
+        >
+          <div class="flex h-full justify-center items-center">
+            <%= order %>
+          </div>
+        </.link>
+      </li>
+    </ul>
+    <.button class="btn-primary w-full" phx-click="wrap-up">Закончить тест</.button>
+  </.bottom_modal>
 <% end %>
