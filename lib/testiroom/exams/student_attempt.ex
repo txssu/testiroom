@@ -29,7 +29,7 @@ defmodule Testiroom.Exams.StudentAttempt do
     Map.get(variant, index)
   end
 
-def get_answer(%__MODULE__{answers: answers}, index) do
+  def get_answer(%__MODULE__{answers: answers}, index) do
     Map.get(answers, index)
   end
 
@@ -38,9 +38,11 @@ def get_answer(%__MODULE__{answers: answers}, index) do
   end
 
   def done_status(%__MODULE__{} = student_attempt) do
-    0..(student_attempt.count - 1)
-    |> Enum.map(fn index ->
-      not is_nil(get_answer(student_attempt, index))
+    student_attempt.answers
+    |> :maps.iterator(:ordered)
+    |> :maps.to_list()
+    |> Enum.map(fn {_index, answer} ->
+      answer.text != nil or answer.selected_options != []
     end)
   end
 
