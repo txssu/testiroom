@@ -25,7 +25,7 @@ defmodule Testiroom.Exams do
   def get_attempt_result(result_id) do
     StudentAttemptResult
     |> Repo.get!(result_id)
-    |> Repo.preload(answers: [task: [:options, :text_answers], selected_options: []])
+    |> Repo.preload(answers: [task: [:test, :options, :text_answers], selected_options: []])
   end
 
   # StudentAttempt API
