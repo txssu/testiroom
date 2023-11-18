@@ -15,13 +15,13 @@ defmodule Testiroom.Exams.StudentAttempt do
         }
 
   def new(test) do
-    variant = get_variant(test)
+    {variant, answers} = get_variant_and_answers(test)
 
     %__MODULE__{
       test: test,
       variant: variant,
       count: Enum.count(variant),
-      answers: %{}
+      answers: answers
     }
   end
 
@@ -29,13 +29,11 @@ defmodule Testiroom.Exams.StudentAttempt do
     Map.get(variant, index)
   end
 
-  def get_answer(%__MODULE__{answers: answers}, index) do
+def get_answer(%__MODULE__{answers: answers}, index) do
     Map.get(answers, index)
   end
 
   def answer_task(%__MODULE__{} = student_attempt, task_index, answer) do
-    task = get_task(student_attempt, task_index)
-    answer = StudentAnswer.put_task(answer, task)
     Map.update!(student_attempt, :answers, &Map.put(&1, task_index, answer))
   end
 
@@ -46,9 +44,20 @@ defmodule Testiroom.Exams.StudentAttempt do
     end)
   end
 
-  defp get_variant(test) do
-    test.tasks
-    |> Stream.with_index()
-    |> Enum.into(%{}, fn {task, index} -> {index, task} end)
+  defp get_variant_and_answers(test) do
+    variant =
+      test.tasks
+      |> Stream.with_index()
+      |> Enum.into(%{}, fn {task, index} -> {index, task} end)
+
+    answers =
+      Enum.into(
+        variant,
+        %{},
+        fn {index, task} -> {index, StudentAnswer.new(task: task)} end
+      )
+      |> IO.inspect()
+
+    {variant, answers}
   end
 end

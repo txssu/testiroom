@@ -7,11 +7,17 @@
       </span>
       <%= case answer.task.type do %>
         <% :text -> %>
-          <span><%= answer.text %></span>
+          <span>
+            <%= answer.text || "Нет ответа" %>
+          </span>
         <% type when type in [:checkbox, :radio] -> %>
-          <ul>
-            <li :for={option <- answer.selected_options}><%= option.text %></li>
-          </ul>
+          <%= if answer.selected_options == [] do %>
+            <span>Нет ответа</span>
+          <% else %>
+            <ul class="list-disc pl-8">
+              <li :for={option <- answer.selected_options}><%= option.text %></li>
+            </ul>
+          <% end %>
       <% end %>
     </div>
     <div>
@@ -20,18 +26,19 @@
       </span>
       <%= case answer.task.type do %>
         <% :text -> %>
-          <ul>
+          <ul class="list-disc pl-8">
             <%= for text_answer <- answer.task.text_answers do %>
               <li><%= text_answer.text %></li>
             <% end %>
           </ul>
         <% type when type in [:checkbox, :radio] -> %>
-          <ul>
-            <li :for={option <- answer.selected_options}><%= option.text %></li>
+          <ul class="list-disc pl-8">
+            <li :for={option <- Enum.filter(answer.task.options, & &1.is_correct)}><%= option.text %></li>
           </ul>
       <% end %>
     </div>
     <span>
+      Результат:
       <%= if StudentAnswer.correct?(answer) do %>
         Верно!
       <% else %>
