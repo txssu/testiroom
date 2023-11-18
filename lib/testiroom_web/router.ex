@@ -17,6 +17,7 @@ defmodule TestiroomWeb.Router do
 
   scope "/", TestiroomWeb do
     pipe_through :browser
+    get "/", PageController, :index
 
     live "/tests", TestLive
 
