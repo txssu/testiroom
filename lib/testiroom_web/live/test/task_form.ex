@@ -47,16 +47,11 @@ defmodule TestiroomWeb.TaskForm do
 
   def input_by_type(%{type: nil} = assigns) do
     ~H"""
+
     """
   end
 
-  def input_by_type(%{type: :text} = assigns) do
-    ~H"""
-    <.input field={@form[:answer]} type="text" label="Ответ на вопрос" />
-    """
-  end
-
-  def input_by_type(%{type: type} = assigns) when type in ~w[radio checkbox]a do
+  def input_by_type(%{type: type} = assigns) when type in ~w[radio checkbox text]a do
     ~H"""
     <fieldset phx-feedback-for={@form.name}>
       <legend>Варианты ответа</legend>
@@ -65,9 +60,13 @@ defmodule TestiroomWeb.TaskForm do
           <div class="row">
             <.input field={option[:text]} />
           </div>
-          <div class="row">
-            <.input type="checkbox" field={option[:is_correct]} label="Верный?" />
-          </div>
+          <%= if assigns.type == :text do %>
+            <.input type="hidden" field={option[:is_correct]} value="true" />
+          <% else %>
+            <div class="row">
+              <.input type="checkbox" field={option[:is_correct]} label="Верный?" />
+            </div>
+          <% end %>
           <div class="row">
             <.button
               type="button"
