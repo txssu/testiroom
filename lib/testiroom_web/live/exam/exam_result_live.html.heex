@@ -27,7 +27,7 @@
       <%= case answer.task.type do %>
         <% :text -> %>
           <ul class="list-disc pl-8">
-            <%= for text_answer <- answer.task.text_answers do %>
+            <%= for text_answer <- answer.task.options do %>
               <li><%= text_answer.text %></li>
             <% end %>
           </ul>

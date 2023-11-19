@@ -31,11 +31,11 @@ Repo.insert!(%Exams.Test{
     %Exams.Task{
       type: :text,
       question: "Сколько различных корней имеет уравнение x^2-2=0?",
-      text_answers: [
-        %Exams.Task.TextAnswer{text: "2"},
-        %Exams.Task.TextAnswer{text: "два"},
-        %Exams.Task.TextAnswer{text: "два корня"},
-        %Exams.Task.TextAnswer{text: "два различных корня"}
+      options: [
+        %Exams.Task.Option{text: "2", is_correct: true},
+        %Exams.Task.Option{text: "два", is_correct: true},
+        %Exams.Task.Option{text: "два корня", is_correct: true},
+        %Exams.Task.Option{text: "два различных корня", is_correct: true}
       ]
     },
     %Exams.Task{
