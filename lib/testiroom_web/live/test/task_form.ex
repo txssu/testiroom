@@ -69,6 +69,7 @@ defmodule TestiroomWeb.TaskForm do
           <% end %>
           <div class="row">
             <.button
+              class="btn-primary"
               type="button"
               phx-target={@myself}
               phx-click="delete-option"
@@ -80,7 +81,13 @@ defmodule TestiroomWeb.TaskForm do
         </div>
       </.inputs_for>
       <.input_error field={@form[:options]} />
-      <.button type="submit" name="add-option" value={@form.index} phx-target={@myself}>
+      <.button
+        class="btn-primary"
+        type="submit"
+        name="add-option"
+        value={@form.index}
+        phx-target={@myself}
+      >
         Добавить вариант ответа
       </.button>
     </fieldset>
