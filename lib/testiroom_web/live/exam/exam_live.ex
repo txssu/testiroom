@@ -42,7 +42,7 @@ defmodule TestiroomWeb.ExamLive do
          done_status: done_status
        )}
     else
-      {:noreply, push_patch(socket, to: ~p"/tests/#{test}/exam/0")}
+      {:noreply, push_navigate(socket, to: ~p"/tests/#{test}/exam/0")}
     end
   end
 
@@ -57,7 +57,7 @@ defmodule TestiroomWeb.ExamLive do
     socket =
       socket
       |> assign(attempt_id: attempt_id)
-      |> push_patch(to: ~p"/tests/#{test}/exam/0")
+      |> push_navigate(to: ~p"/tests/#{test}/exam/0")
 
     {:noreply, socket}
   end
@@ -69,7 +69,7 @@ defmodule TestiroomWeb.ExamLive do
 
     {:ok, inserted_results} = Exams.insert_answers(answers)
 
-    socket = push_navigate(socket, to: ~p"/results/#{inserted_results}")
+    socket = redirect(socket, to: ~p"/results/#{inserted_results}")
 
     {:noreply, socket}
   end

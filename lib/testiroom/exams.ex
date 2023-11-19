@@ -13,7 +13,17 @@ defmodule Testiroom.Exams do
   def get_test(id) do
     Test
     |> Repo.get(id)
-    |> Repo.preload(tasks: [:options, :text_answers])
+    |> Repo.preload(tasks: [:options])
+  end
+
+  def change_test(test, attrs \\ %{}) do
+    Test.changeset(test, attrs)
+  end
+
+  def insert_test(test, attrs) do
+    test
+    |> Test.changeset(attrs)
+    |> Repo.insert()
   end
 
   def insert_answers(answers) do
@@ -25,7 +35,7 @@ defmodule Testiroom.Exams do
   def get_attempt_result(result_id) do
     StudentAttemptResult
     |> Repo.get!(result_id)
-    |> Repo.preload(answers: [task: [:test, :options, :text_answers], selected_options: []])
+    |> Repo.preload(answers: [task: [:test, :options], selected_options: []])
   end
 
   # StudentAttempt API
