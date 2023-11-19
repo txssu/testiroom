@@ -7,11 +7,12 @@ defmodule TestiroomWeb.TestFormLive do
 
   @impl true
   def mount(params, %{"anonymous_identity" => user_id}, socket) do
+    action = socket.assigns.live_action
+
     test =
-      if id = params["id"] do
-        Exams.get_test(id)
-      else
-        Test.new(author_id: user_id)
+      case action do
+        :new -> Test.new(author_id: user_id)
+        :edit -> Exams.get_test(params["id"])
       end
 
     if test.author_id == user_id do
@@ -19,7 +20,7 @@ defmodule TestiroomWeb.TestFormLive do
 
       socket =
         socket
-        |> assign(test: test)
+        |> assign(test: test, page_title: get_page_title(action))
         |> assign_form(changeset)
 
       {:ok, socket}
@@ -146,4 +147,7 @@ defmodule TestiroomWeb.TestFormLive do
     |> Kernel.+(1)
     |> to_string()
   end
+
+  defp get_page_title(:new), do: "Создание теста"
+  defp get_page_title(:edit), do: "Редактирование теста"
 end
