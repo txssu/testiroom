@@ -20,8 +20,8 @@ defmodule Testiroom.Exams do
     Test.changeset(test, attrs)
   end
 
-  def create_test(attrs) do
-    %Test{}
+  def insert_test(test, attrs) do
+    test
     |> Test.changeset(attrs)
     |> Repo.insert()
   end

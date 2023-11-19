@@ -6,22 +6,31 @@ defmodule TestiroomWeb.TestFormLive do
   alias TestiroomWeb.TaskForm
 
   @impl true
-  def mount(params, _session, socket) do
+  def mount(params, %{"anonymous_identity" => user_id}, socket) do
     test =
       if id = params["id"] do
         Exams.get_test(id)
       else
-        Test.new()
+        Test.new(author_id: user_id)
       end
 
-    changeset = Test.changeset(test, %{})
+    if test.author_id == user_id do
+      changeset = Test.changeset(test, %{})
 
-    socket =
-      socket
-      |> assign(test: test)
-      |> assign_form(changeset)
+      socket =
+        socket
+        |> assign(test: test)
+        |> assign_form(changeset)
 
-    {:ok, socket}
+      {:ok, socket}
+    else
+      socket =
+        socket
+        |> put_flash(:error, "Вы не являетесь создателем этого теста")
+        |> push_navigate(to: ~p"/tests")
+
+      {:ok, socket}
+    end
   end
 
   def handle_event("validate", %{"test" => test_params}, socket) do
@@ -86,7 +95,7 @@ defmodule TestiroomWeb.TestFormLive do
   end
 
   def handle_event("create", %{"test" => test_params}, socket) do
-    case Exams.create_test(test_params) do
+    case Exams.insert_test(socket.assigns.test, test_params) do
       {:ok, test} ->
         socket =
           socket

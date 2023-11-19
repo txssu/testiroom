@@ -17,6 +17,7 @@ Repo.delete_all(Exams.Test)
 
 Repo.insert!(%Exams.Test{
   title: "Контрольная работа по математике №1",
+  author_id: Ecto.UUID.generate(),
   tasks: [
     %Exams.Task{
       type: :radio,
@@ -48,11 +49,11 @@ Repo.insert!(%Exams.Test{
         },
         %Exams.Task.Option{
           text: "При умножении целого числа на нецелое число всегда получается целое число",
-          is_correct: false
+          is_correct: true
         },
         %Exams.Task.Option{
           text: "Если знаменатель уменьшить в 5 раз, то дробь увеличится в 5 раз",
-          is_correct: false
+          is_correct: true
         },
         %Exams.Task.Option{
           text:
