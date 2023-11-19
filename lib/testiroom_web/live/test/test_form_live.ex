@@ -27,7 +27,7 @@ defmodule TestiroomWeb.TestFormLive do
       socket =
         socket
         |> put_flash(:error, "Вы не являетесь создателем этого теста")
-        |> push_navigate(to: ~p"/tests")
+        |> redirect(to: ~p"/tests")
 
       {:ok, socket}
     end

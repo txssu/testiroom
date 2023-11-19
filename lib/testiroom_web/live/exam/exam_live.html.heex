@@ -1,6 +1,7 @@
 <%= if @live_action == :begin do %>
   <h1><%= @test.title %></h1>
-  <.button class="btn-primary" phx-click="start">Начать тест</.button>
+  <.button class="btn-primary mb-2" phx-click="start">Начать тест</.button>
+  <.link class="btn btn-secondary" href={~p"/tests"}>К списку тестов</.link>
 <% end %>
 
 <%= if @live_action == :started do %>
