@@ -1,6 +1,8 @@
 <ul>
-    <li :for={test <- @tests}>
-        <span><%= test.title %></span>
-        <.link class="btn btn-secondary" navigate={~p"/tests/#{test}/exam"}>К тесту</.link>
-    </li>
+  <li :for={test <- @tests}>
+    <span><%= test.title %></span>
+    <.link class="btn btn-secondary" navigate={~p"/tests/#{test}/exam"}>К тесту</.link>
+  </li>
 </ul>
+
+<.link class="btn btn-primary" navigate={~p"/tests/new"}>Создать новый тест</.link>
