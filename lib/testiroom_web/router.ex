@@ -21,6 +21,7 @@ defmodule TestiroomWeb.Router do
 
     live "/tests", TestLive
     live "/tests/new", TestFormLive
+    live "/tests/:id/edit", TestFormLive
 
     live_session :exam do
       live "/tests/:id/exam", ExamLive, :begin

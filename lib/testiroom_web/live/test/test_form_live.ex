@@ -6,16 +6,21 @@ defmodule TestiroomWeb.TestFormLive do
   alias TestiroomWeb.TaskForm
 
   @impl true
-  def mount(_params, _session, socket) do
+  def mount(params, _session, socket) do
     test =
-      Test.new()
+      if id = params["id"] do
+        Exams.get_test(id)
+      else
+        Test.new()
+      end
 
-    form =
-      test
-      |> Test.changeset(%{})
-      |> to_form()
+    changeset = Test.changeset(test, %{})
 
-    socket = assign(socket, form: form, test: test)
+    socket =
+      socket
+      |> assign(test: test)
+      |> assign_form(changeset)
+
     {:ok, socket}
   end
 
