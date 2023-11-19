@@ -16,6 +16,16 @@ defmodule Testiroom.Exams do
     |> Repo.preload(tasks: [:options, :text_answers])
   end
 
+  def change_test(test, attrs \\ %{}) do
+    Test.changeset(test, attrs)
+  end
+
+  def create_test(attrs) do
+    %Test{}
+    |> Test.changeset(attrs)
+    |> Repo.insert()
+  end
+
   def insert_answers(answers) do
     answers
     |> StudentAttemptResult.new()

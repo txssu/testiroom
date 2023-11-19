@@ -7,6 +7,9 @@ defmodule Testiroom.Exams.Task do
   alias Testiroom.Exams.Task.Option
   alias Testiroom.Exams.Task.TextAnswer
 
+  @task_types ~w[radio checkbox text]a
+  @task_types_rus ["Одиночный выбор", "Множественный выбор", "Открытый вопрос"]
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "test_tasks" do
@@ -18,6 +21,8 @@ defmodule Testiroom.Exams.Task do
     has_many :text_answers, TextAnswer, on_delete: :delete_all
     has_many :options, Option, on_delete: :delete_all
 
+    field :delete, :boolean, virtual: true
+
     timestamps(type: :utc_datetime)
   end
 
@@ -25,9 +30,27 @@ defmodule Testiroom.Exams.Task do
     task
     |> cast(attrs, [:question, :type])
     |> validate_required([:question, :type])
+    |> cast_answers()
   end
 
-  def new(fields) do
+  defp cast_answers(changeset) do
+    case get_field(changeset, :type) do
+      :text ->
+        changeset
+        |> cast_assoc(:text_answers, required: true)
+        |> validate_length(:text_answers, min: 1)
+
+      type when type in [:radio, :checkbox] ->
+        changeset
+        |> cast_assoc(:options, required: true)
+        |> validate_length(:options, min: 2)
+
+      nil ->
+        changeset
+    end
+  end
+
+  def new(fields \\ []) do
     fields = Keyword.merge(fields, options: [], text_answers: [])
 
     struct!(__MODULE__, fields)
@@ -38,8 +61,7 @@ defmodule Testiroom.Exams.Task do
     Map.update!(task, :text_answers, &[text_answer | &1])
   end
 
-  def add_option(task = %__MODULE__{}, text, correct?) when is_binary(text) do
-    option = Option.new(text, correct?)
-    Map.update!(task, :options, &[option | &1])
+  def get_type_options do
+    Enum.zip(@task_types_rus, @task_types)
   end
 end

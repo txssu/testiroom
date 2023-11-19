@@ -1,5 +1,6 @@
 defmodule Testiroom.Exams.Test do
   use Ecto.Schema
+  import Ecto.Changeset
 
   alias Testiroom.Exams.Task
 
@@ -13,8 +14,18 @@ defmodule Testiroom.Exams.Test do
     timestamps(type: :utc_datetime)
   end
 
-  def new(title) do
-    %__MODULE__{title: title, tasks: []}
+  def changeset(test, attrs) do
+    test
+    |> cast(attrs, [:title])
+    |> validate_required(:title)
+    |> cast_assoc(:tasks,
+      required: true,
+      required_message: "Необходимо добавить хотя бы одно задание"
+    )
+  end
+
+  def new() do
+    %__MODULE__{tasks: []}
   end
 
   def add_task(test = %__MODULE__{}, task = %Task{}) do

@@ -20,6 +20,7 @@ defmodule TestiroomWeb.Router do
     get "/", PageController, :index
 
     live "/tests", TestLive
+    live "/tests/new", TestFormLive
 
     live_session :exam do
       live "/tests/:id/exam", ExamLive, :begin
