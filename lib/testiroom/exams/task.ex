@@ -17,7 +17,7 @@ defmodule Testiroom.Exams.Task do
 
     belongs_to :test, Test
 
-    has_many :options, Option, on_delete: :delete_all
+    has_many :options, Option, on_replace: :delete, on_delete: :delete_all
 
     field :delete, :boolean, virtual: true
 
