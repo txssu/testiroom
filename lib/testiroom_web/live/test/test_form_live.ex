@@ -45,11 +45,32 @@ defmodule TestiroomWeb.TestFormLive do
   end
 
   def handle_event("create", %{"test" => test_params}, socket) do
-    case Exams.insert_test(socket.assigns.test, test_params) do
+    insert_test(socket.assigns.live_action, test_params, socket)
+  end
+
+  defp insert_test(action, params, socket)
+
+  defp insert_test(:new, params, socket) do
+    case Exams.create_test(socket.assigns.test, params) do
       {:ok, test} ->
         socket =
           socket
           |> put_flash(:info, "Тест успешно создан")
+          |> push_navigate(to: ~p"/tests/#{test}/exam")
+
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        {:noreply, assign_form(socket, changeset)}
+    end
+  end
+
+  defp insert_test(:edit, params, socket) do
+    case Exams.update_test(socket.assigns.test, params) do
+      {:ok, test} ->
+        socket =
+          socket
+          |> put_flash(:info, "Тест успешно обновлён")
           |> push_navigate(to: ~p"/tests/#{test}/exam")
 
         {:noreply, socket}
