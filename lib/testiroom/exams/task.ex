@@ -34,6 +34,7 @@ defmodule Testiroom.Exams.Task do
       required: true
     )
     |> validate_options_count()
+    |> validate_correct_options_count()
   end
 
   defp validate_options_count(changeset) do
@@ -41,6 +42,32 @@ defmodule Testiroom.Exams.Task do
       :text -> validate_length(changeset, :options, min: 1)
       type when type in [:radio, :checkbox] -> validate_length(changeset, :options, min: 2)
       nil -> changeset
+    end
+  end
+
+  defp validate_correct_options_count(changeset) do
+    correct_count =
+      changeset
+      |> get_field(:options)
+      |> Enum.count(& &1.is_correct)
+
+    case get_field(changeset, :type) do
+      :checkbox ->
+        if correct_count >= 1 do
+          changeset
+        else
+          add_error(changeset, :options, "Должен быть хотя бы один верный ответ")
+        end
+
+      :radio ->
+        if correct_count == 1 do
+          changeset
+        else
+          add_error(changeset, :options, "Должен быть ровно один верный ответ")
+        end
+
+      _other ->
+        changeset
     end
   end
 
