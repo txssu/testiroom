@@ -20,6 +20,8 @@ defmodule Testiroom.Exams.Test do
     |> cast(attrs, [:title])
     |> validate_required(:title)
     |> cast_assoc(:tasks,
+      sort_param: :tasks_order,
+      drop_param: :tasks_delete,
       required: true,
       required_message: "Необходимо добавить хотя бы одно задание"
     )

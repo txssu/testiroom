@@ -28,23 +28,19 @@ defmodule Testiroom.Exams.Task do
     task
     |> cast(attrs, [:question, :type])
     |> validate_required([:question, :type])
-    |> cast_answers()
+    |> cast_assoc(:options,
+      sort_param: :options_order,
+      drop_param: :options_delete,
+      required: true
+    )
+    |> validate_options_count()
   end
 
-  defp cast_answers(changeset) do
+  defp validate_options_count(changeset) do
     case get_field(changeset, :type) do
-      :text ->
-        changeset
-        |> cast_assoc(:options, required: true)
-        |> validate_length(:options, min: 1)
-
-      type when type in [:radio, :checkbox] ->
-        changeset
-        |> cast_assoc(:options, required: true)
-        |> validate_length(:options, min: 2)
-
-      nil ->
-        changeset
+      :text -> validate_length(changeset, :options, min: 1)
+      type when type in [:radio, :checkbox] -> validate_length(changeset, :options, min: 2)
+      nil -> changeset
     end
   end
 
