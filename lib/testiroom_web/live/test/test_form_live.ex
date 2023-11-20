@@ -34,6 +34,7 @@ defmodule TestiroomWeb.TestFormLive do
     end
   end
 
+  @impl true
   def handle_event("validate", %{"test" => test_params}, socket) do
     changeset =
       socket.assigns.test
@@ -43,60 +44,14 @@ defmodule TestiroomWeb.TestFormLive do
     {:noreply, assign_form(socket, changeset)}
   end
 
-  @impl true
-  def handle_event("create", %{"add-task" => _value, "test" => test_params}, socket) do
-    test_params =
-      Map.update(test_params, "tasks", %{"0" => %{}}, fn tasks ->
-        id =
-          tasks
-          |> Enum.max_by(fn {id, _task} ->
-            String.to_integer(id)
-          end)
-          |> elem(0)
-          |> String.to_integer()
-          |> Kernel.+(1)
-          |> to_string()
-
-        Map.put(tasks, id, %{})
-      end)
-
-    changeset =
-      socket.assigns.test
-      |> Exams.change_test(test_params)
-      |> Map.put(:action, :validate)
-
-    {:noreply, assign_form(socket, changeset)}
-  end
-
-  @impl true
-  def handle_event("create", %{"add-option" => task_index, "test" => test_params}, socket) do
-    test_params =
-      Map.update!(
-        test_params,
-        "tasks",
-        &Map.update!(
-          &1,
-          task_index,
-          fn task ->
-            Map.update(task, "options", %{"0" => %{}}, fn options ->
-              id = fetch_next_id(options)
-
-              Map.put(options, id, %{})
-            end)
-          end
-        )
-      )
-
-    changeset =
-      socket.assigns.test
-      |> Exams.change_test(test_params)
-      |> Map.put(:action, :validate)
-
-    {:noreply, assign_form(socket, changeset)}
-  end
-
   def handle_event("create", %{"test" => test_params}, socket) do
-    case Exams.insert_test(socket.assigns.test, test_params) do
+    insert_test(socket.assigns.live_action, test_params, socket)
+  end
+
+  defp insert_test(action, params, socket)
+
+  defp insert_test(:new, params, socket) do
+    case Exams.create_test(socket.assigns.test, params) do
       {:ok, test} ->
         socket =
           socket
@@ -110,42 +65,25 @@ defmodule TestiroomWeb.TestFormLive do
     end
   end
 
-  @impl true
-  def handle_info({TaskForm, task_changeset, index}, socket) do
-    socket =
-      update(socket, :form, fn %{source: changeset} ->
-        original_tasks = Ecto.Changeset.get_change(changeset, :tasks)
+  defp insert_test(:edit, params, socket) do
+    case Exams.update_test(socket.assigns.test, params) do
+      {:ok, test} ->
+        socket =
+          socket
+          |> put_flash(:info, "Тест успешно обновлён")
+          |> push_navigate(to: ~p"/tests/#{test}/exam")
 
-        changed_tasks =
-          if not Ecto.Changeset.get_change(task_changeset, :delete, false) ||
-               task_changeset.data.id do
-            List.update_at(original_tasks, index, fn _changeset -> task_changeset end)
-          else
-            List.delete_at(original_tasks, index)
-          end
+        {:noreply, socket}
 
-        changeset = Ecto.Changeset.put_change(changeset, :tasks, changed_tasks)
-        to_form(changeset)
-      end)
-
-    {:noreply, socket}
+      {:error, changeset} ->
+        {:noreply, assign_form(socket, changeset)}
+    end
   end
 
   defp assign_form(socket, changeset) do
     assign(socket,
       form: to_form(changeset)
     )
-  end
-
-  defp fetch_next_id(map) do
-    map
-    |> Enum.max_by(fn {id, _value} ->
-      String.to_integer(id)
-    end)
-    |> elem(0)
-    |> String.to_integer()
-    |> Kernel.+(1)
-    |> to_string()
   end
 
   defp get_page_title(:new), do: "Создание теста"
