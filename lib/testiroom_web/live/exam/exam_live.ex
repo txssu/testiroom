@@ -24,11 +24,15 @@ defmodule TestiroomWeb.ExamLive do
           attempt
       end
 
-    count = Exams.get_tasks_count(attempt)
+    if Exams.attempt_started?(attempt) do
+      count = Exams.get_tasks_count(attempt)
 
-    index = String.to_integer(index)
+      index =
+        index
+        |> String.to_integer()
+        |> min(count)
+        |> max(0)
 
-    if 0 <= index and index < count do
       {task, answer, done_status} = Exams.get_task_and_answer(attempt, index)
       answer = answer || Exams.StudentAnswer.new()
 
@@ -42,7 +46,7 @@ defmodule TestiroomWeb.ExamLive do
          done_status: done_status
        )}
     else
-      {:noreply, push_navigate(socket, to: ~p"/tests/#{test}/exam/0")}
+      {:noreply, push_patch(socket, to: ~p"/tests/#{test}/exam")}
     end
   end
 
