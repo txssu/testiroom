@@ -56,14 +56,14 @@ defmodule Testiroom.Exams.Task do
         if correct_count >= 1 do
           changeset
         else
-          add_error(changeset, :options, "Должен быть хотя бы один верный ответ")
+          add_error(changeset, :options, "должен быть хотя бы один верный ответ")
         end
 
       :radio ->
         if correct_count == 1 do
           changeset
         else
-          add_error(changeset, :options, "Должен быть ровно один верный ответ")
+          add_error(changeset, :options, "должен быть ровно один верный ответ")
         end
 
       _other ->
