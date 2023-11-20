@@ -50,6 +50,10 @@ defmodule Testiroom.Exams do
     end
   end
 
+  def attempt_started?(attempt) do
+    AttemptManager.started?(attempt)
+  end
+
   def get_tasks_count(attempt) do
     AttemptManager.get_tasks_count(attempt)
   end
