@@ -1,0 +1,22 @@
+name: Development build CD
+
+on:
+  push:
+    branches: [dev]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Deploy using ssh
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.DEV_HOST }}
+          port: ${{ secrets.DEV_PORT }}
+          username: ${{ secrets.DEV_USERNAME }}
+          key: ${{ secrets.DEV_PRIVATE_KEY }}
+          script: |
+            cd testiroom
+            git pull origin master
+            docker compose up --build --remove-orphans -d
