@@ -2,7 +2,12 @@
   <.input field={@form[:title]} label="Название теста" />
   <fieldset phx-feedback-for={@form[:options].name}>
     <.inputs_for :let={task_form} field={@form[:tasks]}>
-      <.live_component id={System.unique_integer()} module={TaskForm} form={task_form} />
+      <.live_component
+        id={System.unique_integer()}
+        module={TaskForm}
+        form={task_form}
+        upload={@uploads[task_form.name]}
+      />
     </.inputs_for>
     <label class="btn btn-secondary">
       <input type="checkbox" name="test[tasks_order][]" class="hidden" /> Добавить вопрос
