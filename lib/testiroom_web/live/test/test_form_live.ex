@@ -137,8 +137,11 @@ defmodule TestiroomWeb.TestFormLive do
       end)
     )
     |> Enum.reduce(%{}, fn entries, result ->
-      %{form_name: form_name} = List.first(entries)
-      Map.put(result, form_name, entries)
+      with [%{form_name: form_name}] <- entries do
+        Map.put(result, form_name, entries)
+      else
+        _err -> result
+      end
     end)
   end
 
@@ -146,7 +149,11 @@ defmodule TestiroomWeb.TestFormLive do
     params
     |> Map.update!("tasks", fn tasks ->
       Enum.into(tasks, %{}, fn {key, task} ->
-        {key, Map.put(task, "media", files["test[tasks][#{key}]"])}
+        if media = files["test[tasks][#{key}]"] do
+          {key, Map.put(task, "media", media)}
+        else
+          {key, task}
+        end
       end)
     end)
   end
