@@ -21,8 +21,47 @@ defmodule TestiroomWeb.TaskForm do
       end
     ]}>
       <input type="hidden" name="test[tasks_order][]" value={@form.index} />
-
       <.input field={@form[:question]} type="text" label="Текст вопроса" />
+
+      <%!-- lib/my_app_web/live/upload_live.html.heex --%>
+      <.live_file_input upload={@upload} />
+      <%!-- use phx-drop-target with the upload ref to enable file drag and drop --%>
+      <section phx-drop-target={@upload.ref}>
+        <%!-- render each avatar entry --%>
+        <%= for entry <- @upload.entries do %>
+          <article class="upload-entry">
+            <figure>
+              <.live_img_preview entry={entry} />
+              <figcaption><%= entry.client_name %></figcaption>
+            </figure>
+
+            <%!-- entry.progress will update automatically for in-flight entries --%>
+            <progress value={entry.progress} max="100"><%= entry.progress %>%</progress>
+
+            <%!-- a regular click event whose handler will invoke Phoenix.LiveView.cancel_upload/3 --%>
+            <button
+              type="button"
+              phx-click="cancel-upload"
+              phx-value-ref={entry.ref}
+              phx-value-name={@form.name}
+              aria-label="cancel"
+            >
+              &times;
+            </button>
+
+            <%!-- Phoenix.Component.upload_errors/2 returns a list of error atoms --%>
+            <%= for err <- upload_errors(@upload, entry) do %>
+              <p class="alert alert-danger"><%= error_to_string(err) %></p>
+            <% end %>
+          </article>
+        <% end %>
+
+        <%!-- Phoenix.Component.upload_errors/1 returns a list of error atoms --%>
+        <%= for err <- upload_errors(@upload) do %>
+          <p class="alert alert-danger"><%= error_to_string(err) %></p>
+        <% end %>
+      </section>
+
       <.input
         field={@form[:type]}
         type="select"
@@ -91,4 +130,7 @@ defmodule TestiroomWeb.TaskForm do
     </fieldset>
     """
   end
+
+  def error_to_string(:too_large), do: "Too large"
+  def error_to_string(:not_accepted), do: "You have selected an unacceptable file type"
 end
