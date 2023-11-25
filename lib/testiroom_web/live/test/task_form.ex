@@ -43,6 +43,7 @@ defmodule TestiroomWeb.TaskForm do
               type="button"
               phx-click="cancel-upload"
               phx-value-ref={entry.ref}
+              phx-value-name={@form.name}
               aria-label="cancel"
             >
               &times;

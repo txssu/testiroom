@@ -36,6 +36,10 @@ defmodule TestiroomWeb.TestFormLive do
   end
 
   @impl true
+  def handle_event("cancel-upload", %{"ref" => ref, "name" => name}, socket) do
+    {:noreply, cancel_upload(socket, name, ref)}
+  end
+
   def handle_event("validate", %{"test" => test_params}, socket) do
     changeset =
       socket.assigns.test
