@@ -6,14 +6,7 @@
 
 <%= if @live_action == :started do %>
   <div class="relative flex flex-col justify-between h-[100dvh] px-12 py-2.5">
-    <div class="flex flex-col gap-2.5">
-      <h2 class="text-2xl font-medium select-none"><%= @current_task.question %></h2>
-    </div>
-    <%= for media <- @current_task.media do %>
-      <div class="max-h-72 flex justify-center">
-        <img class="h-full" src={media.path} />
-      </div>
-    <% end %>
+    <h2 class="text-2xl font-medium select-none"><%= @current_task.question %></h2>
     <.live_component
       id="answer-component"
       module={form_module(@current_task.type)}

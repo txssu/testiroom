@@ -37,7 +37,3 @@ npm-debug.log
 
 # Secrets
 .env
-
-# Uploads
-priv/static/uploads/*
-!priv/static/uploads/.gitinclude

@@ -5,7 +5,6 @@ defmodule Testiroom.Exams.Task do
 
   alias Testiroom.Exams.Test
   alias Testiroom.Exams.Task.Option
-  alias Testiroom.Media
 
   @task_types ~w[radio checkbox text]a
   @task_types_rus ["Одиночный выбор", "Множественный выбор", "Открытый вопрос"]
@@ -18,11 +17,6 @@ defmodule Testiroom.Exams.Task do
 
     belongs_to :test, Test
 
-    many_to_many :media, Media,
-      join_through: "test_tasks_media",
-      on_replace: :delete,
-      on_delete: :delete_all
-
     has_many :options, Option, on_replace: :delete, on_delete: :delete_all
 
     field :delete, :boolean, virtual: true
@@ -34,7 +28,6 @@ defmodule Testiroom.Exams.Task do
     task
     |> cast(attrs, [:question, :type])
     |> validate_required([:question, :type])
-    |> cast_assoc(:media)
     |> cast_assoc(:options,
       sort_param: :options_order,
       drop_param: :options_delete,
