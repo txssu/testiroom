@@ -10,30 +10,27 @@
 # We recommend using the bang functions (`insert!`, `update!`
 # and so on) as they will fail if something goes wrong.
 
-alias Testiroom.Repo
-alias Testiroom.Exams
-
-Repo.delete_all(Exams.Test)
+Testiroom.Repo.delete_all(Testiroom.Exams.Test)
 
 test =
-  Repo.insert!(%Exams.Test{
+  Testiroom.Repo.insert!(%Testiroom.Exams.Test{
     title: "Контрольная работа по математике №1",
     tasks: [
-      %Exams.Task{
+      %Testiroom.Exams.Task{
         type: :radio,
         question: "Сколько различных прямых может проходить через две произвольные точки?",
         options: [
-          %Exams.Task.Option{text: "0", is_correct: false},
-          %Exams.Task.Option{text: "1", is_correct: true},
-          %Exams.Task.Option{text: "2", is_correct: false},
-          %Exams.Task.Option{text: "Бесконечное множество", is_correct: false}
+          %Testiroom.Exams.Task.Option{text: "0", is_correct: false},
+          %Testiroom.Exams.Task.Option{text: "1", is_correct: true},
+          %Testiroom.Exams.Task.Option{text: "2", is_correct: false},
+          %Testiroom.Exams.Task.Option{text: "Бесконечное множество", is_correct: false}
         ]
       },
-      %Exams.Task{
+      %Testiroom.Exams.Task{
         type: :text,
         question: "Сколько решений имеет уравнение x^2-2=0?",
         text_answers: [
-          %Exams.Task.TextAnswer{
+          %Testiroom.Exams.Task.TextAnswer{
             text: "2"
           }
         ]
@@ -46,15 +43,15 @@ for task <- test.tasks do
     :text ->
       answer = List.first(task.text_answers).text
 
-      %Exams.StudentAnswer{task: task, text: answer}
+      %Testiroom.Exams.StudentAnswer{task: task, text: answer}
 
     :radio ->
       option = Enum.find(task.options, & &1.is_correct)
 
-      %Exams.StudentAnswer{
+      %Testiroom.Exams.StudentAnswer{
         task: task,
         selected_options: [option]
       }
   end
-  |> Repo.insert!()
+  |> Testiroom.Repo.insert!()
 end
