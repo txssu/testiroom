@@ -28,7 +28,7 @@ defmodule TestiroomWeb.ExamLive do
     index = String.to_integer(index)
 
     if 0 <= index and index < count do
-      {task, answer, done_status} = Exams.get_task_and_answer(attempt, index)
+      {task, answer} = Exams.get_task_and_answer(attempt, index)
       answer = answer || Exams.StudentAnswer.new()
 
       {:noreply,
@@ -37,8 +37,7 @@ defmodule TestiroomWeb.ExamLive do
          current_task: task,
          current_answer: answer,
          current_index: index,
-         tasks_count: count,
-         done_status: done_status
+         tasks_count: count
        )}
     else
       {:noreply, push_patch(socket, to: ~p"/tests/#{test}/exam/0")}

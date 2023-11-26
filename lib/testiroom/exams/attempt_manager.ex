@@ -59,8 +59,7 @@ defmodule Testiroom.Exams.AttemptManager do
   def handle_call({:get_task_and_answer, index}, _from, {_user, student_attempt} = state) do
     task = StudentAttempt.get_task(student_attempt, index)
     answer = StudentAttempt.get_answer(student_attempt, index)
-    done_status = StudentAttempt.done_status(student_attempt)
-    {:reply, {task, answer, done_status}, state}
+    {:reply, {task, answer}, state}
   end
 
   @impl true

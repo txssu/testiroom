@@ -15,11 +15,6 @@ module.exports = {
     extend: {
       colors: {
         brand: "#FD4F00",
-        primary: "#E3562A",
-        "ink-gray": "#BEBAB3",
-        "ink-dark": "#3C3A36",
-        "ink-light-gray": "#FFF5EE",
-        "ink-dark-gray": "#78746D",
       }
     },
   },
