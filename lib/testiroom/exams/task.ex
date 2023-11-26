@@ -17,7 +17,7 @@ defmodule Testiroom.Exams.Task do
 
     belongs_to :test, Test
 
-    has_many :options, Option, on_replace: :delete, on_delete: :delete_all
+    has_many :options, Option, on_delete: :delete_all
 
     field :delete, :boolean, virtual: true
 
@@ -28,45 +28,22 @@ defmodule Testiroom.Exams.Task do
     task
     |> cast(attrs, [:question, :type])
     |> validate_required([:question, :type])
-    |> cast_assoc(:options,
-      sort_param: :options_order,
-      drop_param: :options_delete,
-      required: true
-    )
-    |> validate_options_count()
-    |> validate_correct_options_count()
+    |> cast_answers()
   end
 
-  defp validate_options_count(changeset) do
+  defp cast_answers(changeset) do
     case get_field(changeset, :type) do
-      :text -> validate_length(changeset, :options, min: 1)
-      type when type in [:radio, :checkbox] -> validate_length(changeset, :options, min: 2)
-      nil -> changeset
-    end
-  end
+      :text ->
+        changeset
+        |> cast_assoc(:options, required: true)
+        |> validate_length(:options, min: 1)
 
-  defp validate_correct_options_count(changeset) do
-    correct_count =
-      changeset
-      |> get_field(:options)
-      |> Enum.count(& &1.is_correct)
+      type when type in [:radio, :checkbox] ->
+        changeset
+        |> cast_assoc(:options, required: true)
+        |> validate_length(:options, min: 2)
 
-    case get_field(changeset, :type) do
-      :checkbox ->
-        if correct_count >= 1 do
-          changeset
-        else
-          add_error(changeset, :options, "должен быть хотя бы один верный ответ")
-        end
-
-      :radio ->
-        if correct_count == 1 do
-          changeset
-        else
-          add_error(changeset, :options, "должен быть ровно один верный ответ")
-        end
-
-      _other ->
+      nil ->
         changeset
     end
   end
