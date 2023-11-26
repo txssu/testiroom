@@ -4,6 +4,6 @@ defmodule TestiroomWeb.TestLive do
   alias Testiroom.Exams
 
   def mount(_params, _session, socket) do
-    {:ok, assign(socket, page_title: "Все тесты", tests: Exams.list_tests())}
+    {:ok, assign(socket, tests: Exams.list_tests())}
   end
 end

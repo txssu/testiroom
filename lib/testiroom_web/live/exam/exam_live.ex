@@ -8,8 +8,7 @@ defmodule TestiroomWeb.ExamLive do
 
   def mount(%{"id" => test_id}, %{"anonymous_identity" => user_id}, socket) do
     user = %{id: user_id}
-    test = Exams.get_test(test_id)
-    {:ok, assign(socket, page_title: test.title, test: test, user: user)}
+    {:ok, assign(socket, test: Exams.get_test(test_id), user: user)}
   end
 
   def handle_params(%{"index" => index}, _uri, socket) do
