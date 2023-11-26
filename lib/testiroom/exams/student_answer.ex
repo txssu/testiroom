@@ -47,6 +47,10 @@ defmodule Testiroom.Exams.StudentAnswer do
     Map.update!(student_answer, :selected_options, &[option | &1])
   end
 
+  def put_task(%__MODULE__{} = student_answer, task) do
+    Map.put(student_answer, :task, task)
+  end
+
   def correct?(student_answer)
 
   def correct?(%__MODULE__{text: text, task: %{type: :text} = task}) do
@@ -68,10 +72,6 @@ defmodule Testiroom.Exams.StudentAnswer do
       }) do
     all_selected_correct?(selected_options) and
       exact_correct_count?(selected_options, task_options)
-  end
-
-  def correct?(%__MODULE__{}) do
-    false
   end
 
   defp all_selected_correct?(selected_options) do
