@@ -30,10 +30,6 @@ defmodule Testiroom.Exams.AttemptManager do
     }
   end
 
-  def started?(id) do
-    [] != Registry.lookup(Testiroom.AttemptManager.Registry, id)
-  end
-
   def get_tasks_count(id) do
     GenServer.call(via(id), :get_tasks_count)
   end
