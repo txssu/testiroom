@@ -25,6 +25,17 @@ defmodule TestiroomWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/", TestiroomWeb.ExamsLive do
+    pipe_through :browser
+
+    live "/tests", TestList
+    live "/tests/new", TestNew
+
+    live_session :test_edit do
+      live "/tests/:id/edit", TestEdit, :data
+    end
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TestiroomWeb do
   #   pipe_through :api

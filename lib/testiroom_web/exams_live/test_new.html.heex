@@ -1,0 +1,6 @@
+<.simple_form for={@form} phx-change="validate" phx-submit="save">
+  <.input type="text" field={@form[:title]} label={gettext("Title")} />
+  <:actions>
+    <.button type="submit" phx-disable-with={gettext("Saving...")}><%= gettext("Save") %></.button>
+  </:actions>
+</.simple_form>
