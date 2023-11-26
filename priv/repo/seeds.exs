@@ -15,51 +15,38 @@ alias Testiroom.Exams
 
 Repo.delete_all(Exams.Test)
 
-Repo.insert!(%Exams.Test{
-  title: "Контрольная работа по математике №1",
-  tasks: [
-    %Exams.Task{
-      type: :radio,
-      question: "Сколько различных прямых может проходить через две произвольные точки?",
-      options: [
-        %Exams.Task.Option{text: "0", is_correct: false},
-        %Exams.Task.Option{text: "1", is_correct: true},
-        %Exams.Task.Option{text: "2", is_correct: false},
-        %Exams.Task.Option{text: "Бесконечное множество", is_correct: false}
-      ]
-    },
-    %Exams.Task{
-      type: :text,
-      question: "Сколько различных корней имеет уравнение x^2-2=0?",
-      text_answers: [
-        %Exams.Task.TextAnswer{text: "2"},
-        %Exams.Task.TextAnswer{text: "два"},
-        %Exams.Task.TextAnswer{text: "два корня"},
-        %Exams.Task.TextAnswer{text: "два различных корня"}
-      ]
-    },
-    %Exams.Task{
-      type: :checkbox,
-      question: "Выберете верные утверждения",
-      options: [
-        %Exams.Task.Option{
-          text: "Если числитель уменьшить в 7 раз, то дробь увеличится в 7 раз",
-          is_correct: true
-        },
-        %Exams.Task.Option{
-          text: "При умножении целого числа на нецелое число всегда получается целое число",
-          is_correct: false
-        },
-        %Exams.Task.Option{
-          text: "Если знаменатель уменьшить в 5 раз, то дробь увеличится в 5 раз",
-          is_correct: false
-        },
-        %Exams.Task.Option{
-          text:
-            "Если числитель и знаменатель дроби разделить на 8,то значение дроби не изменится",
-          is_correct: true
-        }
-      ]
-    }
-  ]
-})
+test =
+  Repo.insert!(%Exams.Test{
+    title: "Контрольная работа по математике №1",
+    tasks: [
+      %Exams.Task{
+        type: :radio,
+        question: "Сколько различных прямых может проходить через две произвольные точки?",
+        options: [
+          %Exams.Task.Option{text: "0", is_correct: false},
+          %Exams.Task.Option{text: "1", is_correct: true},
+          %Exams.Task.Option{text: "2", is_correct: false},
+          %Exams.Task.Option{text: "Бесконечное множество", is_correct: false}
+        ]
+      },
+      %Exams.Task{
+        type: :text,
+        question: "Сколько решений имеет уравнение x^2-2=0?",
+        text_answers: [
+          %Exams.Task.TextAnswer{
+            text: "2"
+          }
+        ]
+      },
+      %Exams.Task{
+        type: :checkbox,
+        question: "Выбирайте",
+        options: [
+          %Exams.Task.Option{text: "Да", is_correct: false},
+          %Exams.Task.Option{text: "Нет", is_correct: true},
+          %Exams.Task.Option{text: "Нет", is_correct: true},
+          %Exams.Task.Option{text: "Да", is_correct: false}
+        ]
+      }
+    ]
+  })
