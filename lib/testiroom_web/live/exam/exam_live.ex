@@ -82,29 +82,4 @@ defmodule TestiroomWeb.ExamLive do
 
   defp form_module(:text), do: AnswerTextForm
   defp form_module(type) when type in [:radio, :checkbox], do: AnswerOptionsForm
-
-  def review(assigns) do
-    ~H"""
-    <ul class="flex gap-2.5 flex-wrap mb-16 w-auto">
-      <li :for={{order, done?} <- Enum.zip(1..@tasks_count, @done_status)}>
-        <.link
-          class={[
-            "inline-block h-9 min-w-[36px] px-2 rounded-[12px]",
-            cond do
-              order - 1 == @current_index -> "border-2 border-primary"
-              done? -> "bg-primary text-white"
-              true -> "border-2 border-ink-gray"
-            end
-          ]}
-          patch={~p"/tests/#{@test}/exam/#{order - 1}"}
-        >
-          <div class="flex h-full justify-center items-center">
-            <%= order %>
-          </div>
-        </.link>
-      </li>
-    </ul>
-    <.button class="btn-primary w-full" phx-click="wrap-up">Закончить тест</.button>
-    """
-  end
 end

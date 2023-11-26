@@ -4,7 +4,7 @@
 <% end %>
 
 <%= if @live_action == :started do %>
-  <div class="relative flex flex-col justify-between h-[100dvh] px-12 py-2.5">
+  <div class="flex flex-col justify-between h-[100dvh] px-12 py-2.5">
     <h2 class="text-2xl font-medium select-none"><%= @current_task.question %></h2>
     <.live_component
       id="answer-component"
@@ -41,25 +41,29 @@
           </.link>
         <% end %>
       </div>
-      <div class="block xl:hidden">
-        <.button class="btn-primary w-full" phx-click={show_modal("review")}>Обзор</.button>
-      </div>
-    </div>
-    <div class="absolute -right-76 2xl:-right-80 w-80 p-8 border-2 border-ink-gray rounded-[32px] hidden xl:block">
-      <.review
-        test={@test}
-        current_index={@current_index}
-        tasks_count={@tasks_count}
-        done_status={@done_status}
-      />
+      <.button class="btn-primary w-full" phx-click={show_modal("review")}>Обзор</.button>
     </div>
   </div>
   <.bottom_modal id="review">
-    <.review
-      test={@test}
-      current_index={@current_index}
-      tasks_count={@tasks_count}
-      done_status={@done_status}
-    />
+    <ul class="flex gap-2.5 flex-wrap mb-16">
+      <li :for={{order, done?} <- Enum.zip(1..@tasks_count, @done_status)}>
+        <.link
+          class={[
+            "inline-block h-9 min-w-[36px] px-2 rounded-[12px]",
+            cond do
+              order - 1 == @current_index -> "border-2 border-primary"
+              done? -> "bg-primary text-white"
+              true -> "border-2 border-ink-gray"
+            end
+          ]}
+          patch={~p"/tests/#{@test}/exam/#{order - 1}"}
+        >
+          <div class="flex h-full justify-center items-center">
+            <%= order %>
+          </div>
+        </.link>
+      </li>
+    </ul>
+    <.button class="btn-primary w-full" phx-click="wrap-up">Закончить тест</.button>
   </.bottom_modal>
 <% end %>
