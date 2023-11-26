@@ -10,7 +10,6 @@ defmodule Testiroom.Application do
     {:ok, _} = EctoBootMigration.migrate(:testiroom)
 
     children = [
-      Testiroom.Exams.AttemptManager,
       TestiroomWeb.Telemetry,
       Testiroom.Repo,
       {DNSCluster, query: Application.get_env(:testiroom, :dns_cluster_query) || :ignore},
