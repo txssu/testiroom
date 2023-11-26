@@ -59,6 +59,7 @@ defmodule TestiroomWeb.TestFormLive do
       socket
       |> upload_files()
       |> insert_files_to_params(test_params)
+      |> IO.inspect()
 
     insert_test(socket.assigns.live_action, params, socket)
   end

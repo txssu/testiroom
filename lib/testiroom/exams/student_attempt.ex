@@ -58,6 +58,7 @@ defmodule Testiroom.Exams.StudentAttempt do
         %{},
         fn {index, task} -> {index, StudentAnswer.new(task: task)} end
       )
+      |> IO.inspect()
 
     {variant, answers}
   end
