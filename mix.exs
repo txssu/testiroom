@@ -51,7 +51,13 @@ defmodule Testiroom.MixProject do
       {:jason, "~> 1.2"},
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
-      {:ecto_boot_migration, "~> 0.3.0"}
+      {:ecto_boot_migration, "~> 0.3.0"},
+      {:credo, "~> 1.7.1", only: [:dev, :test], runtime: false},
+      {:dialyxir, "~> 1.4.2", only: [:dev, :test], runtime: false},
+      {:mix_audit, "~> 2.1.1", only: [:dev, :test], runtime: false},
+      {:sobelow, "~> 0.13.0", only: [:dev, :test], runtime: false},
+      {:styler, "~> 0.10.0", only: [:dev, :test], runtime: false},
+      {:tailwind_formatter, "~> 0.4.0", only: [:dev, :test], runtime: false}
     ]
   end
 
@@ -69,7 +75,15 @@ defmodule Testiroom.MixProject do
       test: ["ecto.create --quiet", "ecto.migrate --quiet", "test"],
       "assets.setup": ["tailwind.install --if-missing", "esbuild.install --if-missing"],
       "assets.build": ["tailwind default", "esbuild default"],
-      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"]
+      "assets.deploy": ["tailwind default --minify", "esbuild default --minify", "phx.digest"],
+      ci: [
+        "compile --all-warnings --warnings-as-errors",
+        "format --check-formatted",
+        "credo --strict",
+        "sobelow -i Config.HTTPS --skip --exit",
+        "deps.audit",
+        "dialyzer"
+      ]
     ]
   end
 end
