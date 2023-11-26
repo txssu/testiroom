@@ -9,7 +9,7 @@ body {
 }
 
 .btn {
-  @apply inline-block py-4 px-8 font-medium rounded-[16px] text-center active:text-black/80 select-none
+  @apply inline-block py-4 px-8 font-medium rounded-[16px] text-center active:text-black/80
 }
 
 .btn-primary {
