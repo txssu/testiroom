@@ -17,7 +17,6 @@ Repo.delete_all(Exams.Test)
 
 Repo.insert!(%Exams.Test{
   title: "Контрольная работа по математике №1",
-  author_id: Ecto.UUID.generate(),
   tasks: [
     %Exams.Task{
       type: :radio,
@@ -32,11 +31,11 @@ Repo.insert!(%Exams.Test{
     %Exams.Task{
       type: :text,
       question: "Сколько различных корней имеет уравнение x^2-2=0?",
-      options: [
-        %Exams.Task.Option{text: "2", is_correct: true},
-        %Exams.Task.Option{text: "два", is_correct: true},
-        %Exams.Task.Option{text: "два корня", is_correct: true},
-        %Exams.Task.Option{text: "два различных корня", is_correct: true}
+      text_answers: [
+        %Exams.Task.TextAnswer{text: "2"},
+        %Exams.Task.TextAnswer{text: "два"},
+        %Exams.Task.TextAnswer{text: "два корня"},
+        %Exams.Task.TextAnswer{text: "два различных корня"}
       ]
     },
     %Exams.Task{
@@ -49,11 +48,11 @@ Repo.insert!(%Exams.Test{
         },
         %Exams.Task.Option{
           text: "При умножении целого числа на нецелое число всегда получается целое число",
-          is_correct: true
+          is_correct: false
         },
         %Exams.Task.Option{
           text: "Если знаменатель уменьшить в 5 раз, то дробь увеличится в 5 раз",
-          is_correct: true
+          is_correct: false
         },
         %Exams.Task.Option{
           text:

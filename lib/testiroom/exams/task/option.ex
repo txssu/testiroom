@@ -22,7 +22,7 @@ defmodule Testiroom.Exams.Task.Option do
     |> validate_required([:text, :is_correct])
   end
 
-  def new() do
-    %__MODULE__{}
+  def new(text, correct?) do
+    %__MODULE__{text: text, is_correct: correct?}
   end
 end

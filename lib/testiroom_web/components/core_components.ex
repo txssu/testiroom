@@ -103,11 +103,7 @@ defmodule TestiroomWeb.CoreComponents do
       data-cancel={JS.exec(@on_cancel, "phx-remove")}
       class="relative z-50 hidden"
     >
-      <div
-        id={"#{@id}-bg"}
-        class="bg-ink-dark/80 fixed inset-0 transition-opacity"
-        aria-hidden="true"
-      />
+      <div id={"#{@id}-bg"} class="bg-ink-dark/80 fixed inset-0 transition-opacity" aria-hidden="true" />
       <div
         class="fixed inset-0 overflow-y-auto"
         aria-labelledby={"#{@id}-title"}
@@ -384,7 +380,7 @@ defmodule TestiroomWeb.CoreComponents do
         multiple={@multiple}
         {@rest}
       >
-        <option :if={@prompt} disabled selected value><%= @prompt %></option>
+        <option :if={@prompt} value=""><%= @prompt %></option>
         <%= Phoenix.HTML.Form.options_for_select(@options, @value) %>
       </select>
       <.error :for={msg <- @errors}><%= msg %></.error>
@@ -460,16 +456,6 @@ defmodule TestiroomWeb.CoreComponents do
       <.icon name="hero-exclamation-circle-mini" class="mt-0.5 h-5 w-5 flex-none" />
       <%= render_slot(@inner_block) %>
     </p>
-    """
-  end
-
-  attr :field, Phoenix.HTML.FormField, required: true
-
-  def input_error(%{field: %Phoenix.HTML.FormField{} = field} = assigns) do
-    assigns = assign(assigns, :errors, Enum.map(field.errors, &translate_error(&1)))
-
-    ~H"""
-    <.error :for={msg <- @errors}><%= msg %></.error>
     """
   end
 

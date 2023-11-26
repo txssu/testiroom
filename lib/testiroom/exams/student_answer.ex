@@ -50,7 +50,7 @@ defmodule Testiroom.Exams.StudentAnswer do
   def correct?(student_answer)
 
   def correct?(%__MODULE__{text: text, task: %{type: :text} = task}) do
-    text_answers = Enum.map(task.options, & &1.text)
+    text_answers = Enum.map(task.text_answers, & &1.text)
 
     text in text_answers
   end
