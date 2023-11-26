@@ -30,10 +30,6 @@ defmodule Testiroom.Exams.AttemptManager do
     }
   end
 
-  def get_tasks_count(id) do
-    GenServer.call(via(id), :get_tasks_count)
-  end
-
   def get_task_and_answer(id, index) do
     GenServer.call(via(id), {:get_task_and_answer, index})
   end
@@ -49,10 +45,6 @@ defmodule Testiroom.Exams.AttemptManager do
   @impl true
   def init({user, student_attempt}) do
     {:ok, {user, student_attempt}}
-  end
-
-  def handle_call(:get_tasks_count, _from, {_user, student_attempt} = state) do
-    {:reply, student_attempt.count, state}
   end
 
   @impl true

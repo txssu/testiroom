@@ -37,16 +37,24 @@ test =
             text: "2"
           }
         ]
-      },
-      %Exams.Task{
-        type: :checkbox,
-        question: "Выбирайте",
-        options: [
-          %Exams.Task.Option{text: "Да", is_correct: false},
-          %Exams.Task.Option{text: "Нет", is_correct: true},
-          %Exams.Task.Option{text: "Нет", is_correct: true},
-          %Exams.Task.Option{text: "Да", is_correct: false}
-        ]
       }
     ]
   })
+
+for task <- test.tasks do
+  case task.type do
+    :text ->
+      answer = List.first(task.text_answers).text
+
+      %Exams.StudentAnswer{task: task, text: answer}
+
+    :radio ->
+      option = Enum.find(task.options, & &1.is_correct)
+
+      %Exams.StudentAnswer{
+        task: task,
+        selected_options: [option]
+      }
+  end
+  |> Repo.insert!()
+end

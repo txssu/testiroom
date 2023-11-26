@@ -5,13 +5,12 @@ defmodule Testiroom.Exams.StudentAttempt do
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
 
-  defstruct ~w[test variant answers count]a
+  defstruct ~w[test variant current_index answers current_task current_answer]a
 
   @type t :: %__MODULE__{
           test: Test.t(),
           variant: %{integer() => Task.t()},
-          answers: %{integer() => StudentAnswer.t()},
-          count: integer()
+          answers: %{integer() => StudentAnswer.t()}
         }
 
   def new(test) do
@@ -20,13 +19,12 @@ defmodule Testiroom.Exams.StudentAttempt do
     %__MODULE__{
       test: test,
       variant: variant,
-      count: Enum.count(variant),
       answers: %{}
     }
   end
 
   def get_task(%__MODULE__{variant: variant}, index) do
-    Map.get(variant, index)
+    Map.fetch!(variant, index)
   end
 
   def get_answer(%__MODULE__{answers: answers}, index) do
