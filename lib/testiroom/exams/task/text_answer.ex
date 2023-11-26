@@ -12,8 +12,4 @@ defmodule Testiroom.Exams.Task.TextAnswer do
 
     timestamps(type: :utc_datetime)
   end
-
-  def new(text) do
-    %__MODULE__{text: text}
-  end
 end

@@ -14,37 +14,6 @@ defmodule Testiroom.Exams.StudentAttempt do
           answers: %{integer() => StudentAnswer.t()},
           current_index: integer(),
           current_task: Task.t(),
-          current_answer: StudentAnswer.t() | nil
+          current_answer: StudentAnswer.t()
         }
-
-  def new(test) do
-    variant = get_variant(test)
-
-    %__MODULE__{
-      test: test,
-      variant: variant,
-      variant_length: Enum.count(variant),
-      answers: %{}
-    }
-    |> select_task(0)
-  end
-
-  def select_task(student_attempt = %__MODULE__{}, index) do
-    student_attempt
-    |> Map.put(:current_index, index)
-    |> Map.put(:current_task, student_attempt.variant[index])
-    |> Map.put(:current_answer, Map.get(student_attempt.answers, index))
-  end
-
-  def answer_task(student_attempt = %__MODULE__{}, answer) do
-    student_attempt
-    |> Map.update!(:answers, &Map.put(&1, student_attempt.current_index, answer))
-    |> Map.put(:current_answer, answer)
-  end
-
-  defp get_variant(test) do
-    test.tasks
-    |> Stream.with_index()
-    |> Enum.into(%{}, fn {task, index} -> {index, task} end)
-  end
 end
