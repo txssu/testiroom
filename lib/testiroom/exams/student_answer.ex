@@ -1,8 +1,6 @@
 defmodule Testiroom.Exams.StudentAnswer do
   use Ecto.Schema
 
-  import Ecto.Changeset
-
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Task.Option
 
@@ -20,31 +18,16 @@ defmodule Testiroom.Exams.StudentAnswer do
     timestamps(type: :utc_datetime)
   end
 
-  def options_changeset(%__MODULE__{} = student_answer, attrs) do
-    student_answer
-    |> cast(attrs, [])
-    |> cast_assoc(:selected_options, required: true)
-  end
-
-  def text_changeset(%__MODULE__{} = student_answer, attrs) do
-    student_answer
-    |> cast(attrs, [:text])
-    |> validate_required(:text)
-  end
-
-  def new(fields \\ []) do
-    fields = [selected_options: []]
-    |> Keyword.merge(fields)
-
-    struct!(__MODULE__, fields)
+  def new_with_options(task) do
+    %__MODULE__{task: task, selected_options: []}
   end
 
   def select_option(%__MODULE__{} = student_answer, option) do
     Map.update!(student_answer, :selected_options, &[option | &1])
   end
 
-  def put_task(%__MODULE__{} = student_answer, task) do
-    Map.put(student_answer, :task, task)
+  def new_with_text(task, text) do
+    %__MODULE__{task: task, text: text}
   end
 
   def correct?(student_answer)

@@ -1,8 +1,6 @@
 defmodule Testiroom.Exams.Task do
   use Ecto.Schema
 
-  import Ecto.Changeset
-
   alias Testiroom.Exams.Test
   alias Testiroom.Exams.Task.Option
   alias Testiroom.Exams.Task.TextAnswer
@@ -19,12 +17,6 @@ defmodule Testiroom.Exams.Task do
     has_many :options, Option, on_delete: :delete_all
 
     timestamps(type: :utc_datetime)
-  end
-
-  def changeset(%__MODULE__{} = task, attrs) do
-    task
-    |> cast(attrs, [:question, :type])
-    |> validate_required([:question, :type])
   end
 
   def new(fields) do
