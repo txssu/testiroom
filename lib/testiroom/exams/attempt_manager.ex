@@ -2,86 +2,79 @@ defmodule Testiroom.Exams.AttemptManager do
   use GenServer
 
   alias Testiroom.Exams.StudentAttempt
-  alias :ets, as: ETS
 
-  def start_link([]) do
-    GenServer.start_link(__MODULE__, [], name: __MODULE__)
+  def child_spec({user, student_attempt} = init_arg) do
+    %{
+      id: {__MODULE__, {student_attempt.test.id, user.id}},
+      start: {__MODULE__, :start_link, [init_arg]},
+      restart: :temporary
+    }
+  end
+
+  def start_link({user, student_attempt} = init_arg) do
+    GenServer.start_link(__MODULE__, init_arg, name: via({user.id, student_attempt.test.id}))
   end
 
   def start_attempt(user, student_attempt) do
-    GenServer.call(__MODULE__, {:start_attempt, user, student_attempt})
+    DynamicSupervisor.start_child(
+      Testiroom.AttemptManager.Supervisor,
+      {__MODULE__, {user, student_attempt}}
+    )
+  end
+
+  def via({_user_id, _test_id} = id) do
+    {
+      :via,
+      Registry,
+      {Testiroom.AttemptManager.Registry, id}
+    }
   end
 
   def started?(id) do
-    GenServer.call(__MODULE__, {:started?, id})
+    [] != Registry.lookup(Testiroom.AttemptManager.Registry, id)
   end
 
   def get_tasks_count(id) do
-    GenServer.call(__MODULE__, {:get_tasks_count, id})
+    GenServer.call(via(id), :get_tasks_count)
   end
 
   def get_task_and_answer(id, index) do
-    GenServer.call(__MODULE__, {:get_task_and_answer, id, index})
+    GenServer.call(via(id), {:get_task_and_answer, index})
   end
 
   def answer_task(id, index, answer) do
-    GenServer.call(__MODULE__, {:answer_task, id, index, answer})
+    GenServer.call(via(id), {:answer_task, index, answer})
   end
 
   def wrap_up(id) do
-    GenServer.call(__MODULE__, {:wrap_up, id})
+    GenServer.call(via(id), :wrap_up)
   end
 
-  def init(_init_arg) do
-    {:ok, ETS.new(__MODULE__, [])}
+  @impl true
+  def init({user, student_attempt}) do
+    {:ok, {user, student_attempt}}
   end
 
-  def handle_call({:started?, id}, _from, table) do
-    result = ETS.lookup(table, id)
-    {:reply, result != [], table}
+  def handle_call(:get_tasks_count, _from, {_user, student_attempt} = state) do
+    {:reply, student_attempt.count, state}
   end
 
-  def handle_call({:start_attempt, user, student_attempt}, _from, table) do
-    id = via(user, student_attempt)
-    ETS.insert(table, {id, student_attempt})
-    {:reply, id, table}
-  end
-
-  def handle_call({:get_tasks_count, id}, _from, table) do
-    [{_key, student_attempt}] = ETS.lookup(table, id)
-
-    {:reply, student_attempt.count, table}
-  end
-
-  def handle_call({:get_task_and_answer, id, index}, _from, table) do
-    [{_key, student_attempt}] = ETS.lookup(table, id)
-
+  @impl true
+  def handle_call({:get_task_and_answer, index}, _from, {_user, student_attempt} = state) do
     task = StudentAttempt.get_task(student_attempt, index)
     answer = StudentAttempt.get_answer(student_attempt, index)
     done_status = StudentAttempt.done_status(student_attempt)
-
-    {:reply, {task, answer, done_status}, table}
+    {:reply, {task, answer, done_status}, state}
   end
 
-  def handle_call({:answer_task, id, index, answer}, _from, table) do
-    [{_key, student_attempt}] = ETS.lookup(table, id)
-
+  @impl true
+  def handle_call({:answer_task, index, answer}, _from, {user, student_attempt}) do
     student_attempt = StudentAttempt.answer_task(student_attempt, index, answer)
-
-    ETS.insert(table, {id, student_attempt})
-
-    {:reply, :ok, table}
+    {:reply, :ok, {user, student_attempt}}
   end
 
-  def handle_call({:wrap_up, id}, _from, table) do
-    [{_key, student_attempt}] = ETS.lookup(table, id)
-
-    ETS.delete(table, id)
-
-    {:reply, student_attempt, table}
-  end
-
-  defp via(user, student_attempt) do
-    {user.id, student_attempt.test.id}
+  @impl true
+  def handle_call(:wrap_up, _from, {_user, student_attempt} = state) do
+    {:stop, :normal, student_attempt, state}
   end
 end
