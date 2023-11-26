@@ -26,24 +26,24 @@ defmodule TestiroomWeb.ExamLive do
 
     count = Exams.get_tasks_count(attempt)
 
-    index =
-      index
-      |> String.to_integer()
-      |> min(count)
-      |> max(0)
+    index = String.to_integer(index)
 
-    {task, answer, done_status} = Exams.get_task_and_answer(attempt, index)
-    answer = answer || Exams.StudentAnswer.new()
+    if 0 <= index and index < count do
+      {task, answer, done_status} = Exams.get_task_and_answer(attempt, index)
+      answer = answer || Exams.StudentAnswer.new()
 
-    {:noreply,
-     assign(socket,
-       attempt: attempt,
-       current_task: task,
-       current_answer: answer,
-       current_index: index,
-       tasks_count: count,
-       done_status: done_status
-     )}
+      {:noreply,
+       assign(socket,
+         attempt: attempt,
+         current_task: task,
+         current_answer: answer,
+         current_index: index,
+         tasks_count: count,
+         done_status: done_status
+       )}
+    else
+      {:noreply, push_navigate(socket, to: ~p"/tests/#{test}/exam/0")}
+    end
   end
 
   def handle_params(_params, _uri, socket) do
