@@ -15,7 +15,9 @@ defmodule Testiroom.Exams do
   end
 
   def get_test!(id) do
-    Repo.get!(Test, id)
+    Test
+    |> Repo.get!(id)
+    |> Repo.preload(:tasks)
   end
 
   @spec change_test(Test.t(), map()) :: Ecto.Changeset.t()

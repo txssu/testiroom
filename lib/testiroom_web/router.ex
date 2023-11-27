@@ -25,7 +25,7 @@ defmodule TestiroomWeb.Router do
     get "/", PageController, :home
   end
 
-  scope "/", TestiroomWeb.ExamsLive do
+  scope "/", TestiroomWeb.Live.Dashboard do
     pipe_through :browser
 
     live "/tests", TestList

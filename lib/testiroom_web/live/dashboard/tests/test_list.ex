@@ -1,4 +1,4 @@
-defmodule TestiroomWeb.ExamsLive.TestList do
+defmodule TestiroomWeb.Live.Dashboard.TestList do
   @moduledoc false
   use TestiroomWeb, :live_view
 
