@@ -2,11 +2,13 @@ defmodule TestiroomWeb.Live.Dashboard.TestEdit do
   @moduledoc false
   use TestiroomWeb, :live_view
 
+  import TestiroomWeb.Live.Dashboard.Components.Menu
+
   alias Testiroom.Exams
 
   @impl Phoenix.LiveView
-  def mount(%{"id" => test_id}, _session, socket) do
-    test = Exams.get_test!(test_id) |> IO.inspect()
+  def mount(%{"test_id" => test_id}, _session, socket) do
+    test = Exams.get_test!(test_id)
     changeset = Exams.change_test(test)
 
     socket =
@@ -16,6 +18,11 @@ defmodule TestiroomWeb.Live.Dashboard.TestEdit do
       |> assign(:form, to_form(changeset))
 
     {:ok, socket}
+  end
+
+  @impl Phoenix.LiveView
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
   end
 
   @impl Phoenix.LiveView
@@ -33,8 +40,16 @@ defmodule TestiroomWeb.Live.Dashboard.TestEdit do
     test = socket.assigns.test
 
     case Exams.update_test(test, test_params) do
-      {:ok, _test} -> {:noreply, put_flash(socket, :info, gettext("Saved"))}
-      {:error, changeset} -> {:noreply, assign(socket, form: to_form(changeset))}
+      {:ok, test} ->
+        socket =
+          socket
+          |> assign(:test, test)
+          |> put_flash(:info, gettext("Saved"))
+
+        {:noreply, socket}
+
+      {:error, changeset} ->
+        {:noreply, assign(socket, form: to_form(changeset))}
     end
   end
 end

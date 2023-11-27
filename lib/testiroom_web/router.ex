@@ -32,7 +32,9 @@ defmodule TestiroomWeb.Router do
     live "/tests/new", TestNew
 
     live_session :test_edit do
-      live "/tests/:id/edit", TestEdit, :data
+      live "/tests/:test_id", TestEdit
+      live "/tests/:test_id/tasks/o/:order", TaskList
+      live "/tests/:test_id/tasks/:task_id", TaskEdit
     end
   end
 

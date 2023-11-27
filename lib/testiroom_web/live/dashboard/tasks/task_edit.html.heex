@@ -1,0 +1,12 @@
+<.menu test_id={@test_id} task_id={@task.id} />
+
+<.simple_form for={@form} phx-change="validate" phx-submit="save">
+  <.input type="hidden" field={@form[:order]} />
+  <.input type="select" field={@form[:type]} label={gettext("Task type")} options={Task.types()} prompt={gettext("Choose type")} prompt_selected={true} />
+  <.input type="text" field={@form[:question]} label={gettext("Task text")} />
+  <.input type="checkbox" field={@form[:shuffle_options]} label={gettext("Shuffle options")} />
+  <.input type="number" field={@form[:score]} label={gettext("Score for correct answer")} />
+  <:actions>
+    <.button type="submit"><%= gettext("Save") %></.button>
+  </:actions>
+</.simple_form>

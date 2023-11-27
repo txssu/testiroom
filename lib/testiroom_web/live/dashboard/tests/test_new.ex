@@ -25,7 +25,7 @@ defmodule TestiroomWeb.Live.Dashboard.TestNew do
   @impl Phoenix.LiveView
   def handle_event("save", %{"test" => test_params}, socket) do
     case Exams.create_test(test_params) do
-      {:ok, test} -> {:noreply, push_navigate(socket, to: ~p"/tests/#{test}/edit")}
+      {:ok, test} -> {:noreply, push_navigate(socket, to: ~p"/tests/#{test}")}
       {:error, changeset} -> {:noreply, assign(socket, form: to_form(changeset))}
     end
   end

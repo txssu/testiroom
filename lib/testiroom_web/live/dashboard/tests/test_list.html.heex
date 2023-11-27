@@ -1,7 +1,7 @@
 <ul>
   <li :for={test <- @tests}>
     <p><%= test.title %></p>
-    <.link navigate={~p"/tests/#{test}/edit"}><%= gettext("Edit") %></.link>
+    <.link navigate={~p"/tests/#{test}"}><%= gettext("Edit") %></.link>
   </li>
 </ul>
 <.link navigate={~p"/tests/new"}><%= gettext("Create new") %></.link>

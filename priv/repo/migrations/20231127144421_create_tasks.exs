@@ -7,7 +7,7 @@ defmodule Testiroom.Repo.Migrations.CreateTasks do
       add :question, :string, null: false
       add :type, :string
       add :shuffle_options, :boolean, default: false, null: false
-      add :score, :integer
+      add :score, :integer, default: 1, null: false
       add :order, :integer, null: false
       add :test_id, references(:tests, on_delete: :nothing, type: :binary_id), null: false
 

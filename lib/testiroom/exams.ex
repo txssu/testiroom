@@ -15,9 +15,7 @@ defmodule Testiroom.Exams do
   end
 
   def get_test!(id) do
-    Test
-    |> Repo.get!(id)
-    |> Repo.preload(:tasks)
+    Repo.get!(Test, id)
   end
 
   @spec change_test(Test.t(), map()) :: Ecto.Changeset.t()
@@ -34,15 +32,40 @@ defmodule Testiroom.Exams do
     test |> change_test(attrs) |> Repo.update()
   end
 
-  def change_task(test, attrs \\ %{}) do
-    Task.changeset(test, attrs)
+  def get_task!(test_id, task_id) do
+    query =
+      from task in Task,
+        where: task.test_id == ^test_id and task.id == ^task_id
+
+    Repo.one!(query)
+  end
+
+  def list_tasks_by_order(test_id, order) do
+    query =
+      from task in Task,
+        where: task.test_id == ^test_id and task.order == ^order
+
+    Repo.all(query)
+  end
+
+  def get_max_task_order(test_id) do
+    query =
+      from task in Task,
+        where: task.test_id == ^test_id,
+        select: max(task.order)
+
+    Repo.one!(query)
+  end
+
+  def change_task(task, attrs \\ %{}) do
+    Task.changeset(task, attrs)
   end
 
   def create_task(attrs \\ %{}) do
     %Task{} |> change_task(attrs) |> Repo.insert()
   end
 
-  def update_task(%Task{} = test, attrs \\ %{}) do
-    test |> change_task(attrs) |> Repo.update()
+  def update_task(%Task{} = task, attrs \\ %{}) do
+    task |> change_task(attrs) |> Repo.update()
   end
 end

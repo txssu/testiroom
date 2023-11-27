@@ -1,18 +1,18 @@
-<%= if @live_action == :data do %>
-  <.simple_form for={@form} phx-change="validate" phx-submit="save">
-    <.input type="text" field={@form[:title]} label={gettext("Title")} />
-    <.input type="textarea" field={@form[:description]} label={gettext("Description")} />
+<.menu test_id={@test.id} />
 
-    <.input type="datetime-local" field={@form[:starts_at]} label={gettext("Starts at")} />
-    <.input type="datetime-local" field={@form[:ends_at]} label={gettext("Ends at")} />
-    <.input type="time" field={@form[:duration]} label={gettext("Duration")} />
+<.simple_form for={@form} phx-change="validate" phx-submit="save">
+  <.input type="text" field={@form[:title]} label={gettext("Title")} />
+  <.input type="textarea" field={@form[:description]} label={gettext("Description")} />
 
-    <.input type="checkbox" field={@form[:show_results]} label={gettext("Show results")} />
-    <.input type="checkbox" field={@form[:show_score]} label={gettext("Show score")} />
-    <.input type="checkbox" field={@form[:show_grade]} label={gettext("Show grade")} />
-    <.input type="checkbox" field={@form[:show_answers]} label={gettext("Show answers")} />
-    <:actions>
-      <.button type="submit" phx-disable-with={gettext("Saving...")}><%= gettext("Save") %></.button>
-    </:actions>
-  </.simple_form>
-<% end %>
+  <.input type="datetime-local" field={@form[:starts_at]} label={gettext("Starts at")} />
+  <.input type="datetime-local" field={@form[:ends_at]} label={gettext("Ends at")} />
+  <.input type="time" field={@form[:duration]} label={gettext("Duration")} />
+
+  <.input type="checkbox" field={@form[:show_results]} label={gettext("Show results")} />
+  <.input type="checkbox" field={@form[:show_score]} label={gettext("Show score")} />
+  <.input type="checkbox" field={@form[:show_grade]} label={gettext("Show grade")} />
+  <.input type="checkbox" field={@form[:show_answers]} label={gettext("Show answers")} />
+  <:actions>
+    <.button type="submit" phx-disable-with={gettext("Saving...")}><%= gettext("Save") %></.button>
+  </:actions>
+</.simple_form>

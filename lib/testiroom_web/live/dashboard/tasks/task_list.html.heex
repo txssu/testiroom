@@ -1,0 +1,19 @@
+<.menu test_id={@test_id} />
+
+<ul>
+  <li :for={order <- 0..(@max_order || 0)}>
+    <.link patch={~p"/tests/#{@test_id}/tasks/o/#{order}"}><%= order + 1 %></.link>
+  </li>
+  <li>
+    +
+  </li>
+</ul>
+<ul>
+  <li :for={task <- @tasks} class="my-2 border py-2">
+    <%= task.question %>
+    <.link navigate={~p"/tests/#{@test_id}/tasks/#{task}"}>Edit</.link>
+  </li>
+  <li>
+    <.button phx-click="add-task"><%= gettext("Add task") %></.button>
+  </li>
+</ul>
