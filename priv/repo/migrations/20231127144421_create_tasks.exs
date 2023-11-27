@@ -5,7 +5,7 @@ defmodule Testiroom.Repo.Migrations.CreateTasks do
     create table(:tasks, primary_key: false) do
       add :id, :binary_id, primary_key: true
       add :question, :string, null: false
-      add :type, :string, null: false
+      add :type, :string
       add :shuffle_options, :boolean, default: false, null: false
       add :score, :integer
       add :order, :integer, null: false
