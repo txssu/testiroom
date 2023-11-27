@@ -3,6 +3,7 @@ defmodule Testiroom.Exams do
 
   import Ecto.Query, warn: false
 
+  alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
 
@@ -29,5 +30,17 @@ defmodule Testiroom.Exams do
 
   def update_test(%Test{} = test, attrs \\ %{}) do
     test |> change_test(attrs) |> Repo.update()
+  end
+
+  def change_task(test, attrs \\ %{}) do
+    Task.changeset(test, attrs)
+  end
+
+  def create_task(attrs \\ %{}) do
+    %Task{} |> change_task(attrs) |> Repo.insert()
+  end
+
+  def update_task(%Task{} = test, attrs \\ %{}) do
+    test |> change_task(attrs) |> Repo.update()
   end
 end

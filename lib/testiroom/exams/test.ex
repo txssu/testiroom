@@ -3,6 +3,8 @@ defmodule Testiroom.Exams.Test do
 
   import Ecto.Changeset
 
+  alias Testiroom.Exams.Task
+
   @type t :: %__MODULE__{}
 
   @primary_key {:id, :binary_id, autogenerate: true}
@@ -17,6 +19,8 @@ defmodule Testiroom.Exams.Test do
     field :show_score, :boolean, default: true
     field :show_grade, :boolean, default: true
     field :show_answers, :boolean, default: true
+
+    has_many :tasks, Task
 
     timestamps(type: :utc_datetime)
   end
