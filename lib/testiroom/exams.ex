@@ -3,6 +3,7 @@ defmodule Testiroom.Exams do
 
   import Ecto.Query, warn: false
 
+  alias Testiroom.Exams.Option
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
@@ -35,7 +36,8 @@ defmodule Testiroom.Exams do
   def get_task!(test_id, task_id) do
     query =
       from task in Task,
-        where: task.test_id == ^test_id and task.id == ^task_id
+        where: task.test_id == ^test_id and task.id == ^task_id,
+        preload: :options
 
     Repo.one!(query)
   end
@@ -67,5 +69,17 @@ defmodule Testiroom.Exams do
 
   def update_task(%Task{} = task, attrs \\ %{}) do
     task |> change_task(attrs) |> Repo.update()
+  end
+
+  def change_option(option, attrs \\ %{}) do
+    Option.changeset(option, attrs)
+  end
+
+  def create_option(attrs \\ %{}) do
+    %Option{} |> change_option(attrs) |> Repo.insert()
+  end
+
+  def update_option(%Option{} = option, attrs \\ %{}) do
+    option |> change_option(attrs) |> Repo.update()
   end
 end

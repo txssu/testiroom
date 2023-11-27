@@ -3,16 +3,18 @@ defmodule Testiroom.Exams.Task do
   use Ecto.Schema
 
   import Ecto.Changeset
-
-  alias Testiroom.Exams.Test
   import TestiroomWeb.Gettext
+
+  alias Testiroom.Exams.Option
+  alias Testiroom.Exams.Test
 
   @types [:multiple, :single, :text]
   @types_names [gettext("Multiple choice"), gettext("Single choice"), gettext("Text input")]
 
-  length(@types) == length(@types_names) || raise """
-  Types and type names length have to be same
-  """
+  length(@types) == length(@types_names) ||
+    raise """
+    Types and type names length have to be same
+    """
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -24,6 +26,7 @@ defmodule Testiroom.Exams.Task do
     field :order, :integer
 
     belongs_to :test, Test
+    has_many :options, Option
 
     timestamps(type: :utc_datetime)
   end

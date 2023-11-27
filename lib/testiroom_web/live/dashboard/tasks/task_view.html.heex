@@ -1,0 +1,31 @@
+<.menu test_id={@test_id} task_id={@task.id} />
+
+<section>
+  <.link patch={~p"/tests/#{@test_id}/tasks/#{@task}/edit"}><%= gettext("Edit") %></.link>
+  <p><%= gettext("Question") %>: <%= @task.question %></p>
+  <p><%= gettext("Type") %>: <%= @task.type %></p>
+  <p><%= gettext("Score") %>: <%= @task.score %></p>
+  <div>
+    <%= gettext("Options") %>:
+    <ul>
+      <li :for={option <- @task.options}>
+        <%= option.text %>
+      </li>
+      <li>
+        <.button phx-click={show_modal("option-form")}><%= gettext("Add option") %></.button>
+      </li>
+    </ul>
+  </div>
+</section>
+
+<%= if @live_action == :edit do %>
+  <.modal show id="task-form-modal" on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@task}")}>
+    <.live_component id="task-form" module={TaskForm} task={@task} test_id={@test_id} />
+  </.modal>
+<% end %>
+
+<%= if @live_action == :new_option do %>
+  <.modal show id="option-form" on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@task}")}>
+    <.live_component id="task-form" module={OptionForm} task_id={@task.id} test_id={@test_id} />
+  </.modal>
+<% end %>

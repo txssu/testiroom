@@ -1,8 +1,6 @@
 defmodule TestiroomWeb.Live.Dashboard.Components.Menu do
   use TestiroomWeb, :html
 
-  alias Testiroom.Exams.Test
-
   attr :test_id, :string
   attr :task_id, :string
 

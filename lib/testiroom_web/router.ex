@@ -34,7 +34,9 @@ defmodule TestiroomWeb.Router do
     live_session :test_edit do
       live "/tests/:test_id", TestEdit
       live "/tests/:test_id/tasks/o/:order", TaskList
-      live "/tests/:test_id/tasks/:task_id", TaskEdit
+      live "/tests/:test_id/tasks/:task_id", TaskView, :view
+      live "/tests/:test_id/tasks/:task_id/edit", TaskView, :edit
+      live "/tests/:test_id/tasks/:task_id/options/new", TaskView, :new_option
     end
   end
 
