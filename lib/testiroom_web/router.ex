@@ -28,7 +28,10 @@ defmodule TestiroomWeb.Router do
       live "/tests/:id/exam/:index", ExamLive, :started
     end
 
-    live "/results/:id", ExamResultLive
+    live_session :exam_result do
+      live "/results/:id", ExamResultLive, :all
+      live "/results/:id/:index", ExamResultLive, :one
+    end
   end
 
   # Other scopes may use custom stacks.

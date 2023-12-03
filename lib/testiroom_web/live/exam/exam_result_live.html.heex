@@ -1,49 +1,86 @@
-<div class="px-12 py-2.5">
-  <%= for {answer, index} <- Stream.with_index(@result.answers) do %>
-    <h2 class="text-2xl"><%= index + 1 %>. <%= answer.task.question %></h2>
+<%= if @live_action == :all do %>
+  <div class="px-12 py-8 flex h-[100dvh] flex-col justify-between">
     <div>
-      <span>
-        Ваш ответ:
-      </span>
-      <%= case answer.task.type do %>
-        <% :text -> %>
-          <span>
-            <%= answer.text || "Нет ответа" %>
-          </span>
-        <% type when type in [:checkbox, :radio] -> %>
-          <%= if answer.selected_options == [] do %>
-            <span>Нет ответа</span>
-          <% else %>
-            <ul class="list-disc pl-8">
-              <li :for={option <- answer.selected_options}><%= option.text %></li>
-            </ul>
-          <% end %>
-      <% end %>
+      <h1 class="text-3xl mb-4"><%= @test_title %></h1>
+      <p class="mb-2">Общий балл: <%= @score %>/<%= @max_score %></p>
+      <p>Оценка: <%= @grade %></p>
+    </div>
+    <div class="flex justify-center">
+      <table class="max-w-[160px] bg-white border border-black border-separate border-spacing-0 border-l-0 rounded-[10px]">
+        <thead>
+          <tr class="h-10">
+            <th class="px-4 py-2 font-medium">№</th>
+            <th class="px-4 py-2 font-medium">Результат</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr
+            :for={{correct?, index} <- Stream.with_index(@correct_list)}
+            phx-click={JS.patch(~p"/results/#{@result}/#{index}")}
+            class="h-10 cursor-pointer"
+          >
+            <td class="text-center"><%= index + 1 %></td>
+            <td class={
+              if correct? do
+                "bg-correct"
+              else
+                "bg-incorrect"
+              end
+            }>
+            </td>
+          </tr>
+        </tbody>
+      </table>
     </div>
     <div>
-      <span>
-        Верный ответ:
-      </span>
-      <%= case answer.task.type do %>
-        <% :text -> %>
-          <ul class="list-disc pl-8">
-            <%= for text_answer <- answer.task.options do %>
-              <li><%= text_answer.text %></li>
-            <% end %>
-          </ul>
-        <% type when type in [:checkbox, :radio] -> %>
-          <ul class="list-disc pl-8">
-            <li :for={option <- Enum.filter(answer.task.options, & &1.is_correct)}><%= option.text %></li>
-          </ul>
-      <% end %>
+      <.link class="btn btn-primary w-full" navigate={~p"/"}>На главную</.link>
     </div>
-    <span>
-      Результат:
-      <%= if StudentAnswer.correct?(answer) do %>
-        Верно!
-      <% else %>
-        Неверно!
-      <% end %>
-    </span>
-  <% end %>
-</div>
+  </div>
+<% end %>
+
+<%= if @live_action == :one do %>
+  <div class="px-12 py-8 flex h-[100dvh] flex-col justify-between">
+    <div>
+      <h1 class="text-3xl"><%= @index + 1 %>. <%= @answer.task.question %></h1>
+    </div>
+    <%= case @answer.task.type do %>
+      <% :text -> %>
+        <div>
+          <h2 class="font-medium">Вы ввели:</h2>
+          <p class="mb-4"><%= @answer.text %></p>
+          <h2 class="font-medium">Возможные верные ответы:</h2>
+          <ul>
+            <li :for={option <- @answer.task.options}>
+              <%= option.text %>
+            </li>
+          </ul>
+        </div>
+      <% type when type in [:radio, :checkbox] -> %>
+        <div>
+          <ul class="flex flex-col gap-2.5">
+            <li :for={option <- @answer.task.options} class="flex gap-4">
+              <div class={[
+                "grow flex py-4 px-6 rounded-lg select-none outline outline-1",
+                "outline-ink-gray text-ink-dark",
+                if option.id in @selected_option_ids do
+                  "outline-2 outline-primary bg-ink-light-gray"
+                end
+              ]}>
+                <%= option.text %>
+              </div>
+              <div class="w-[20px] flex-none flex items-center">
+                <%= if option.is_correct do %>
+                  <img src="/images/correct.png" class="w-[20px] h-[20px]" />
+                <% else %>
+                  <div class="w-5 h-5"></div>
+                <% end %>
+              </div>
+            </li>
+          </ul>
+        </div>
+    <% end %>
+    <div>
+      <.link class="btn btn-primary w-full" patch={~p"/results/#{@result}"}>Назад</.link>
+    </div>
+  </div>
+<% end %>

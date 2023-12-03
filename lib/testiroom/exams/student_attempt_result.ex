@@ -13,4 +13,17 @@ defmodule Testiroom.Exams.StudentAttemptResult do
   def new(answers) do
     %__MODULE__{answers: answers}
   end
+
+  def get_correct_as_list(result) do
+    Enum.map(result.answers, &StudentAnswer.correct?/1)
+  end
+
+  def get_grade(ratio) do
+    cond do
+      ratio >= 0.80 -> "Отлично"
+      ratio >= 0.60 -> "Хорошо"
+      ratio >= 0.40 -> "Удовлетворительно"
+      true -> "Неудовлетворительно"
+    end
+  end
 end

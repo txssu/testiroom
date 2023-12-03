@@ -23,3 +23,21 @@ body {
 .btn-seconday-inactive {
   @apply bg-white border-2 border-ink-gray
 }
+
+th, td {
+  border-left: 1px solid #000;
+}
+
+td {
+  border-top: 1px solid #000;
+}
+
+thead:first-child tr:first-child th:first-child,
+tbody:first-child tr:first-child td:first-child {
+  border-radius: 10px 0 0 0;
+}
+
+thead:last-child tr:last-child th:first-child,
+tbody:last-child tr:last-child td:first-child {
+  border-radius: 0 0 0 10px;
+}

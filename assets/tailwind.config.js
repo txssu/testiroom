@@ -23,6 +23,8 @@ module.exports = {
         "ink-dark": "#3C3A36",
         "ink-light-gray": "#FFF5EE",
         "ink-dark-gray": "#78746D",
+        "correct": "#C4FFBA",
+        "incorrect": "#FFA9A9"
       }
     },
   },
