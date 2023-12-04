@@ -13,7 +13,7 @@ defmodule TestiroomWeb.TaskForm do
 
     ~H"""
     <div class={[
-      "mb-3 border-y-2 p-3",
+      "mb-3 border-y-2 p-3 flex flex-col gap-6",
       if @deleted do
         "hidden"
       else
@@ -21,6 +21,14 @@ defmodule TestiroomWeb.TaskForm do
       end
     ]}>
       <input type="hidden" name="test[tasks_order][]" value={@form.index} />
+      <.input
+        field={@form[:type]}
+        type="select"
+        options={Task.get_type_options()}
+        label="Тип вопроса"
+        prompt="Выбере тип вопроса"
+      />
+
       <.input field={@form[:question]} type="text" label="Текст вопроса" />
 
       <%!-- lib/my_app_web/live/upload_live.html.heex --%>
@@ -62,22 +70,17 @@ defmodule TestiroomWeb.TaskForm do
         <% end %>
       </section>
 
-      <.input
-        field={@form[:type]}
-        type="select"
-        options={Task.get_type_options()}
-        label="Тип вопроса"
-        prompt="Выбере тип вопроса"
-      />
       <.input_by_type
         myself={@myself}
         form={@form}
         type={Ecto.Changeset.get_field(@form.source, :type)}
       />
-      <label class="btn btn-secondary">
-        <input type="checkbox" name="test[tasks_delete][]" class="hidden" value={@form.index} />
-        Удалить
-      </label>
+      <div>
+        <label class="btn btn-secondary btn-slim">
+          <input type="checkbox" name="test[tasks_delete][]" class="hidden" value={@form.index} />
+          Удалить вопрос
+        </label>
+      </div>
     </div>
     """
   end
@@ -90,28 +93,29 @@ defmodule TestiroomWeb.TaskForm do
 
   def input_by_type(%{type: type} = assigns) when type in ~w[radio checkbox text]a do
     ~H"""
-    <fieldset phx-feedback-for={@form.name}>
-      <legend>Варианты ответа</legend>
+    <fieldset phx-feedback-for={@form.name} class="flex flex-col gap-3">
+      <legend class="text-lg">Варианты ответа</legend>
       <.inputs_for :let={option} field={@form[:options]}>
-        <div class="flex gap-4 items-end">
+        <div class="flex flex-col gap-4">
           <input
             type="hidden"
             name={"test[tasks][#{@form.index}][options_order][]"}
             value={option.index}
           />
-
-          <div class="row">
-            <.input field={option[:text]} />
-          </div>
-          <%= if assigns.type == :text do %>
-            <.input type="hidden" field={option[:is_correct]} value="true" />
-          <% else %>
-            <div class="row">
-              <.input type="checkbox" field={option[:is_correct]} label="Верный?" />
+          <div class="flex items-center gap-6">
+            <div>
+              <.input field={option[:text]} class="!mt-0" />
             </div>
-          <% end %>
-          <div class="row">
-            <label class="btn btn-primary">
+            <%= if assigns.type == :text do %>
+              <.input type="hidden" field={option[:is_correct]} value="true" />
+            <% else %>
+              <div>
+                <.input type="checkbox" field={option[:is_correct]} label="Верный ответ" />
+              </div>
+            <% end %>
+          </div>
+          <div>
+            <label class="btn btn-secondary btn-slim">
               <input
                 type="checkbox"
                 name={"test[tasks][#{@form.index}][options_delete][]"}
@@ -123,10 +127,12 @@ defmodule TestiroomWeb.TaskForm do
         </div>
       </.inputs_for>
       <.input_error field={@form[:options]} />
-      <label class="btn btn-primary">
-        <input type="checkbox" name={"test[tasks][#{@form.index}][options_order][]"} class="hidden" />
-        Добавить вариант ответа
-      </label>
+      <div>
+        <label class="btn btn-primary mt-4 btn-slim">
+          <input type="checkbox" name={"test[tasks][#{@form.index}][options_order][]"} class="hidden" />
+          Добавить вариант ответа
+        </label>
+      </div>
     </fieldset>
     """
   end

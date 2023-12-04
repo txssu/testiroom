@@ -1,21 +1,27 @@
-<.simple_form for={@form} phx-change="validate" phx-submit="create">
-  <.input field={@form[:title]} label="Название теста" />
-  <fieldset phx-feedback-for={@form[:options].name}>
-    <.inputs_for :let={task_form} field={@form[:tasks]}>
-      <.live_component
-        id={System.unique_integer()}
-        module={TaskForm}
-        form={task_form}
-        upload={@uploads[task_form.name]}
-      />
-    </.inputs_for>
-    <label class="btn btn-secondary">
-      <input type="checkbox" name="test[tasks_order][]" class="hidden" /> Добавить вопрос
-    </label>
-    <.input_error field={@form[:tasks]} />
-  </fieldset>
-  <:actions>
-    <.button class="btn-primary">Сохранить</.button>
-  </:actions>
-</.simple_form>
-<.link class="btn btn-primary" href={~p"/tests"}>Отмена</.link>
+<div class="px-12 py-8">
+  <.simple_form for={@form} phx-change="validate" phx-submit="create" class="slim-form">
+    <h2 class="text-xl font-medium">Общая информация</h2>
+    <.input field={@form[:title]} label="Название теста" />
+    <h2 class="text-xl font-medium">Вопросы</h2>
+    <fieldset phx-feedback-for={@form[:options].name}>
+      <.inputs_for :let={task_form} field={@form[:tasks]}>
+        <.live_component
+          id={System.unique_integer()}
+          module={TaskForm}
+          form={task_form}
+          upload={@uploads[task_form.name]}
+        />
+      </.inputs_for>
+      <label class="btn btn-secondary btn-slim">
+        <input type="checkbox" name="test[tasks_order][]" class="hidden" /> Добавить вопрос
+      </label>
+      <.input_error field={@form[:tasks]} />
+    </fieldset>
+    <:actions>
+      <div class="w-full flex max-w-2xl gap-6 justify-center">
+        <.button class="w-full btn-primary">Сохранить</.button>
+        <.link class="w-full  btn btn-secondary" href={~p"/tests"}>Отмена</.link>
+      </div>
+    </:actions>
+  </.simple_form>
+</div>
