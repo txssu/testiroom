@@ -2,8 +2,20 @@
   <div class="relative flex flex-col justify-between h-[100dvh] px-12 py-8">
     <div class="flex flex-col gap-2.5">
       <h2 class="text-2xl font-medium select-none"><%= @test.title %></h2>
+      <p class="select-none"><%= @test.description %></p>
     </div>
     <div class="flex flex-col gap-2.5">
+      <div>
+        <%= if @test.duration_in_minutes do %>
+          <p>На тест отведено <%= @test.duration_in_minutes %> минут</p>
+        <% end %>
+        <%= if @test.starts_at do %>
+          <p>Начало теста в <.datetime datetime={@test.starts_at} /></p>
+        <% end %>
+        <%= if @test.ends_at do %>
+          <p>Окончание теста в <.datetime datetime={@test.ends_at} /></p>
+        <% end %>
+      </div>
       <.button class="btn-primary" phx-click="start">Начать тест</.button>
       <.link class="btn btn-secondary" href={~p"/tests"}>К списку тестов</.link>
     </div>
@@ -14,6 +26,13 @@
   <div class="relative flex flex-col justify-between h-[100dvh] px-12 py-8">
     <div class="flex flex-col gap-2.5">
       <h2 class="text-2xl font-medium select-none"><%= @current_task.question %></h2>
+      <span
+        id="test-timer"
+        class="text-center text-ink-dark-gray"
+        phx-hook="TestTimer"
+        ends-after={@ends_after}
+      >
+      </span>
     </div>
     <%= for media <- @current_task.media do %>
       <div class="max-h-72 flex justify-center">

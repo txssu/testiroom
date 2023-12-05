@@ -47,7 +47,9 @@ defmodule Testiroom.Exams do
   # StudentAttempt API
 
   def start_attempt(user, test) do
-    attempt = StudentAttempt.new(test)
+    now = DateTime.now!("Etc/UTC") |> DateTime.add(5, :hour)
+
+    attempt = StudentAttempt.new(test, now)
 
     with {:ok, _pid} <- AttemptManager.start_attempt(user, attempt) do
       {:ok, {user.id, test.id}}
@@ -58,6 +60,10 @@ defmodule Testiroom.Exams do
 
   def attempt_started?(attempt) do
     AttemptManager.started?(attempt)
+  end
+
+  def get_started_at(attempt) do
+    AttemptManager.get_started_at(attempt)
   end
 
   def get_tasks_count(attempt) do

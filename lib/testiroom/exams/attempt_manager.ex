@@ -12,6 +12,10 @@ defmodule Testiroom.Exams.AttemptManager do
     GenServer.call(__MODULE__, {:start_attempt, user, student_attempt})
   end
 
+  def get_started_at(id) do
+    GenServer.call(__MODULE__, {:get_started_at, id})
+  end
+
   def started?(id) do
     GenServer.call(__MODULE__, {:started?, id})
   end
@@ -45,6 +49,12 @@ defmodule Testiroom.Exams.AttemptManager do
     id = via(user, student_attempt)
     ETS.insert(table, {id, student_attempt})
     {:reply, id, table}
+  end
+
+  def handle_call({:get_started_at, id}, _from, table) do
+    [{_key, student_attempt}] = ETS.lookup(table, id)
+
+    {:reply, student_attempt.started_at, table}
   end
 
   def handle_call({:get_tasks_count, id}, _from, table) do

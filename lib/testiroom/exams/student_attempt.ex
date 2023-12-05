@@ -5,23 +5,25 @@ defmodule Testiroom.Exams.StudentAttempt do
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
 
-  defstruct ~w[test variant answers count]a
+  defstruct ~w[test variant answers count started_at]a
 
   @type t :: %__MODULE__{
           test: Test.t(),
           variant: %{integer() => Task.t()},
           answers: %{integer() => StudentAnswer.t()},
-          count: integer()
+          count: integer(),
+          started_at: DateTime.t()
         }
 
-  def new(test) do
+  def new(test, now) do
     {variant, answers} = get_variant_and_answers(test)
 
     %__MODULE__{
       test: test,
       variant: variant,
       count: Enum.count(variant),
-      answers: answers
+      answers: answers,
+      started_at: now
     }
   end
 

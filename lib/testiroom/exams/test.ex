@@ -43,7 +43,6 @@ defmodule Testiroom.Exams.Test do
     |> cast(attrs, @all_fields)
     |> validate_required(:title)
     |> validate_number(:duration_in_minutes, greater_than: 0)
-    |> validate_starts_at()
     |> validate_ends_at()
     |> cast_assoc(:tasks,
       sort_param: :tasks_order,
@@ -51,13 +50,6 @@ defmodule Testiroom.Exams.Test do
       required: true,
       required_message: "Необходимо добавить хотя бы одно задание"
     )
-  end
-
-  defp validate_starts_at(changeset) do
-    case get_field(changeset, :starts_at) do
-      nil -> changeset
-      _datetime -> validate_required(changeset, [:ends_at])
-    end
   end
 
   defp validate_ends_at(changeset) do
@@ -68,9 +60,7 @@ defmodule Testiroom.Exams.Test do
       ends_at ->
         starts_at = get_field(changeset, :starts_at)
 
-        changeset
-        |> validate_required([:starts_at])
-        |> validate_starts_at_ends_at(starts_at, ends_at)
+        validate_starts_at_ends_at(changeset, starts_at, ends_at)
     end
   end
 
