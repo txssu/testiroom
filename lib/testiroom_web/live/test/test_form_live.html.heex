@@ -1,7 +1,46 @@
 <div class="px-12 py-8">
   <.simple_form for={@form} phx-change="validate" phx-submit="create" class="slim-form">
     <h2 class="text-xl font-medium">Общая информация</h2>
-    <.input field={@form[:title]} label="Название теста" />
+    <fieldset class="space-y-4">
+      <.input field={@form[:title]} label="Название теста" />
+      <.input type="textarea" field={@form[:description]} label="Описание" />
+    </fieldset>
+
+    <fieldset class="space-y-4">
+      <legend class="text-lg font-medium">Синхронизация</legend>
+      <.input type="datetime-local" field={@form[:starts_at]} label="Начало теста" />
+      <.input type="datetime-local" field={@form[:ends_at]} label="Окончание теста" />
+      <.input
+        type="number"
+        field={@form[:duration_in_minutes]}
+        label="Время на выполнение (в минутах)"
+      />
+    </fieldset>
+
+    <fieldset>
+      <legend class="text-lg font-medium mb-4">Настройки отчёта ученика</legend>
+      <.input
+        type="checkbox"
+        field={@form[:show_results_for_student]}
+        label="Показывать результаты"
+      />
+      <.input
+        type="checkbox"
+        field={@form[:show_score_for_student]}
+        label="Показывать баллы"
+      />
+      <.input
+        type="checkbox"
+        field={@form[:show_grade_for_student]}
+        label="Показывать оценку"
+      />
+      <.input
+        type="checkbox"
+        field={@form[:show_answers_for_student]}
+        label="Показывать ответы"
+      />
+    </fieldset>
+
     <h2 class="text-xl font-medium">Вопросы</h2>
     <fieldset phx-feedback-for={@form[:options].name}>
       <.inputs_for :let={task_form} field={@form[:tasks]}>

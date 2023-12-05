@@ -150,7 +150,7 @@ defmodule TestiroomWeb.TestFormLive do
 
   defp insert_files_to_params(files, params) do
     params
-    |> Map.update!("tasks", fn tasks ->
+    |> Map.update("tasks", %{}, fn tasks ->
       Enum.into(tasks, %{}, fn {key, task} ->
         if media = files["test[tasks][#{key}]"] do
           {key, Map.put(task, "media", media)}
