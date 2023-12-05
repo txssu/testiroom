@@ -151,7 +151,7 @@ defmodule TestiroomWeb.ExamLive do
 
       now = DateTime.now!("Etc/UTC") |> DateTime.add(5, :hour)
 
-      time_to_end_in_seconds = DateTime.diff(attempt_ends_at, now, :second)
+      time_to_end_in_seconds = max(DateTime.diff(attempt_ends_at, now, :second), 0)
 
       Process.send_after(self(), :wrap_up, :timer.seconds(time_to_end_in_seconds))
 
