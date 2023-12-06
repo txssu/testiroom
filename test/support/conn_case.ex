@@ -20,14 +20,15 @@ defmodule TestiroomWeb.ConnCase do
   using do
     quote do
       # The default endpoint for testing
-      @endpoint TestiroomWeb.Endpoint
-
       use TestiroomWeb, :verified_routes
+
+      import Phoenix.ConnTest
 
       # Import conveniences for testing with connections
       import Plug.Conn
-      import Phoenix.ConnTest
       import TestiroomWeb.ConnCase
+
+      @endpoint TestiroomWeb.Endpoint
     end
   end
 
