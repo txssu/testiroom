@@ -9,7 +9,7 @@ defmodule TestiroomWeb.Router do
     plug :protect_from_forgery
 
     plug :put_secure_browser_headers, %{
-      "Content-Security-Policy" => "default-src 'self';"
+      "content-security-policy" => "default-src 'self';"
     }
 
     plug :put_secure_browser_headers
