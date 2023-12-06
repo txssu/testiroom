@@ -108,4 +108,60 @@ defmodule Testiroom.ExamsTest do
       assert %Ecto.Changeset{} = Exams.change_test(test)
     end
   end
+
+  describe "grades" do
+    alias Testiroom.Exams.Grade
+
+    import Testiroom.ExamsFixtures
+
+    @invalid_attrs %{from: nil, grade: nil}
+
+    test "list_grades/0 returns all grades" do
+      grade = grade_fixture()
+      assert Exams.list_grades() == [grade]
+    end
+
+    test "get_grade!/1 returns the grade with given id" do
+      grade = grade_fixture()
+      assert Exams.get_grade!(grade.id) == grade
+    end
+
+    test "create_grade/1 with valid data creates a grade" do
+      valid_attrs = %{from: 42, grade: "some grade"}
+
+      assert {:ok, %Grade{} = grade} = Exams.create_grade(valid_attrs)
+      assert grade.from == 42
+      assert grade.grade == "some grade"
+    end
+
+    test "create_grade/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Exams.create_grade(@invalid_attrs)
+    end
+
+    test "update_grade/2 with valid data updates the grade" do
+      grade = grade_fixture()
+      update_attrs = %{from: 43, grade: "some updated grade"}
+
+      assert {:ok, %Grade{} = grade} = Exams.update_grade(grade, update_attrs)
+      assert grade.from == 43
+      assert grade.grade == "some updated grade"
+    end
+
+    test "update_grade/2 with invalid data returns error changeset" do
+      grade = grade_fixture()
+      assert {:error, %Ecto.Changeset{}} = Exams.update_grade(grade, @invalid_attrs)
+      assert grade == Exams.get_grade!(grade.id)
+    end
+
+    test "delete_grade/1 deletes the grade" do
+      grade = grade_fixture()
+      assert {:ok, %Grade{}} = Exams.delete_grade(grade)
+      assert_raise Ecto.NoResultsError, fn -> Exams.get_grade!(grade.id) end
+    end
+
+    test "change_grade/1 returns a grade changeset" do
+      grade = grade_fixture()
+      assert %Ecto.Changeset{} = Exams.change_grade(grade)
+    end
+  end
 end

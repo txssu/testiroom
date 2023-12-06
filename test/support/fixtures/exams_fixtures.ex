@@ -29,4 +29,19 @@ defmodule Testiroom.ExamsFixtures do
 
     test
   end
+
+  @doc """
+  Generate a grade.
+  """
+  def grade_fixture(attrs \\ %{}) do
+    {:ok, grade} =
+      attrs
+      |> Enum.into(%{
+        from: 42,
+        grade: "some grade"
+      })
+      |> Testiroom.Exams.create_grade()
+
+    grade
+  end
 end

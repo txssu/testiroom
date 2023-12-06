@@ -4,6 +4,7 @@ defmodule Testiroom.Exams.Test do
   import Ecto.Changeset
 
   alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Grade
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -19,6 +20,8 @@ defmodule Testiroom.Exams.Test do
     field :show_answer_for_student, :boolean, default: true
 
     belongs_to :user, User
+
+    has_many :grades, Grade, on_replace: :delete
 
     timestamps(type: :utc_datetime)
   end
@@ -38,5 +41,9 @@ defmodule Testiroom.Exams.Test do
       :show_answer_for_student
     ])
     |> validate_required([:title, :show_correctness_for_student, :show_score_for_student, :show_grade_for_student, :show_answer_for_student])
+    |> cast_assoc(:grades,
+      sort_param: :grades_order,
+      drop_param: :grades_delete
+    )
   end
 end

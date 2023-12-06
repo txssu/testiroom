@@ -19,6 +19,24 @@ defmodule TestiroomWeb.TestLive.FormComponent do
         <.input field={@form[:starts_at]} type="datetime-local" label="Starts at" />
         <.input field={@form[:ends_at]} type="datetime-local" label="Ends at" />
         <.input field={@form[:duration_in_seconds]} type="number" label="Duration in seconds" />
+        <fieldset>
+          <.inputs_for :let={grade} field={@form[:grades]}>
+            <input type="hidden" name="test[grades_order][]" value={grade.index} />
+
+            <.input field={grade[:grade]} type="text" label="Grade" />
+            <.input field={grade[:from]} type="number" label="From" />
+
+            <label>
+              <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" />
+              Delete grade
+            </label>
+          </.inputs_for>
+          <label class="block cursor-pointer">
+            <input type="checkbox" name="test[grades_order][]" class="hidden" /> add more
+          </label>
+        </fieldset>
+        <input type="hidden" name="test[grades_delete][]" />
+
         <.input field={@form[:show_correctness_for_student]} type="checkbox" label="Show correctness for student" />
         <.input field={@form[:show_score_for_student]} type="checkbox" label="Show score for student" />
         <.input field={@form[:show_grade_for_student]} type="checkbox" label="Show grade for student" />
