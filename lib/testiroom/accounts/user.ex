@@ -4,6 +4,8 @@ defmodule Testiroom.Accounts.User do
 
   import Ecto.Changeset
 
+  alias Testiroom.Exams.Test
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
@@ -11,6 +13,8 @@ defmodule Testiroom.Accounts.User do
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
     field :confirmed_at, :naive_datetime
+
+    has_many :tests, Test
 
     timestamps(type: :utc_datetime)
   end

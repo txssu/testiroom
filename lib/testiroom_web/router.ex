@@ -29,6 +29,20 @@ defmodule TestiroomWeb.Router do
     get "/", PageController, :home
   end
 
+  scope "/", TestiroomWeb do
+    pipe_through [:browser, :require_authenticated_user]
+
+    live_session :tests,
+      on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}] do
+      live "/tests", TestLive.Index, :index
+      live "/tests/new", TestLive.Index, :new
+      live "/tests/:id/edit", TestLive.Index, :edit
+
+      live "/tests/:id", TestLive.Show, :show
+      live "/tests/:id/show/edit", TestLive.Show, :edit
+    end
+  end
+
   # Other scopes may use custom stacks.
   # scope "/api", TestiroomWeb do
   #   pipe_through :api
