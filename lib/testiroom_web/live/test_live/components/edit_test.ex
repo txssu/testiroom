@@ -71,11 +71,11 @@ defmodule TestiroomWeb.TestLive.Components.EditTest do
 
   def handle_event("save", %{"test" => test_params}, socket) do
     case Exams.update_test(socket.assigns.test, test_params) do
-      {:ok, _test} ->
+      {:ok, test} ->
         {:noreply,
          socket
          |> put_flash(:info, "Test updated successfully")
-         |> push_patch(to: socket.assigns.patch)}
+         |> push_patch(to: ~p"/tests/#{test}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
         {:noreply, assign_form(socket, changeset)}

@@ -13,10 +13,7 @@ defmodule TestiroomWeb.TestLive.Edit do
   def handle_params(%{"test_id" => id}, _uri, socket) do
     {:noreply,
      socket
-     |> assign(:page_title, page_title(socket.assigns.live_action))
+     |> assign(:page_title, "Edit Test")
      |> assign(:test, Exams.get_test!(id))}
   end
-
-  defp page_title(:show), do: "Show Test"
-  defp page_title(:edit), do: "Edit Test"
 end
