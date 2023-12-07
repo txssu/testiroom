@@ -10,7 +10,7 @@ defmodule Testiroom.Repo.Migrations.CreateTasks do
       add :media_path, :string
       add :shuffle_options, :boolean, default: false, null: false
       add :score, :integer, default: 1, null: false
-      add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id)
+      add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps(type: :utc_datetime)
     end

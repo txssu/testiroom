@@ -6,7 +6,7 @@ defmodule Testiroom.Repo.Migrations.CreateGrades do
       add :id, :binary_id, primary_key: true
       add :grade, :string, null: false
       add :from, :integer, null: false
-      add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id)
+      add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps(type: :utc_datetime)
     end
