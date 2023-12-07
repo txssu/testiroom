@@ -1,0 +1,8 @@
+<.header>
+  Test <%= @test.id %>
+  <:subtitle>This is a test record from your database.</:subtitle>
+</.header>
+
+<.live_component module={TestiroomWeb.TestLive.FormComponent} id={@test.id} title={@page_title} action={@live_action} test={@test} patch={~p"/tests/#{@test}"} />
+
+<.back navigate={~p"/tests"}>Back to tests</.back>

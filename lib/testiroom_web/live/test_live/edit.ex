@@ -1,4 +1,4 @@
-defmodule TestiroomWeb.TestLive.Show do
+defmodule TestiroomWeb.TestLive.Edit do
   @moduledoc false
   use TestiroomWeb, :live_view
 
