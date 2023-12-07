@@ -1,17 +1,17 @@
 <.header>
   Listing Tasks
-  <:actions>
-    <.link patch={~p"/tests/#{@test_id}/tasks/new"}>
-      <.button>New Task</.button>
-    </.link>
-  </:actions>
 </.header>
 
-<.table
-  id="tasks"
-  rows={@streams.tasks}
-  row_click={fn {_id, task} -> JS.navigate(~p"/tests/#{@test_id}/tasks/#{task}") end}
->
+<ul class="flex flex-wrap gap-4">
+  <li :for={order <- 0..@max_order}>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{order}"}><%= order + 1 %></.link>
+  </li>
+  <li>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{@max_order + 1}/new"}>+</.link>
+  </li>
+</ul>
+
+<.table id="tasks" rows={@streams.tasks}>
   <:col :let={{_id, task}} label="Order"><%= task.order %></:col>
   <:col :let={{_id, task}} label="Type"><%= task.type %></:col>
   <:col :let={{_id, task}} label="Question"><%= task.question %></:col>
@@ -19,28 +19,28 @@
   <:col :let={{_id, task}} label="Shuffle options"><%= task.shuffle_options %></:col>
   <:col :let={{_id, task}} label="Score"><%= task.score %></:col>
   <:action :let={{_id, task}}>
-    <div class="sr-only">
-      <.link navigate={~p"/tests/#{@test_id}/tasks/#{task}"}>Show</.link>
-    </div>
-    <.link patch={~p"/tests/#{@test_id}/tasks/#{task}/edit"}>Edit</.link>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/#{task}"}>Edit</.link>
   </:action>
   <:action :let={{id, task}}>
-    <.link
-      phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
-      data-confirm="Are you sure?"
-    >
+    <.link phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")} data-confirm="Are you sure?">
       Delete
     </.link>
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks")}>
+<.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
+  <.button>New Task</.button>
+</.link>
+
+<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}>
   <.live_component
     module={TestiroomWeb.TaskLive.FormComponent}
     id={@task.id || :new}
     title={@page_title}
     action={@live_action}
+    test={@test}
     task={@task}
-    patch={~p"/tests/#{@test_id}/tasks"}
+    order={@order}
+    patch={~p"/tests/#{@test_id}/tasks/#{@order}"}
   />
 </.modal>

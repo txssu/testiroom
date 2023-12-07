@@ -6,6 +6,8 @@ defmodule Testiroom.Exams do
   import Ecto.Query, warn: false
 
   alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Grade
+  alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
 
@@ -19,8 +21,9 @@ defmodule Testiroom.Exams do
 
   """
   def list_user_tests(user_id) do
-    query = from test in Test,
-              where: test.user_id == ^user_id
+    query =
+      from test in Test,
+        where: test.user_id == ^user_id
 
     Repo.all(query)
   end
@@ -39,7 +42,7 @@ defmodule Testiroom.Exams do
       ** (Ecto.NoResultsError)
 
   """
-  def get_test!(id), do: Repo.get!(Test, id) |> Repo.preload(:grades)
+  def get_test!(id), do: Test |> Repo.get!(id) |> Repo.preload(:grades)
 
   @doc """
   Creates a test.
@@ -106,8 +109,6 @@ defmodule Testiroom.Exams do
   def change_test(%Test{} = test, attrs \\ %{}) do
     Test.changeset(test, attrs)
   end
-
-  alias Testiroom.Exams.Grade
 
   @doc """
   Returns the list of grades.
@@ -203,19 +204,31 @@ defmodule Testiroom.Exams do
     Grade.changeset(grade, attrs)
   end
 
-  alias Testiroom.Exams.Task
-
   @doc """
   Returns the list of tasks.
 
   ## Examples
 
-      iex> list_tasks()
+      iex> list_tasks(test_id, order)
       [%Task{}, ...]
 
   """
-  def list_tasks do
-    Repo.all(Task)
+  def list_tasks(test_id, order) do
+    query =
+      from task in Task,
+        where: task.test_id == ^test_id and task.order == ^order,
+        order_by: task.inserted_at
+
+    Repo.all(query)
+  end
+
+  def get_max_task_order(test_id) do
+    query =
+      from task in Task,
+        where: task.test_id == ^test_id,
+        select: max(task.order)
+
+    Repo.one(query)
   end
 
   @doc """
@@ -246,8 +259,9 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
-  def create_task(attrs \\ %{}) do
-    %Task{}
+  def create_task(attrs \\ %{}, test) do
+    test
+    |> Ecto.build_assoc(:tasks)
     |> Task.changeset(attrs)
     |> Repo.insert()
   end

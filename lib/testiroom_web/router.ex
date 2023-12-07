@@ -38,6 +38,10 @@ defmodule TestiroomWeb.Router do
       live "/tests/new", TestLive.Index, :new
 
       live "/tests/:test_id", TestLive.Edit, :edit
+
+      live "/tests/:test_id/tasks/:order", TaskLive.Index, :index
+      live "/tests/:test_id/tasks/:order/new", TaskLive.Index, :new
+      live "/tests/:test_id/tasks/:order/:task_id/", TaskLive.Index, :edit
     end
   end
 

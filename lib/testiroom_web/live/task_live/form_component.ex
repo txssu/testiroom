@@ -1,4 +1,5 @@
 defmodule TestiroomWeb.TaskLive.FormComponent do
+  @moduledoc false
   use TestiroomWeb, :live_component
 
   alias Testiroom.Exams
@@ -12,21 +13,9 @@ defmodule TestiroomWeb.TaskLive.FormComponent do
         <:subtitle>Use this form to manage task records in your database.</:subtitle>
       </.header>
 
-      <.simple_form
-        for={@form}
-        id="task-form"
-        phx-target={@myself}
-        phx-change="validate"
-        phx-submit="save"
-      >
-        <.input field={@form[:order]} type="number" label="Order" />
-        <.input
-          field={@form[:type]}
-          type="select"
-          label="Type"
-          prompt="Choose a value"
-          options={Ecto.Enum.values(Testiroom.Exams.Task, :type)}
-        />
+      <.simple_form for={@form} id="task-form" phx-target={@myself} phx-change="validate" phx-submit="save">
+        <.input field={@form[:order]} type="hidden" value={@order} />
+        <.input field={@form[:type]} type="select" label="Type" prompt="Choose a value" options={Ecto.Enum.values(Testiroom.Exams.Task, :type)} />
         <.input field={@form[:question]} type="text" label="Question" />
         <.input field={@form[:media_path]} type="text" label="Media path" />
         <.input field={@form[:shuffle_options]} type="checkbox" label="Shuffle options" />
@@ -79,7 +68,9 @@ defmodule TestiroomWeb.TaskLive.FormComponent do
   end
 
   defp save_task(socket, :new, task_params) do
-    case Exams.create_task(task_params) do
+    test = socket.assigns.test
+
+    case Exams.create_task(task_params, test) do
       {:ok, task} ->
         notify_parent({:saved, task})
 

@@ -7,33 +7,44 @@ defmodule TestiroomWeb.TaskLive.Index do
 
   @impl true
   def mount(_params, _session, socket) do
-    {:ok, stream(socket, :tasks, Exams.list_tasks())}
+    {:ok, socket}
   end
 
   @impl true
-  def handle_params(%{"test_id" => test_id} = params, _url, socket) do
+  def handle_params(%{"test_id" => test_id, "order" => order} = params, _url, socket) do
     {:noreply,
      socket
      |> assign(:test_id, test_id)
-     |> apply_action(socket.assigns.live_action, params)}
+     |> assign(:max_order, Exams.get_max_task_order(test_id) || 0)
+     |> assign(:order, String.to_integer(order))
+     |> apply_action(socket.assigns.live_action, params)
+     |> stream(:tasks, Exams.list_tasks(test_id, order), reset: true)}
   end
 
   defp apply_action(socket, :edit, %{"task_id" => id}) do
     socket
     |> assign(:page_title, "Edit Task")
+    |> assign(:test, nil)
     |> assign(:task, Exams.get_task!(id))
   end
 
-  defp apply_action(socket, :new, _params) do
+  defp apply_action(socket, :new, %{"test_id" => test_id}) do
     socket
     |> assign(:page_title, "New Task")
+    |> assign(:test, Exams.get_test!(test_id))
     |> assign(:task, %Task{})
   end
 
   defp apply_action(socket, :index, _params) do
-    socket
-    |> assign(:page_title, "Listing Tasks")
-    |> assign(:task, nil)
+    %{order: order, max_order: max_order, test_id: test_id} = socket.assigns
+    IO.inspect({order, max_order})
+    if order <= max_order do
+      socket
+      |> assign(:page_title, "Listing Tasks")
+      |> assign(:task, nil)
+    else
+      push_patch(socket, to: ~p"/tests/#{test_id}/tasks/#{max_order}")
+    end
   end
 
   @impl true
