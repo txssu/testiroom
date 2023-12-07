@@ -29,14 +29,12 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="test-modal" show on_cancel={JS.patch(~p"/tests")}>
+<.modal :if={@live_action == :new} id="test-modal" show on_cancel={JS.patch(~p"/tests")}>
   <.live_component
-    module={TestiroomWeb.TestLive.FormComponent}
-    id={@test.id || :new}
+    module={TestiroomWeb.TestLive.Components.NewTest}
+    id="new-test"
     title={@page_title}
-    action={@live_action}
     test={@test}
-    patch={~p"/tests"}
     current_user={@current_user}
   />
 </.modal>

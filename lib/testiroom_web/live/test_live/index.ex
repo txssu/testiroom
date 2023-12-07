@@ -16,12 +16,6 @@ defmodule TestiroomWeb.TestLive.Index do
     {:noreply, apply_action(socket, socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"test_id" => id}) do
-    socket
-    |> assign(:page_title, "Edit Test")
-    |> assign(:test, Exams.get_test!(id))
-  end
-
   defp apply_action(socket, :new, _params) do
     socket
     |> assign(:page_title, "New Test")
@@ -32,11 +26,6 @@ defmodule TestiroomWeb.TestLive.Index do
     socket
     |> assign(:page_title, "Listing Tests")
     |> assign(:test, nil)
-  end
-
-  @impl Phoenix.LiveView
-  def handle_info({TestiroomWeb.TestLive.FormComponent, {:saved, test}}, socket) do
-    {:noreply, stream_insert(socket, :tests, test)}
   end
 
   @impl Phoenix.LiveView
