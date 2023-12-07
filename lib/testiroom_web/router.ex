@@ -36,10 +36,10 @@ defmodule TestiroomWeb.Router do
       on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}] do
       live "/tests", TestLive.Index, :index
       live "/tests/new", TestLive.Index, :new
-      live "/tests/:id/edit", TestLive.Index, :edit
+      live "/tests/:test_id/edit", TestLive.Index, :edit
 
-      live "/tests/:id", TestLive.Show, :show
-      live "/tests/:id/show/edit", TestLive.Show, :edit
+      live "/tests/:test_id", TestLive.Show, :show
+      live "/tests/:test_id/show/edit", TestLive.Show, :edit
     end
   end
 

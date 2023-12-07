@@ -10,7 +10,7 @@ defmodule TestiroomWeb.TestLive.Show do
   end
 
   @impl Phoenix.LiveView
-  def handle_params(%{"id" => id}, _uri, socket) do
+  def handle_params(%{"test_id" => id}, _uri, socket) do
     {:noreply,
      socket
      |> assign(:page_title, page_title(socket.assigns.live_action))
