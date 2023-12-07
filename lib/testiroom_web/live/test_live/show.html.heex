@@ -14,6 +14,9 @@
   <:item title="Starts at"><%= @test.starts_at %></:item>
   <:item title="Ends at"><%= @test.ends_at %></:item>
   <:item title="Duration in seconds"><%= @test.duration_in_seconds %></:item>
+  <:item title="Grades">
+    <div :for={grade <- @test.grades}><%= grade.grade %> from <%= grade.from %></div>
+  </:item>
   <:item title="Show correctness for student"><%= @test.show_correctness_for_student %></:item>
   <:item title="Show score for student"><%= @test.show_score_for_student %></:item>
   <:item title="Show grade for student"><%= @test.show_grade_for_student %></:item>
