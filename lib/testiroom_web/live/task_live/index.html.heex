@@ -1,7 +1,7 @@
 <.header>
   Listing Tasks
   <:actions>
-    <.link patch={~p"/tasks/new"}>
+    <.link patch={~p"/tests/#{@test_id}/tasks/new"}>
       <.button>New Task</.button>
     </.link>
   </:actions>
@@ -10,7 +10,7 @@
 <.table
   id="tasks"
   rows={@streams.tasks}
-  row_click={fn {_id, task} -> JS.navigate(~p"/tasks/#{task}") end}
+  row_click={fn {_id, task} -> JS.navigate(~p"/tests/#{@test_id}/tasks/#{task}") end}
 >
   <:col :let={{_id, task}} label="Order"><%= task.order %></:col>
   <:col :let={{_id, task}} label="Type"><%= task.type %></:col>
@@ -20,9 +20,9 @@
   <:col :let={{_id, task}} label="Score"><%= task.score %></:col>
   <:action :let={{_id, task}}>
     <div class="sr-only">
-      <.link navigate={~p"/tasks/#{task}"}>Show</.link>
+      <.link navigate={~p"/tests/#{@test_id}/tasks/#{task}"}>Show</.link>
     </div>
-    <.link patch={~p"/tasks/#{task}/edit"}>Edit</.link>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{task}/edit"}>Edit</.link>
   </:action>
   <:action :let={{id, task}}>
     <.link
@@ -34,13 +34,13 @@
   </:action>
 </.table>
 
-<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tasks")}>
+<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks")}>
   <.live_component
     module={TestiroomWeb.TaskLive.FormComponent}
     id={@task.id || :new}
     title={@page_title}
     action={@live_action}
     task={@task}
-    patch={~p"/tasks"}
+    patch={~p"/tests/#{@test_id}/tasks"}
   />
 </.modal>

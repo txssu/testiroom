@@ -40,6 +40,13 @@ defmodule TestiroomWeb.Router do
 
       live "/tests/:test_id", TestLive.Show, :show
       live "/tests/:test_id/show/edit", TestLive.Show, :edit
+
+      live "/tests/:test_id/tasks", TaskLive.Index, :index
+      live "/tests/:test_id/tasks/new", TaskLive.Index, :new
+      live "/tests/:test_id/tasks/:task_id/edit", TaskLive.Index, :edit
+
+      live "/tests/:test_id/tasks/:task_id", TaskLive.Show, :show
+      live "/tests/:test_id/tasks/:task_id/show/edit", TaskLive.Show, :edit
     end
   end
 

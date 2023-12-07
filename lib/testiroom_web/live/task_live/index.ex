@@ -1,4 +1,5 @@
 defmodule TestiroomWeb.TaskLive.Index do
+  @moduledoc false
   use TestiroomWeb, :live_view
 
   alias Testiroom.Exams
@@ -10,11 +11,14 @@ defmodule TestiroomWeb.TaskLive.Index do
   end
 
   @impl true
-  def handle_params(params, _url, socket) do
-    {:noreply, apply_action(socket, socket.assigns.live_action, params)}
+  def handle_params(%{"test_id" => test_id} = params, _url, socket) do
+    {:noreply,
+     socket
+     |> assign(:test_id, test_id)
+     |> apply_action(socket.assigns.live_action, params)}
   end
 
-  defp apply_action(socket, :edit, %{"id" => id}) do
+  defp apply_action(socket, :edit, %{"task_id" => id}) do
     socket
     |> assign(:page_title, "Edit Task")
     |> assign(:task, Exams.get_task!(id))
