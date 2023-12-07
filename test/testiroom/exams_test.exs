@@ -164,4 +164,68 @@ defmodule Testiroom.ExamsTest do
       assert %Ecto.Changeset{} = Exams.change_grade(grade)
     end
   end
+
+  describe "tasks" do
+    alias Testiroom.Exams.Task
+
+    import Testiroom.ExamsFixtures
+
+    @invalid_attrs %{type: nil, order: nil, question: nil, media_path: nil, shuffle_options: nil, score: nil}
+
+    test "list_tasks/0 returns all tasks" do
+      task = task_fixture()
+      assert Exams.list_tasks() == [task]
+    end
+
+    test "get_task!/1 returns the task with given id" do
+      task = task_fixture()
+      assert Exams.get_task!(task.id) == task
+    end
+
+    test "create_task/1 with valid data creates a task" do
+      valid_attrs = %{type: :mulitple, order: 42, question: "some question", media_path: "some media_path", shuffle_options: true, score: 42}
+
+      assert {:ok, %Task{} = task} = Exams.create_task(valid_attrs)
+      assert task.type == :mulitple
+      assert task.order == 42
+      assert task.question == "some question"
+      assert task.media_path == "some media_path"
+      assert task.shuffle_options == true
+      assert task.score == 42
+    end
+
+    test "create_task/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Exams.create_task(@invalid_attrs)
+    end
+
+    test "update_task/2 with valid data updates the task" do
+      task = task_fixture()
+      update_attrs = %{type: :single, order: 43, question: "some updated question", media_path: "some updated media_path", shuffle_options: false, score: 43}
+
+      assert {:ok, %Task{} = task} = Exams.update_task(task, update_attrs)
+      assert task.type == :single
+      assert task.order == 43
+      assert task.question == "some updated question"
+      assert task.media_path == "some updated media_path"
+      assert task.shuffle_options == false
+      assert task.score == 43
+    end
+
+    test "update_task/2 with invalid data returns error changeset" do
+      task = task_fixture()
+      assert {:error, %Ecto.Changeset{}} = Exams.update_task(task, @invalid_attrs)
+      assert task == Exams.get_task!(task.id)
+    end
+
+    test "delete_task/1 deletes the task" do
+      task = task_fixture()
+      assert {:ok, %Task{}} = Exams.delete_task(task)
+      assert_raise Ecto.NoResultsError, fn -> Exams.get_task!(task.id) end
+    end
+
+    test "change_task/1 returns a task changeset" do
+      task = task_fixture()
+      assert %Ecto.Changeset{} = Exams.change_task(task)
+    end
+  end
 end

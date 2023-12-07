@@ -5,6 +5,7 @@ defmodule Testiroom.Exams.Test do
 
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Grade
+  alias Testiroom.Exams.Task
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -22,6 +23,7 @@ defmodule Testiroom.Exams.Test do
     belongs_to :user, User
 
     has_many :grades, Grade, on_replace: :delete
+    has_many :tasks, Task, on_replace: :delete
 
     timestamps(type: :utc_datetime)
   end

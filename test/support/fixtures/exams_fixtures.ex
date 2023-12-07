@@ -44,4 +44,23 @@ defmodule Testiroom.ExamsFixtures do
 
     grade
   end
+
+  @doc """
+  Generate a task.
+  """
+  def task_fixture(attrs \\ %{}) do
+    {:ok, task} =
+      attrs
+      |> Enum.into(%{
+        media_path: "some media_path",
+        order: 42,
+        question: "some question",
+        score: 42,
+        shuffle_options: true,
+        type: :mulitple
+      })
+      |> Testiroom.Exams.create_task()
+
+    task
+  end
 end
