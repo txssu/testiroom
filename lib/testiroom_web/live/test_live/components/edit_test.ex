@@ -8,11 +8,6 @@ defmodule TestiroomWeb.TestLive.Components.EditTest do
   def render(assigns) do
     ~H"""
     <div>
-      <.header>
-        <%= @title %>
-        <:subtitle>Use this form to manage test records in your database.</:subtitle>
-      </.header>
-
       <.simple_form for={@form} id="test-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <.input field={@form[:title]} type="text" label="Title" />
         <.input field={@form[:description]} type="textarea" label="Description" />

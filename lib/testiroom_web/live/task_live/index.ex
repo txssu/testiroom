@@ -5,6 +5,8 @@ defmodule TestiroomWeb.TaskLive.Index do
   alias Testiroom.Exams
   alias Testiroom.Exams.Task
 
+  import TestiroomWeb.Live.Components.TestEditorHeader
+
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, socket}

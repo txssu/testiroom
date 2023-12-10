@@ -2,6 +2,8 @@ defmodule TestiroomWeb.TestLive.Edit do
   @moduledoc false
   use TestiroomWeb, :live_view
 
+  import TestiroomWeb.Live.Components.TestEditorHeader
+
   alias Testiroom.Exams
 
   @impl Phoenix.LiveView

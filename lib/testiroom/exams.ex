@@ -246,7 +246,7 @@ defmodule Testiroom.Exams do
       ** (Ecto.NoResultsError)
 
   """
-  def get_task!(id), do: Repo.get!(Task, id)
+  def get_task!(id), do: Task |> Repo.get!(id) |> Repo.preload(:options)
 
   @doc """
   Creates a task.

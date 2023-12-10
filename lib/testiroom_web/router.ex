@@ -37,7 +37,7 @@ defmodule TestiroomWeb.Router do
       live "/tests", TestLive.Index, :index
       live "/tests/new", TestLive.Index, :new
 
-      live "/tests/:test_id", TestLive.Edit, :edit
+      live "/tests/:test_id", TestLive.Edit
 
       live "/tests/:test_id/tasks/:order", TaskLive.Index, :index
       live "/tests/:test_id/tasks/:order/new", TaskLive.Index, :new

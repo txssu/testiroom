@@ -1,8 +1,6 @@
-<.header>
+<.test_editor_header test_id={@test.id}>
   Test <%= @test.title %>
   <:subtitle>This is a test record from your database.</:subtitle>
-</.header>
+</.test_editor_header>
 
-<.live_component :if={@live_action == :edit} module={TestiroomWeb.TestLive.Components.EditTest} id={@test.id} title={@page_title} test={@test} />
-
-<.back navigate={~p"/tests"}>Back to tests</.back>
+<.live_component module={TestiroomWeb.TestLive.Components.EditTest} id={@test.id} title={@page_title} test={@test} />
