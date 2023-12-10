@@ -7,20 +7,14 @@
   </:actions>
 </.header>
 
-<.table id="tests" rows={@streams.tests} row_click={fn {_id, test} -> JS.navigate(~p"/tests/#{test}") end}>
+<.table id="tests" rows={@streams.tests}>
   <:col :let={{_id, test}} label="Title"><%= test.title %></:col>
-  <:col :let={{_id, test}} label="Description"><%= test.description %></:col>
   <:col :let={{_id, test}} label="Starts at"><%= test.starts_at %></:col>
   <:col :let={{_id, test}} label="Ends at"><%= test.ends_at %></:col>
-  <:col :let={{_id, test}} label="Duration in seconds"><%= test.duration_in_seconds %></:col>
-  <:col :let={{_id, test}} label="Show correctness for student"><%= test.show_correctness_for_student %></:col>
-  <:col :let={{_id, test}} label="Show score for student"><%= test.show_score_for_student %></:col>
-  <:col :let={{_id, test}} label="Show grade for student"><%= test.show_grade_for_student %></:col>
-  <:col :let={{_id, test}} label="Show answer for student"><%= test.show_answer_for_student %></:col>
   <:action :let={{_id, test}}>
-    <div class="sr-only">
-      <.link navigate={~p"/tests/#{test}"}>Show</.link>
-    </div>
+    <.link navigate={~p"/tests/#{test}"}>
+      Edit
+    </.link>
   </:action>
   <:action :let={{id, test}}>
     <.link phx-click={JS.push("delete", value: %{id: test.id}) |> hide("##{id}")} data-confirm="Are you sure?">
