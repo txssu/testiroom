@@ -48,7 +48,7 @@ defmodule TestiroomWeb.TaskLive.Index do
   end
 
   @impl true
-  def handle_info({TestiroomWeb.TaskLive.FormComponent, {:saved, task}}, socket) do
+  def handle_info({TestiroomWeb.TaskLive.Components.TaskForm, {:saved, task}}, socket) do
     {:noreply, stream_insert(socket, :tasks, task)}
   end
 

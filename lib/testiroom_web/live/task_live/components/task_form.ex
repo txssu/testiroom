@@ -1,4 +1,4 @@
-defmodule TestiroomWeb.TaskLive.FormComponent do
+defmodule TestiroomWeb.TaskLive.Components.TaskForm do
   @moduledoc false
   use TestiroomWeb, :live_component
 
