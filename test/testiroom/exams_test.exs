@@ -228,4 +228,60 @@ defmodule Testiroom.ExamsTest do
       assert %Ecto.Changeset{} = Exams.change_task(task)
     end
   end
+
+  describe "task_options" do
+    alias Testiroom.Exams.Option
+
+    import Testiroom.ExamsFixtures
+
+    @invalid_attrs %{text: nil, is_correct: nil}
+
+    test "list_task_options/0 returns all task_options" do
+      option = option_fixture()
+      assert Exams.list_task_options() == [option]
+    end
+
+    test "get_option!/1 returns the option with given id" do
+      option = option_fixture()
+      assert Exams.get_option!(option.id) == option
+    end
+
+    test "create_option/1 with valid data creates a option" do
+      valid_attrs = %{text: "some text", is_correct: true}
+
+      assert {:ok, %Option{} = option} = Exams.create_option(valid_attrs)
+      assert option.text == "some text"
+      assert option.is_correct == true
+    end
+
+    test "create_option/1 with invalid data returns error changeset" do
+      assert {:error, %Ecto.Changeset{}} = Exams.create_option(@invalid_attrs)
+    end
+
+    test "update_option/2 with valid data updates the option" do
+      option = option_fixture()
+      update_attrs = %{text: "some updated text", is_correct: false}
+
+      assert {:ok, %Option{} = option} = Exams.update_option(option, update_attrs)
+      assert option.text == "some updated text"
+      assert option.is_correct == false
+    end
+
+    test "update_option/2 with invalid data returns error changeset" do
+      option = option_fixture()
+      assert {:error, %Ecto.Changeset{}} = Exams.update_option(option, @invalid_attrs)
+      assert option == Exams.get_option!(option.id)
+    end
+
+    test "delete_option/1 deletes the option" do
+      option = option_fixture()
+      assert {:ok, %Option{}} = Exams.delete_option(option)
+      assert_raise Ecto.NoResultsError, fn -> Exams.get_option!(option.id) end
+    end
+
+    test "change_option/1 returns a option changeset" do
+      option = option_fixture()
+      assert %Ecto.Changeset{} = Exams.change_option(option)
+    end
+  end
 end

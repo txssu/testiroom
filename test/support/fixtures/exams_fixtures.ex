@@ -63,4 +63,19 @@ defmodule Testiroom.ExamsFixtures do
 
     task
   end
+
+  @doc """
+  Generate a option.
+  """
+  def option_fixture(attrs \\ %{}) do
+    {:ok, option} =
+      attrs
+      |> Enum.into(%{
+        is_correct: true,
+        text: "some text"
+      })
+      |> Testiroom.Exams.create_option()
+
+    option
+  end
 end

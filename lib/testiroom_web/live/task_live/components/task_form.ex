@@ -17,7 +17,21 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         <.input field={@form[:order]} type="hidden" value={@order} />
         <.input field={@form[:type]} type="select" label="Type" prompt="Choose a value" options={Ecto.Enum.values(Testiroom.Exams.Task, :type)} />
         <.input field={@form[:question]} type="text" label="Question" />
-        <.input field={@form[:media_path]} type="text" label="Media path" />
+        <fieldset>
+          <legend>Options</legend>
+          <.inputs_for :let={option} field={@form[:options]}>
+            <input type="hidden" name="task[options_order][]" value={option.index} />
+            <.input field={option[:text]} type="text" label="Text" />
+            <.input field={option[:is_correct]} type="checkbox" label="Is correct" />
+            <label>
+              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" />
+              Delete option
+            </label>
+          </.inputs_for>
+          <label class="block cursor-pointer">
+            <input type="checkbox" name="task[options_order][]" class="hidden" /> add more
+          </label>
+        </fieldset>
         <.input field={@form[:shuffle_options]} type="checkbox" label="Shuffle options" />
         <.input field={@form[:score]} type="number" label="Score" />
         <:actions>
@@ -44,6 +58,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
       socket.assigns.task
       |> Exams.change_task(task_params)
       |> Map.put(:action, :validate)
+      |> IO.inspect()
 
     {:noreply, assign_form(socket, changeset)}
   end
