@@ -11,7 +11,7 @@ defmodule TestiroomWeb.Router do
     plug :protect_from_forgery
 
     plug :put_secure_browser_headers, %{
-      "content-security-policy" => "default-src 'self';"
+      "content-security-policy" => "default-src 'self'; img-src 'self' data: blob:;"
     }
 
     plug :fetch_current_user
