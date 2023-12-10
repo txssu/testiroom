@@ -3,14 +3,19 @@ defmodule Testiroom.Exams.Task do
   use Ecto.Schema
 
   import Ecto.Changeset
+  import TestiroomWeb.Gettext
 
   alias Testiroom.Exams.Option
   alias Testiroom.Exams.Test
 
+  @types ~w[multiple single text]a
+  @type_names [gettext("Multiple select"), gettext("Single select"), gettext("Text input")]
+  @types_with_names Enum.zip(@type_names, @types)
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "tasks" do
-    field :type, Ecto.Enum, values: [:mulitple, :single, :text], default: :single
+    field :type, Ecto.Enum, values: @types, default: :single
     field :order, :integer
     field :question, :string
     field :media_path, :string
@@ -34,4 +39,6 @@ defmodule Testiroom.Exams.Task do
       drop_param: :options_delete
     )
   end
+
+  def types, do: @types_with_names
 end

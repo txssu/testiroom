@@ -11,6 +11,8 @@ config :testiroom,
   ecto_repos: [Testiroom.Repo],
   generators: [timestamp_type: :utc_datetime, binary_id: true]
 
+config :testiroom, TestiroomWeb.Gettext, default_locale: "ru", locales: ~w(ru en)
+
 # Configures the endpoint
 config :testiroom, TestiroomWeb.Endpoint,
   url: [host: "localhost"],

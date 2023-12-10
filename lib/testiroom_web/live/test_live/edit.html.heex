@@ -1,6 +1,5 @@
 <.test_editor_header test_id={@test.id}>
-  Test <%= @test.title %>
-  <:subtitle>This is a test record from your database.</:subtitle>
+  <%= gettext("Test") %> "<%= @test.title %>"
 </.test_editor_header>
 
 <.live_component module={TestiroomWeb.TestLive.Components.EditTest} id={@test.id} title={@page_title} test={@test} />

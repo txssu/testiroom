@@ -15,7 +15,7 @@ defmodule TestiroomWeb.TestLive.Edit do
   def handle_params(%{"test_id" => id}, _uri, socket) do
     {:noreply,
      socket
-     |> assign(:page_title, "Edit Test")
+     |> assign(:page_title, gettext("Edit Test"))
      |> assign(:test, Exams.get_test!(id))}
   end
 end

@@ -1,24 +1,24 @@
 <.header>
-  Listing Tests
+  <%= gettext("Listing Tests") %>
   <:actions>
     <.link patch={~p"/tests/new"}>
-      <.button>New Test</.button>
+      <.button><%= gettext("New Test") %></.button>
     </.link>
   </:actions>
 </.header>
 
 <.table id="tests" rows={@streams.tests}>
-  <:col :let={{_id, test}} label="Title"><%= test.title %></:col>
-  <:col :let={{_id, test}} label="Starts at"><%= test.starts_at %></:col>
-  <:col :let={{_id, test}} label="Ends at"><%= test.ends_at %></:col>
+  <:col :let={{_id, test}} label={gettext("Title")}><%= test.title %></:col>
+  <:col :let={{_id, test}} label={gettext("Starts at")}><%= test.starts_at %></:col>
+  <:col :let={{_id, test}} label={gettext("Ends at")}><%= test.ends_at %></:col>
   <:action :let={{_id, test}}>
     <.link navigate={~p"/tests/#{test}"}>
-      Edit
+      <%= gettext("Edit") %>
     </.link>
   </:action>
   <:action :let={{id, test}}>
-    <.link phx-click={JS.push("delete", value: %{id: test.id}) |> hide("##{id}")} data-confirm="Are you sure?">
-      Delete
+    <.link phx-click={JS.push("delete", value: %{id: test.id}) |> hide("##{id}")} data-confirm={gettext("Are you sure?")}>
+      <%= gettext("Delete") %>
     </.link>
   </:action>
 </.table>

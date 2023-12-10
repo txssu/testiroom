@@ -18,13 +18,13 @@ defmodule TestiroomWeb.TestLive.Index do
 
   defp apply_action(socket, :new, _params) do
     socket
-    |> assign(:page_title, "New Test")
+    |> assign(:page_title, gettext("New Test"))
     |> assign(:test, %Test{})
   end
 
   defp apply_action(socket, :index, _params) do
     socket
-    |> assign(:page_title, "Listing Tests")
+    |> assign(:page_title, gettext("Listing Tests"))
     |> assign(:test, nil)
   end
 

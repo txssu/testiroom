@@ -10,11 +10,10 @@ defmodule TestiroomWeb.TestLive.Components.NewTest do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage test records in your database.</:subtitle>
       </.header>
 
       <.simple_form for={@form} id="test-form" phx-target={@myself} phx-change="validate" phx-submit="save">
-        <.input field={@form[:title]} type="text" label="Title" />
+        <.input field={@form[:title]} type="text" label={gettext("Title")} />
         <:actions>
           <.button phx-disable-with="Saving...">Save Test</.button>
         </:actions>
@@ -50,7 +49,7 @@ defmodule TestiroomWeb.TestLive.Components.NewTest do
       {:ok, test} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Test created successfully")
+         |> put_flash(:info, gettext("Test created successfully"))
          |> push_navigate(to: ~p"/tests/#{test}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->

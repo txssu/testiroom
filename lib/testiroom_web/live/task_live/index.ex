@@ -25,14 +25,14 @@ defmodule TestiroomWeb.TaskLive.Index do
 
   defp apply_action(socket, :edit, %{"task_id" => id}) do
     socket
-    |> assign(:page_title, "Edit Task")
+    |> assign(:page_title, gettext("Edit Task"))
     |> assign(:test, nil)
     |> assign(:task, Exams.get_task!(id))
   end
 
   defp apply_action(socket, :new, %{"test_id" => test_id}) do
     socket
-    |> assign(:page_title, "New Task")
+    |> assign(:page_title, gettext("New Task"))
     |> assign(:test, Exams.get_test!(test_id))
     |> assign(:task, %Task{})
   end
@@ -42,7 +42,7 @@ defmodule TestiroomWeb.TaskLive.Index do
 
     if order <= max_order do
       socket
-      |> assign(:page_title, "Listing Tasks")
+      |> assign(:page_title, gettext("Listing Tasks"))
       |> assign(:task, nil)
     else
       push_patch(socket, to: ~p"/tests/#{test_id}/tasks/#{max_order}")

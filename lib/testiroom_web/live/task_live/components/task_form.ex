@@ -10,31 +10,30 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
     <div>
       <.header>
         <%= @title %>
-        <:subtitle>Use this form to manage task records in your database.</:subtitle>
       </.header>
 
       <.simple_form for={@form} id="task-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <.input field={@form[:order]} type="hidden" value={@order} />
-        <.input field={@form[:type]} type="select" label="Type" prompt="Choose a value" options={Ecto.Enum.values(Testiroom.Exams.Task, :type)} />
-        <.input field={@form[:question]} type="text" label="Question" />
+        <.input field={@form[:type]} type="select" label={gettext("Type")} prompt={gettext("Choose a type")} options={Exams.Task.types()} />
+        <.input field={@form[:question]} type="text" label={gettext("Question")} />
         <fieldset>
-          <legend>Options</legend>
+          <legend><%= gettext("Options") %></legend>
           <.inputs_for :let={option} field={@form[:options]}>
             <input type="hidden" name="task[options_order][]" value={option.index} />
-            <.input field={option[:text]} type="text" label="Text" />
-            <.input field={option[:is_correct]} type="checkbox" label="Is correct" />
+            <.input field={option[:text]} type="text" label={gettext("Text")} />
+            <.input field={option[:is_correct]} type="checkbox" label={gettext("Is correct")} />
             <label>
-              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" /> Delete option
+              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" /> <%= gettext("Delete option") %>
             </label>
           </.inputs_for>
           <label class="block cursor-pointer">
-            <input type="checkbox" name="task[options_order][]" class="hidden" /> add more
+            <input type="checkbox" name="task[options_order][]" class="hidden" /> <%= gettext("add more") %>
           </label>
         </fieldset>
-        <.input field={@form[:shuffle_options]} type="checkbox" label="Shuffle options" />
-        <.input field={@form[:score]} type="number" label="Score" />
+        <.input field={@form[:shuffle_options]} type="checkbox" label={gettext("Shuffle options")} />
+        <.input field={@form[:score]} type="number" label={gettext("Score")} />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Task</.button>
+          <.button phx-disable-with={gettext("Saving...")}><%= gettext("Save Task") %></.button>
         </:actions>
       </.simple_form>
     </div>
@@ -73,7 +72,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Task updated successfully")
+         |> put_flash(:info, gettext("Task updated successfully"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->
@@ -90,7 +89,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
 
         {:noreply,
          socket
-         |> put_flash(:info, "Task created successfully")
+         |> put_flash(:info, gettext("Task created successfully"))
          |> push_patch(to: socket.assigns.patch)}
 
       {:error, %Ecto.Changeset{} = changeset} ->

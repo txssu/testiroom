@@ -1,26 +1,28 @@
 <header class="px-4 sm:px-6 lg:px-8">
   <div class="flex items-center justify-between border-b border-zinc-100 py-3 text-sm">
     <div class="flex items-center gap-4">
-      <p class="font-bold pr-6">
-        Testiroom
+      <p class="pr-6 font-bold">
+        <%= TestiroomWeb.Gettext.gettext("Testiroom") %>
       </p>
-      <.link patch={~p"/tests"}>Tests</.link>
+      <.link patch={~p"/tests"}>
+        <%= TestiroomWeb.Gettext.gettext("Tests") %>
+      </.link>
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
       <%= if @current_user do %>
         <%= @current_user.email %>
         <.link href={~p"/users/settings"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
-          Settings
+          <%= TestiroomWeb.Gettext.gettext("Settings") %>
         </.link>
         <.link href={~p"/users/log_out"} method="delete" class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
-          Log out
+          <%= TestiroomWeb.Gettext.gettext("Log out") %>
         </.link>
       <% else %>
         <.link href={~p"/users/register"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
-          Register
+          <%= TestiroomWeb.Gettext.gettext("Register") %>
         </.link>
         <.link href={~p"/users/log_in"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
-          Log in
+          <%= TestiroomWeb.Gettext.gettext("Log in") %>
         </.link>
       <% end %>
     </div>

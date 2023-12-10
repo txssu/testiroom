@@ -1,5 +1,5 @@
 <.test_editor_header test_id={@test_id}>
-  Listing Tasks
+  <%= gettext("Listing Tasks") %>
 </.test_editor_header>
 
 <ul class="flex flex-wrap gap-4">
@@ -12,24 +12,26 @@
 </ul>
 
 <.table id="tasks" rows={@streams.tasks}>
-  <:col :let={{_id, task}} label="Order"><%= task.order %></:col>
-  <:col :let={{_id, task}} label="Type"><%= task.type %></:col>
-  <:col :let={{_id, task}} label="Question"><%= task.question %></:col>
-  <:col :let={{_id, task}} label="Media path"><%= task.media_path %></:col>
-  <:col :let={{_id, task}} label="Shuffle options"><%= task.shuffle_options %></:col>
-  <:col :let={{_id, task}} label="Score"><%= task.score %></:col>
+  <:col :let={{_id, task}} label={gettext("Order")}><%= task.order %></:col>
+  <:col :let={{_id, task}} label={gettext("Type")}><%= task.type %></:col>
+  <:col :let={{_id, task}} label={gettext("Question")}><%= task.question %></:col>
+  <:col :let={{_id, task}} label={gettext("Media path")}><%= task.media_path %></:col>
+  <:col :let={{_id, task}} label={gettext("Shuffle options")}><%= task.shuffle_options %></:col>
+  <:col :let={{_id, task}} label={gettext("Score")}><%= task.score %></:col>
   <:action :let={{_id, task}}>
-    <.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/#{task}"}>Edit</.link>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/#{task}"}>
+      <%= gettext("Edit") %>
+    </.link>
   </:action>
   <:action :let={{id, task}}>
-    <.link phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")} data-confirm="Are you sure?">
-      Delete
+    <.link phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")} data-confirm={gettext("Are you sure?")}>
+      <%= gettext("Delete") %>
     </.link>
   </:action>
 </.table>
 
 <.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
-  <.button>New Task</.button>
+  <.button><%= gettext("New Task") %></.button>
 </.link>
 
 <.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}>

@@ -9,34 +9,34 @@ defmodule TestiroomWeb.TestLive.Components.EditTest do
     ~H"""
     <div>
       <.simple_form for={@form} id="test-form" phx-target={@myself} phx-change="validate" phx-submit="save">
-        <.input field={@form[:title]} type="text" label="Title" />
-        <.input field={@form[:description]} type="textarea" label="Description" />
-        <.input field={@form[:starts_at]} type="datetime-local" label="Starts at" />
-        <.input field={@form[:ends_at]} type="datetime-local" label="Ends at" />
-        <.input field={@form[:duration_in_seconds]} type="number" label="Duration in seconds" />
+        <.input field={@form[:title]} type="text" label={gettext("Title")} />
+        <.input field={@form[:description]} type="textarea" label={gettext("Description")} />
+        <.input field={@form[:starts_at]} type="datetime-local" label={gettext("Starts at")} />
+        <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
+        <.input field={@form[:duration_in_seconds]} type="number" label={gettext("Duration in seconds")} />
         <fieldset>
           <.inputs_for :let={grade} field={@form[:grades]}>
             <input type="hidden" name="test[grades_order][]" value={grade.index} />
 
-            <.input field={grade[:grade]} type="text" label="Grade" />
-            <.input field={grade[:from]} type="number" label="From" />
+            <.input field={grade[:grade]} type="text" label={gettext("Grade")} />
+            <.input field={grade[:from]} type="number" label={gettext("From")} />
 
             <label>
-              <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" /> Delete grade
+              <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" /> <%= gettext("Delete grade") %>
             </label>
           </.inputs_for>
           <label class="block cursor-pointer">
-            <input type="checkbox" name="test[grades_order][]" class="hidden" /> add more
+            <input type="checkbox" name="test[grades_order][]" class="hidden" /> <%= gettext("add more") %>
           </label>
         </fieldset>
         <input type="hidden" name="test[grades_delete][]" />
 
-        <.input field={@form[:show_correctness_for_student]} type="checkbox" label="Show correctness for student" />
-        <.input field={@form[:show_score_for_student]} type="checkbox" label="Show score for student" />
-        <.input field={@form[:show_grade_for_student]} type="checkbox" label="Show grade for student" />
-        <.input field={@form[:show_answer_for_student]} type="checkbox" label="Show answer for student" />
+        <.input field={@form[:show_correctness_for_student]} type="checkbox" label={gettext("Show correctness for student")} />
+        <.input field={@form[:show_score_for_student]} type="checkbox" label={gettext("Show score for student")} />
+        <.input field={@form[:show_grade_for_student]} type="checkbox" label={gettext("Show grade for student")} />
+        <.input field={@form[:show_answer_for_student]} type="checkbox" label={gettext("Show answer for student")} />
         <:actions>
-          <.button phx-disable-with="Saving...">Save Test</.button>
+          <.button phx-disable-with={gettext("Saving...")}><%= gettext("Save Test") %></.button>
         </:actions>
       </.simple_form>
     </div>
@@ -68,7 +68,7 @@ defmodule TestiroomWeb.TestLive.Components.EditTest do
       {:ok, test} ->
         {:noreply,
          socket
-         |> put_flash(:info, "Test updated successfully")
+         |> put_flash(:info, gettext("Test updated successfully"))
          |> push_patch(to: ~p"/tests/#{test}")}
 
       {:error, %Ecto.Changeset{} = changeset} ->
