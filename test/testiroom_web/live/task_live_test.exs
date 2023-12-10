@@ -8,7 +8,7 @@ defmodule TestiroomWeb.TaskLiveTest do
   @update_attrs %{type: :single, order: 43, question: "some updated question", media_path: "some updated media_path", shuffle_options: false, score: 43}
   @invalid_attrs %{type: nil, order: nil, question: nil, media_path: nil, shuffle_options: false, score: nil}
 
-  defp create_task(_) do
+  defp create_task(_context) do
     task = task_fixture()
     %{task: task}
   end

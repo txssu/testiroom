@@ -27,8 +27,7 @@ defmodule TestiroomWeb.TestLive.Components.EditTest do
             <.input field={grade[:from]} type="number" label="From" />
 
             <label>
-              <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" />
-              Delete grade
+              <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" /> Delete grade
             </label>
           </.inputs_for>
           <label class="block cursor-pointer">

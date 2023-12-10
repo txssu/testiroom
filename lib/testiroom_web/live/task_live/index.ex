@@ -5,12 +5,12 @@ defmodule TestiroomWeb.TaskLive.Index do
   alias Testiroom.Exams
   alias Testiroom.Exams.Task
 
-  @impl true
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, socket}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_params(%{"test_id" => test_id, "order" => order} = params, _url, socket) do
     {:noreply,
      socket
@@ -37,7 +37,7 @@ defmodule TestiroomWeb.TaskLive.Index do
 
   defp apply_action(socket, :index, _params) do
     %{order: order, max_order: max_order, test_id: test_id} = socket.assigns
-    IO.inspect({order, max_order})
+
     if order <= max_order do
       socket
       |> assign(:page_title, "Listing Tasks")
@@ -47,12 +47,12 @@ defmodule TestiroomWeb.TaskLive.Index do
     end
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_info({TestiroomWeb.TaskLive.Components.TaskForm, {:saved, task}}, socket) do
     {:noreply, stream_insert(socket, :tasks, task)}
   end
 
-  @impl true
+  @impl Phoenix.LiveView
   def handle_event("delete", %{"id" => id}, socket) do
     task = Exams.get_task!(id)
     {:ok, _} = Exams.delete_task(task)

@@ -1,9 +1,11 @@
 defmodule Testiroom.Exams.Task do
+  @moduledoc false
   use Ecto.Schema
+
   import Ecto.Changeset
 
-  alias Testiroom.Exams.Test
   alias Testiroom.Exams.Option
+  alias Testiroom.Exams.Test
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id

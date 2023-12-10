@@ -1,5 +1,7 @@
 defmodule Testiroom.Exams.Grade do
+  @moduledoc false
   use Ecto.Schema
+
   import Ecto.Changeset
 
   alias Testiroom.Exams.Test

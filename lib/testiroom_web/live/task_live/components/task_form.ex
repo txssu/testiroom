@@ -4,7 +4,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
 
   alias Testiroom.Exams
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""
     <div>
@@ -24,8 +24,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
             <.input field={option[:text]} type="text" label="Text" />
             <.input field={option[:is_correct]} type="checkbox" label="Is correct" />
             <label>
-              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" />
-              Delete option
+              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" /> Delete option
             </label>
           </.inputs_for>
           <label class="block cursor-pointer">
@@ -42,7 +41,8 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
     """
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
+
   def update(%{task: task} = assigns, socket) do
     changeset = Exams.change_task(task)
 
@@ -52,13 +52,12 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
      |> assign_form(changeset)}
   end
 
-  @impl true
+  @impl Phoenix.LiveComponent
   def handle_event("validate", %{"task" => task_params}, socket) do
     changeset =
       socket.assigns.task
       |> Exams.change_task(task_params)
       |> Map.put(:action, :validate)
-      |> IO.inspect()
 
     {:noreply, assign_form(socket, changeset)}
   end

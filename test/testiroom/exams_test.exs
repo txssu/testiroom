@@ -110,9 +110,9 @@ defmodule Testiroom.ExamsTest do
   end
 
   describe "grades" do
-    alias Testiroom.Exams.Grade
-
     import Testiroom.ExamsFixtures
+
+    alias Testiroom.Exams.Grade
 
     @invalid_attrs %{from: nil, grade: nil}
 
@@ -166,9 +166,9 @@ defmodule Testiroom.ExamsTest do
   end
 
   describe "tasks" do
-    alias Testiroom.Exams.Task
-
     import Testiroom.ExamsFixtures
+
+    alias Testiroom.Exams.Task
 
     @invalid_attrs %{type: nil, order: nil, question: nil, media_path: nil, shuffle_options: nil, score: nil}
 
@@ -230,9 +230,9 @@ defmodule Testiroom.ExamsTest do
   end
 
   describe "task_options" do
-    alias Testiroom.Exams.Option
-
     import Testiroom.ExamsFixtures
+
+    alias Testiroom.Exams.Option
 
     @invalid_attrs %{text: nil, is_correct: nil}
 

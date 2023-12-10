@@ -8,7 +8,7 @@ defmodule TestiroomWeb.OptionLiveTest do
   @update_attrs %{text: "some updated text", is_correct: false}
   @invalid_attrs %{text: nil, is_correct: false}
 
-  defp create_option(_) do
+  defp create_option(_context) do
     option = option_fixture()
     %{option: option}
   end

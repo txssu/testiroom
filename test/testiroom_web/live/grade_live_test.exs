@@ -8,7 +8,7 @@ defmodule TestiroomWeb.GradeLiveTest do
   @update_attrs %{from: 43, grade: "some updated grade"}
   @invalid_attrs %{from: nil, grade: nil}
 
-  defp create_grade(_) do
+  defp create_grade(_context) do
     grade = grade_fixture()
     %{grade: grade}
   end

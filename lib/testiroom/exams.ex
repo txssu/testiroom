@@ -7,6 +7,7 @@ defmodule Testiroom.Exams do
 
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Grade
+  alias Testiroom.Exams.Option
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
@@ -312,8 +313,6 @@ defmodule Testiroom.Exams do
   def change_task(%Task{} = task, attrs \\ %{}) do
     Task.changeset(task, attrs)
   end
-
-  alias Testiroom.Exams.Option
 
   @doc """
   Returns the list of task_options.
