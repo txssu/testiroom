@@ -23,43 +23,48 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
           <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
 
-          <fieldset>
-            <legend class="mb-8 block text-lg font-semibold leading-6 text-zinc-800">
+          <fieldset phx-feedbak-for={@form[:grades].name}>
+            <legend class="block text-lg font-semibold leading-6 text-zinc-800">
               <%= gettext("Assessment Criteria") %>
             </legend>
-            <.inputs_for :let={grade} field={@form[:grades]}>
-              <div>
-                <fieldset class="grid-cols-[100px_1fr] mb-4 inline-grid gap-2 sm:mb-2 sm:grid-flow-col sm:grid-cols-none">
-                  <input type="hidden" name="test[grades_order][]" value={grade.index} />
+            <div class="mt-8">
+              <.inputs_for :let={grade} field={@form[:grades]}>
+                <div>
+                  <fieldset class="grid-cols-[100px_1fr] mt-4 inline-grid gap-2 sm:mt-2 sm:grid-flow-col sm:grid-cols-none">
+                    <input type="hidden" name="test[grades_order][]" value={grade.index} />
 
-                  <span class="py-2">
-                    <%= gettext("Grade") %>
-                  </span>
-                  <.input field={grade[:grade]} type="text" subtype="inline" size="17" />
-                  <span class="py-2">
-                    <%= gettext("from") %>
-                  </span>
-                  <div class="flex">
-                    <.input field={grade[:from]} type="number" subtype="inline" size="17" min="0" max="100" />
-                    <span class="p-2">
-                      %
+                    <span class="py-2">
+                      <%= gettext("Grade") %>
                     </span>
-                  </div>
-                  <div class="col-span-2 pl-0 sm:col-span-1 sm:pl-2">
-                    <.button tag={:label} name="test[grades_delete][]" value={grade.index}>
-                      <span class="hidden sm:inline">
-                        <.icon name="hero-x-mark-mini" />
+                    <.input field={grade[:grade]} type="text" subtype="inline" size="17" />
+                    <span class="py-2">
+                      <%= gettext("from") %>
+                    </span>
+                    <div class="flex">
+                      <.input field={grade[:from]} type="number" subtype="inline" size="17" min="0" max="100" />
+                      <span class="p-2">
+                        %
                       </span>
+                    </div>
+                    <div class="col-span-2 pl-0 sm:col-span-1 sm:pl-2">
+                      <.button tag={:label} name="test[grades_delete][]" value={grade.index}>
+                        <span class="hidden sm:inline">
+                          <.icon name="hero-x-mark-mini" />
+                        </span>
 
-                      <span class="inline sm:hidden">
-                        <%= gettext("Delete grade") %>
-                      </span>
-                    </.button>
-                  </div>
-                </fieldset>
-              </div>
-            </.inputs_for>
-            <.button tag={:label} name="test[grades_order][]">
+                        <span class="inline sm:hidden">
+                          <%= gettext("Delete grade") %>
+                        </span>
+                      </.button>
+                    </div>
+                  </fieldset>
+                </div>
+              </.inputs_for>
+            </div>
+            <.error :for={msg <- Enum.map(@form[:grades].errors, &translate_error/1)}>
+              <%= msg %>
+            </.error>
+            <.button tag={:label} name="test[grades_order][]" class="mt-3">
               <%= gettext("Add grade") %>
             </.button>
           </fieldset>
@@ -81,9 +86,10 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
 
   @impl Phoenix.LiveComponent
   def update(%{test: test} = assigns, socket) do
-    changeset = test
-    |> Map.put(:duration_in_minutes, test.duration_in_seconds && div(test.duration_in_seconds, 60))
-    |> Exams.change_test()
+    changeset =
+      test
+      |> Map.put(:duration_in_minutes, test.duration_in_seconds && div(test.duration_in_seconds, 60))
+      |> Exams.change_test()
 
     {:ok,
      socket
