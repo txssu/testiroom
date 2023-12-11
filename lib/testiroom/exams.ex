@@ -60,6 +60,7 @@ defmodule Testiroom.Exams do
   def create_test(attrs \\ %{}, %User{} = user) do
     user
     |> Ecto.build_assoc(:tests)
+    |> Map.put(:grades, Grade.default_grades())
     |> Test.changeset(attrs)
     |> Repo.insert()
   end

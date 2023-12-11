@@ -23,4 +23,13 @@ defmodule Testiroom.Exams.Grade do
     |> cast(attrs, [:grade, :from])
     |> validate_required([:grade, :from])
   end
+
+  def default_grades do
+    [
+      %__MODULE__{from: 82, grade: "5"},
+      %__MODULE__{from: 65, grade: "4"},
+      %__MODULE__{from: 45, grade: "3"},
+      %__MODULE__{from: 0, grade: "2"},
+    ]
+  end
 end

@@ -49,6 +49,7 @@ defmodule Testiroom.Exams.Test do
       sort_param: :grades_order,
       drop_param: :grades_delete
     )
+    |> validate_length(:grades, min: 1)
     |> convert_duration_to_seconds()
     |> validate_grades()
   end
