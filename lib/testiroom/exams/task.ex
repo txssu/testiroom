@@ -41,4 +41,9 @@ defmodule Testiroom.Exams.Task do
   end
 
   def types, do: @types_with_names
+
+
+  for {name, type} <- @types_with_names do
+    def type_to_name(unquote(type)), do: unquote(name)
+  end
 end

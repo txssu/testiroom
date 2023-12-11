@@ -2,22 +2,22 @@
   <%= gettext("Listing Tasks") %>
 </.test_editor_header>
 
-<ul class="flex flex-wrap gap-4">
+<ul class="flex flex-wrap gap-4 mt-4">
   <li :for={order <- 0..@max_order}>
-    <.link patch={~p"/tests/#{@test_id}/tasks/#{order}"}><%= order + 1 %></.link>
+    <.button kind={if order == @order, do: :page_outline, else: :page_outline_inactive} tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{order}"}>
+      <%= order + 1 %>
+    </.button>
   </li>
   <li>
-    <.link patch={~p"/tests/#{@test_id}/tasks/#{@max_order + 1}/new"}>+</.link>
+    <.button kind={:page_outline_inactive} class="px-0" tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{@max_order + 1}/new"}>
+      <.icon name="hero-plus-small-solid" />
+    </.button>
   </li>
 </ul>
 
 <.table id="tasks" rows={@streams.tasks}>
-  <:col :let={{_id, task}} label={gettext("Order")}><%= task.order %></:col>
-  <:col :let={{_id, task}} label={gettext("Type")}><%= task.type %></:col>
+  <:col :let={{_id, task}} label={gettext("Type")}><%= Task.type_to_name(task.type) %></:col>
   <:col :let={{_id, task}} label={gettext("Question")}><%= task.question %></:col>
-  <:col :let={{_id, task}} label={gettext("Media path")}><%= task.media_path %></:col>
-  <:col :let={{_id, task}} label={gettext("Shuffle options")}><%= task.shuffle_options %></:col>
-  <:col :let={{_id, task}} label={gettext("Score")}><%= task.score %></:col>
   <:action :let={{_id, task}}>
     <.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/#{task}"}>
       <%= gettext("Edit") %>
@@ -30,9 +30,9 @@
   </:action>
 </.table>
 
-<.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
-  <.button><%= gettext("New Task") %></.button>
-</.link>
+<.button class="mt-3" tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
+  <%= gettext("New Task") %>
+</.button>
 
 <.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}>
   <.live_component

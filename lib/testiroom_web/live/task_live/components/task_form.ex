@@ -15,20 +15,28 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
       <.simple_form for={@form} id="task-form" phx-target={@myself} phx-change="validate" phx-submit="save">
         <.input field={@form[:order]} type="hidden" value={@order} />
         <.input field={@form[:type]} type="select" label={gettext("Type")} prompt={gettext("Choose a type")} options={Exams.Task.types()} />
-        <.input field={@form[:question]} type="text" label={gettext("Question")} />
+        <.input field={@form[:question]} type="textarea" label={gettext("Question")} />
         <fieldset>
-          <legend><%= gettext("Options") %></legend>
-          <.inputs_for :let={option} field={@form[:options]}>
-            <input type="hidden" name="task[options_order][]" value={option.index} />
-            <.input field={option[:text]} type="text" label={gettext("Text")} />
-            <.input field={option[:is_correct]} type="checkbox" label={gettext("Is correct")} />
-            <label>
-              <input type="checkbox" name="task[options_delete][]" value={option.index} class="hidden" /> <%= gettext("Delete option") %>
-            </label>
-          </.inputs_for>
-          <label class="block cursor-pointer">
-            <input type="checkbox" name="task[options_order][]" class="hidden" /> <%= gettext("add more") %>
-          </label>
+          <legend class="block text-sm font-semibold leading-6 text-zinc-800"><%= gettext("Options") %></legend>
+          <div>
+            <.inputs_for :let={option} field={@form[:options]}>
+              <input type="hidden" name="task[options_order][]" value={option.index} />
+              <div class="mb-2 flex-col gap-4 sm:flex">
+                <div class="flex-grow">
+                  <.input field={option[:text]} type="text" />
+                </div>
+                <div class="mt-4">
+                  <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
+                </div>
+              </div>
+              <.button tag={:label} name="task[options_delete][]" value={option.index}>
+                <%= gettext("Delete") %>
+              </.button>
+            </.inputs_for>
+          </div>
+          <.button tag={:label} name="task[options_order][]" class="mt-3">
+            <%= gettext("Add option") %>
+          </.button>
         </fieldset>
         <.input field={@form[:shuffle_options]} type="checkbox" label={gettext("Shuffle options")} />
         <.input field={@form[:score]} type="number" label={gettext("Score")} />

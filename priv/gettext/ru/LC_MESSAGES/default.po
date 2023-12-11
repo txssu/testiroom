@@ -11,7 +11,7 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/testiroom_web/components/core_components.ex:486
+#: lib/testiroom_web/components/core_components.ex:496
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Действия"
@@ -95,21 +95,11 @@ msgstr "Редактирование задания"
 msgid "Grade"
 msgstr "Оценка"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:24
-#, elixir-autogen, elixir-format
-msgid "Is correct"
-msgstr "Верный?"
-
 #: lib/testiroom_web/live/task_live/index.ex:45
 #: lib/testiroom_web/live/task_live/index.html.heex:2
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Listing Tasks"
 msgstr "Список заданий"
-
-#: lib/testiroom_web/live/task_live/index.html.heex:18
-#, elixir-autogen, elixir-format
-msgid "Media path"
-msgstr "Путь к медиа"
 
 #: lib/testiroom/exams/task.ex:12
 #, elixir-autogen, elixir-format
@@ -122,13 +112,8 @@ msgstr "Множественный выбор"
 msgid "New Task"
 msgstr "Новое задание"
 
-#: lib/testiroom_web/live/task_live/index.html.heex:15
-#, elixir-autogen, elixir-format
-msgid "Order"
-msgstr "Порядок"
-
 #: lib/testiroom_web/live/task_live/components/task_form.ex:18
-#: lib/testiroom_web/live/task_live/index.html.heex:17
+#: lib/testiroom_web/live/task_live/index.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Question"
 msgstr "Вопрос"
@@ -138,14 +123,13 @@ msgstr "Вопрос"
 msgid "Save Test"
 msgstr "Сохранить тест"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:36
+#: lib/testiroom_web/live/task_live/components/task_form.ex:44
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Сохранение..."
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:34
-#: lib/testiroom_web/live/task_live/index.html.heex:20
+#: lib/testiroom_web/live/task_live/components/task_form.ex:42
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr "Баллы"
@@ -170,23 +154,22 @@ msgstr "Показывать оценку ученикам"
 msgid "Show score for student"
 msgstr "Показывать баллы ученикам"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:33
-#: lib/testiroom_web/live/task_live/index.html.heex:19
+#: lib/testiroom_web/live/task_live/components/task_form.ex:41
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
-msgstr "Перемешать варианты"
+msgstr "Перемешать варианты ответа"
 
 #: lib/testiroom/exams/task.ex:12
 #, elixir-autogen, elixir-format
 msgid "Single select"
 msgstr "Одиночный выбор"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:92
+#: lib/testiroom_web/live/task_live/components/task_form.ex:100
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr "Задание успешно создано"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:75
+#: lib/testiroom_web/live/task_live/components/task_form.ex:83
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr "Задание успешно обновлено"
@@ -201,26 +184,16 @@ msgstr "Тест успешно создан"
 msgid "Test updated successfully"
 msgstr "Тест успешно обновлён"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:23
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Text"
-msgstr "Текст"
-
 #: lib/testiroom/exams/task.ex:12
 #, elixir-autogen, elixir-format
 msgid "Text input"
 msgstr "Ввод текста"
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:17
-#: lib/testiroom_web/live/task_live/index.html.heex:16
+#: lib/testiroom_web/live/task_live/index.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Type"
 msgstr "Тип"
-
-#: lib/testiroom_web/live/task_live/components/task_form.ex:30
-#, elixir-autogen, elixir-format
-msgid "add more"
-msgstr "добавить ещё"
 
 #: lib/testiroom_web/live/components/test_editor_header.ex:20
 #, elixir-autogen, elixir-format, fuzzy
@@ -232,17 +205,17 @@ msgstr "Редактор"
 msgid "Tasks"
 msgstr "Задания"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:26
+#: lib/testiroom_web/live/task_live/components/task_form.ex:33
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete option"
-msgstr "Удалить вариант"
+msgstr "Удалить вариант ответа"
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:20
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Options"
-msgstr "Варианты"
+msgstr "Варианты ответа"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:36
+#: lib/testiroom_web/live/task_live/components/task_form.ex:44
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr "Сохранить задание"
@@ -342,7 +315,17 @@ msgstr "Синхронизация"
 msgid "Duration in minutes"
 msgstr "Длительность в минутах"
 
-#: lib/testiroom/exams/test.ex:68
+#: lib/testiroom/exams/test.ex:69
 #, elixir-autogen, elixir-format
 msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr "должны охватывать значения от 0 до 100 (необходимо добавить оценку от 0%)."
+
+#: lib/testiroom_web/live/task_live/components/task_form.ex:38
+#, elixir-autogen, elixir-format
+msgid "Add option"
+msgstr "Добавить вариант ответа"
+
+#: lib/testiroom_web/live/task_live/components/task_form.ex:29
+#, elixir-autogen, elixir-format
+msgid "Correct answer"
+msgstr "Верный ответ"

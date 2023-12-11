@@ -55,7 +55,7 @@ defmodule TestiroomWeb.CoreComponents do
               phx-window-keydown={JS.exec("data-cancel", to: "##{@id}")}
               phx-key="escape"
               phx-click-away={JS.exec("data-cancel", to: "##{@id}")}
-              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-14 shadow-lg ring-1 transition"
+              class="shadow-zinc-700/10 ring-zinc-700/10 relative hidden rounded-2xl bg-white p-6 sm:p-14 shadow-lg ring-1 transition"
             >
               <div class="absolute top-6 right-5">
                 <button phx-click={JS.exec("data-cancel", to: "##{@id}")} type="button" class="-m-3 flex-none p-3 opacity-20 hover:opacity-40" aria-label={gettext("close")}>
@@ -209,7 +209,7 @@ defmodule TestiroomWeb.CoreComponents do
                                    referrerpolicy rel target type)
 
   attr :tag, :atom, default: :button, values: ~w[button link label]a
-  attr :kind, :atom, default: :default, values: ~w[default base]a
+  attr :kind, :atom, default: :default, values: ~w[default base page_base page page_outline page_outline_inactive]a
 
   attr :name, :string, default: nil
   attr :value, :string, default: nil
@@ -241,13 +241,23 @@ defmodule TestiroomWeb.CoreComponents do
     """
   end
 
-  defp button_class(:default) do
-    "#{button_class(:base)} bg-primary rounded-lg hover:bg-dark-primary text-white active:text-white/80"
-  end
+  @base_button "px-3 py-2 phx-submit-loading:opacity-75 text-sm font-semibold leading-6"
+  defp button_class(:base), do: @base_button
 
-  defp button_class(:base) do
-    "px-3 py-2 phx-submit-loading:opacity-75 text-sm font-semibold leading-6"
-  end
+  @default_button "#{@base_button} bg-primary rounded-lg hover:bg-dark-primary text-white active:text-white/80"
+  defp button_class(:default), do: @default_button
+
+  @page_base_button "inline-block h-9 min-w-[36px] px-2 rounded-[12px] flex justify-center items-center"
+  defp button_class(:page_base), do: @page_base_button
+
+  @page_button "#{@page_base_button} bg-primary text-white"
+  defp button_class(:page), do: @page_button
+
+  @page_outline_button "#{@page_base_button} border-2 border-primary"
+  defp button_class(:page_outline), do: @page_outline_button
+
+  @page_outline_inactive_button "#{@page_base_button} border-2 border-ink-gray"
+  defp button_class(:page_outline_inactive), do: @page_outline_inactive_button
 
   @doc """
   Renders an input with label and error messages.
