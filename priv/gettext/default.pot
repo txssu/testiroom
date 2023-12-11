@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/testiroom_web/components/core_components.ex:444
+#: lib/testiroom_web/components/core_components.ex:486
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -45,7 +45,7 @@ msgstr ""
 msgid "Edit Test"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:15
+#: lib/testiroom_web/live/test_live/components/test_form.ex:23
 #: lib/testiroom_web/live/test_live/index.html.heex:13
 #, elixir-autogen, elixir-format
 msgid "Ends at"
@@ -63,19 +63,13 @@ msgstr ""
 msgid "New Test"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:14
+#: lib/testiroom_web/live/test_live/components/test_form.ex:22
 #: lib/testiroom_web/live/test_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Starts at"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/edit.html.heex:2
-#, elixir-autogen, elixir-format
-msgid "Test"
-msgstr ""
-
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:12
-#: lib/testiroom_web/live/test_live/components/new_test.ex:16
+#: lib/testiroom_web/live/test_live/components/test_form.ex:17
 #: lib/testiroom_web/live/test_live/index.html.heex:11
 #, elixir-autogen, elixir-format
 msgid "Title"
@@ -86,17 +80,12 @@ msgstr ""
 msgid "Choose a type"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:25
-#, elixir-autogen, elixir-format
-msgid "Delete grade"
-msgstr ""
-
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:13
+#: lib/testiroom_web/live/test_live/components/test_form.ex:19
 #, elixir-autogen, elixir-format
 msgid "Description"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:16
+#: lib/testiroom_web/live/test_live/components/test_form.ex:24
 #, elixir-autogen, elixir-format
 msgid "Duration in seconds"
 msgstr ""
@@ -106,12 +95,7 @@ msgstr ""
 msgid "Edit Task"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:22
-#, elixir-autogen, elixir-format
-msgid "From"
-msgstr ""
-
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:21
+#: lib/testiroom_web/live/test_live/components/test_form.ex:36
 #, elixir-autogen, elixir-format
 msgid "Grade"
 msgstr ""
@@ -154,13 +138,13 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:39
+#: lib/testiroom_web/live/test_live/components/test_form.ex:75
 #, elixir-autogen, elixir-format
 msgid "Save Test"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:36
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:39
+#: lib/testiroom_web/live/test_live/components/test_form.ex:75
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
@@ -171,22 +155,22 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:37
+#: lib/testiroom_web/live/test_live/components/test_form.ex:72
 #, elixir-autogen, elixir-format
 msgid "Show answer for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:34
+#: lib/testiroom_web/live/test_live/components/test_form.ex:69
 #, elixir-autogen, elixir-format
 msgid "Show correctness for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:36
+#: lib/testiroom_web/live/test_live/components/test_form.ex:71
 #, elixir-autogen, elixir-format
 msgid "Show grade for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:35
+#: lib/testiroom_web/live/test_live/components/test_form.ex:70
 #, elixir-autogen, elixir-format
 msgid "Show score for student"
 msgstr ""
@@ -212,12 +196,12 @@ msgstr ""
 msgid "Task updated successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/new_test.ex:52
+#: lib/testiroom_web/live/test_live/components/test_form.ex:126
 #, elixir-autogen, elixir-format
 msgid "Test created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:71
+#: lib/testiroom_web/live/test_live/components/test_form.ex:111
 #, elixir-autogen, elixir-format
 msgid "Test updated successfully"
 msgstr ""
@@ -239,17 +223,16 @@ msgid "Type"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:30
-#: lib/testiroom_web/live/test_live/components/edit_test.ex:29
 #, elixir-autogen, elixir-format
 msgid "add more"
 msgstr ""
 
-#: lib/testiroom_web/live/components/test_editor_header.ex:18
+#: lib/testiroom_web/live/components/test_editor_header.ex:20
 #, elixir-autogen, elixir-format
 msgid "Editor"
 msgstr ""
 
-#: lib/testiroom_web/live/components/test_editor_header.ex:21
+#: lib/testiroom_web/live/components/test_editor_header.ex:23
 #, elixir-autogen, elixir-format
 msgid "Tasks"
 msgstr ""
@@ -269,22 +252,22 @@ msgstr ""
 msgid "Save Task"
 msgstr ""
 
-#: lib/testiroom_web/components/layouts/app.html.heex:25
+#: lib/testiroom_web/components/layouts/app.html.heex:24
 #, elixir-autogen, elixir-format
 msgid "Log in"
 msgstr ""
 
-#: lib/testiroom_web/components/layouts/app.html.heex:18
+#: lib/testiroom_web/components/layouts/app.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Log out"
 msgstr ""
 
-#: lib/testiroom_web/components/layouts/app.html.heex:22
+#: lib/testiroom_web/components/layouts/app.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Register"
 msgstr ""
 
-#: lib/testiroom_web/components/layouts/app.html.heex:15
+#: lib/testiroom_web/components/layouts/app.html.heex:14
 #, elixir-autogen, elixir-format
 msgid "Settings"
 msgstr ""
@@ -322,4 +305,39 @@ msgstr ""
 #: lib/testiroom_web/components/core_components.ex:139
 #, elixir-autogen, elixir-format
 msgid "We can't find the internet"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:28
+#, elixir-autogen, elixir-format
+msgid "Assessment Criteria"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:40
+#, elixir-autogen, elixir-format
+msgid "from"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/edit.html.heex:2
+#, elixir-autogen, elixir-format
+msgid "General Information"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:63
+#, elixir-autogen, elixir-format
+msgid "Add grade"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:55
+#, elixir-autogen, elixir-format
+msgid "Delete grade"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:68
+#, elixir-autogen, elixir-format
+msgid "Student report settings"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:21
+#, elixir-autogen, elixir-format
+msgid "Synchronization"
 msgstr ""

@@ -10,7 +10,6 @@
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
       <%= if @current_user do %>
-        <%= @current_user.email %>
         <.link href={~p"/users/settings"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
           <%= TestiroomWeb.Gettext.gettext("Settings") %>
         </.link>

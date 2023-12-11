@@ -1,5 +1,5 @@
-<.test_editor_header test_id={@test.id}>
-  <%= gettext("Test") %> "<%= @test.title %>"
+<.test_editor_header test_id={@test.id} active={:editor}>
+  <%= gettext("General Information") %>
 </.test_editor_header>
 
 <.live_component module={TestiroomWeb.TestLive.Components.TestForm} id={@test.id} test={@test} action={:edit} />

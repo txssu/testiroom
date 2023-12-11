@@ -194,23 +194,59 @@ defmodule TestiroomWeb.CoreComponents do
 
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
+
+      <.inputs_for :let={item} field={@form[:items]}>
+        ...
+      </.inputs_for>
+      <.button tag="link" name="schema[items_order][]">
+        <%= gettext("add more") %>
+      </button>
   """
   attr :type, :string, default: nil
   attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(disabled form name value)
+  attr :rest, :global, include: ~w(disabled form name value navigate patch
+                                   href replace method csrf_token download hreflang
+                                   referrerpolicy rel target type)
+
+  attr :tag, :atom, default: :button, values: ~w[button link label]a
+  attr :kind, :atom, default: :default, values: ~w[default base]a
+
+  attr :name, :string, default: nil
+  attr :value, :string, default: nil
 
   slot :inner_block, required: true
 
-  def button(assigns) do
+  def button(%{tag: :button} = assigns) do
     ~H"""
-    <button
-      type={@type}
-      class={["rounded-lg bg-zinc-900 px-3 py-2 hover:bg-zinc-700 phx-submit-loading:opacity-75", "text-sm font-semibold leading-6 text-white active:text-white/80", @class]}
-      {@rest}
-    >
+    <button type={@type} class={[button_class(@kind), @class]} {@rest}>
       <%= render_slot(@inner_block) %>
     </button>
     """
+  end
+
+  def button(%{tag: :link} = assigns) do
+    ~H"""
+    <.link class={["inline-block", button_class(@kind), @class]} {@rest}>
+      <%= render_slot(@inner_block) %>
+    </.link>
+    """
+  end
+
+  def button(%{tag: :label} = assigns) do
+    ~H"""
+    <label class={["inline-block cursor-pointer", button_class(@kind), @class]}>
+      <input type="checkbox" name={@name} value={@value} class="hidden" />
+      <%= render_slot(@inner_block) %>
+    </label>
+    """
+  end
+
+  defp button_class(:default) do
+    "#{button_class(:base)} bg-primary rounded-lg hover:bg-dark-primary text-white active:text-white/80"
+  end
+
+  defp button_class(:base) do
+    "px-3 py-2 phx-submit-loading:opacity-75 text-sm font-semibold leading-6"
   end
 
   @doc """
@@ -248,6 +284,10 @@ defmodule TestiroomWeb.CoreComponents do
     values: ~w(checkbox color date datetime-local email file hidden month number password
                range radio search select tel text textarea time url week)
 
+  attr :subtype, :string,
+    default: "default",
+    values: ~w(default inline)
+
   attr :field, HTML.FormField, doc: "a form field struct retrieved from the form, for example: @form[:email]"
 
   attr :errors, :list, default: []
@@ -280,7 +320,7 @@ defmodule TestiroomWeb.CoreComponents do
     <div phx-feedback-for={@name}>
       <label class="flex items-center gap-4 text-sm leading-6 text-zinc-600">
         <input type="hidden" name={@name} value="false" />
-        <input type="checkbox" id={@id} name={@name} value="true" checked={@checked} class="rounded border-zinc-300 text-zinc-900 focus:ring-0" {@rest} />
+        <input type="checkbox" id={@id} name={@name} value="true" checked={@checked} class="text-primary border-ink-gray rounded focus:ring-0" {@rest} />
         <%= @label %>
       </label>
       <.error :for={msg <- @errors}><%= msg %></.error>
@@ -338,7 +378,9 @@ defmodule TestiroomWeb.CoreComponents do
         id={@id}
         value={HTML.Form.normalize_value(@type, @value)}
         class={[
-          "mt-2 block w-full rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
+          @subtype == "default" && "mt-2 block w-full",
+          @subtype == "inline" && "inline",
+          "rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
           @errors != [] && "border-rose-400 focus:border-rose-400"
@@ -389,7 +431,7 @@ defmodule TestiroomWeb.CoreComponents do
 
   def header(assigns) do
     ~H"""
-    <header class={[@actions != [] && "flex items-center justify-between gap-6", @class]}>
+    <header class={[@actions != [] && "flex items-center items-stretch justify-between gap-6", @class]}>
       <div>
         <h1 class="text-lg font-semibold leading-8 text-zinc-800">
           <%= render_slot(@inner_block) %>

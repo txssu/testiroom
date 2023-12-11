@@ -3,6 +3,7 @@ defmodule TestiroomWeb.Live.Components.TestEditorHeader do
   use TestiroomWeb, :html
 
   attr :test_id, :string
+  attr :active, :atom, values: ~w[editor tasks]a
 
   slot :inner_block, required: true
   slot :subtitle
@@ -10,18 +11,28 @@ defmodule TestiroomWeb.Live.Components.TestEditorHeader do
 
   def test_editor_header(assigns) do
     ~H"""
-    <.header>
+    <.header class="border-b-2">
       <%= render_slot(@inner_block) %>
       <:subtitle><%= render_slot(@subtitle) %></:subtitle>
       <:actions>
-        <.link patch={~p"/tests/#{@test_id}/"}>
-          <%= gettext("Editor") %>
-        </.link>
-        <.link patch={~p"/tests/#{@test_id}/tasks/0"}>
-          <%= gettext("Tasks") %>
-        </.link>
+        <div class="h-full space-x-4 flex flex-nowrap items-end">
+          <.button tag={:link} kind={:base} patch={~p"/tests/#{@test_id}/"} class={active_class(@active == :editor)}>
+            <%= gettext("Editor") %>
+          </.button>
+          <.button tag={:link} kind={:base} patch={~p"/tests/#{@test_id}/tasks/0"} class={active_class(@active == :tasks)}>
+            <%= gettext("Tasks") %>
+          </.button>
+        </div>
       </:actions>
     </.header>
     """
+  end
+
+  defp active_class(true) do
+    "rounded-t-lg bg-primary text-white"
+  end
+
+  defp active_class(false) do
+    "rounded-t-lg hover:bg-ink-light-gray"
   end
 end

@@ -17,26 +17,55 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
         <.input field={@form[:title]} type="text" label={gettext("Title")} />
         <%= if @action == :edit do %>
           <.input field={@form[:description]} type="textarea" label={gettext("Description")} />
+
+          <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Synchronization") %></h2>
           <.input field={@form[:starts_at]} type="datetime-local" label={gettext("Starts at")} />
           <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
           <.input field={@form[:duration_in_seconds]} type="number" label={gettext("Duration in seconds")} />
+
           <fieldset>
+            <legend class="mb-8 block text-lg font-semibold leading-6 text-zinc-800">
+              <%= gettext("Assessment Criteria") %>
+            </legend>
             <.inputs_for :let={grade} field={@form[:grades]}>
-              <input type="hidden" name="test[grades_order][]" value={grade.index} />
+              <div>
+                <fieldset class="grid-cols-[100px_1fr] mb-4 inline-grid gap-2 sm:mb-2 sm:grid-flow-col sm:grid-cols-none">
+                  <input type="hidden" name="test[grades_order][]" value={grade.index} />
 
-              <.input field={grade[:grade]} type="text" label={gettext("Grade")} />
-              <.input field={grade[:from]} type="number" label={gettext("From")} />
+                  <span class="py-2">
+                    <%= gettext("Grade") %>
+                  </span>
+                  <.input field={grade[:grade]} type="text" subtype="inline" size="17" />
+                  <span class="py-2">
+                    <%= gettext("from") %>
+                  </span>
+                  <div class="flex">
+                    <.input field={grade[:from]} type="number" subtype="inline" size="17" min="0" max="100" />
+                    <span class="p-2">
+                      %
+                    </span>
+                  </div>
+                  <div class="col-span-2 pl-0 sm:col-span-1 sm:pl-2">
+                    <.button tag={:label} name="test[grades_delete][]" value={grade.index}>
+                      <span class="hidden sm:inline">
+                        <.icon name="hero-x-mark-mini" />
+                      </span>
 
-              <label>
-                <input type="checkbox" name="test[grades_delete][]" value={grade.index} class="hidden" /> <%= gettext("Delete grade") %>
-              </label>
+                      <span class="inline sm:hidden">
+                        <%= gettext("Delete grade") %>
+                      </span>
+                    </.button>
+                  </div>
+                </fieldset>
+              </div>
             </.inputs_for>
-            <label class="block cursor-pointer">
-              <input type="checkbox" name="test[grades_order][]" class="hidden" /> <%= gettext("add more") %>
-            </label>
+            <.button tag={:label} name="test[grades_order][]">
+              <%= gettext("Add grade") %>
+            </.button>
           </fieldset>
           <input type="hidden" name="test[grades_delete][]" />
 
+          <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Student report settings") %></h2>
           <.input field={@form[:show_correctness_for_student]} type="checkbox" label={gettext("Show correctness for student")} />
           <.input field={@form[:show_score_for_student]} type="checkbox" label={gettext("Show score for student")} />
           <.input field={@form[:show_grade_for_student]} type="checkbox" label={gettext("Show grade for student")} />
