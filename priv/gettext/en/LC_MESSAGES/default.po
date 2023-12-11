@@ -90,7 +90,7 @@ msgstr ""
 msgid "Edit Task"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:36
+#: lib/testiroom_web/live/test_live/components/test_form.ex:37
 #, elixir-autogen, elixir-format
 msgid "Grade"
 msgstr ""
@@ -133,13 +133,13 @@ msgstr ""
 msgid "Question"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:75
+#: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Test"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:36
-#: lib/testiroom_web/live/test_live/components/test_form.ex:75
+#: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
@@ -150,22 +150,22 @@ msgstr ""
 msgid "Score"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:72
+#: lib/testiroom_web/live/test_live/components/test_form.ex:77
 #, elixir-autogen, elixir-format
 msgid "Show answer for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:69
+#: lib/testiroom_web/live/test_live/components/test_form.ex:74
 #, elixir-autogen, elixir-format
 msgid "Show correctness for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:71
+#: lib/testiroom_web/live/test_live/components/test_form.ex:76
 #, elixir-autogen, elixir-format
 msgid "Show grade for student"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:70
+#: lib/testiroom_web/live/test_live/components/test_form.ex:75
 #, elixir-autogen, elixir-format
 msgid "Show score for student"
 msgstr ""
@@ -191,12 +191,12 @@ msgstr ""
 msgid "Task updated successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:128
+#: lib/testiroom_web/live/test_live/components/test_form.ex:134
 #, elixir-autogen, elixir-format
 msgid "Test created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:113
+#: lib/testiroom_web/live/test_live/components/test_form.ex:119
 #, elixir-autogen, elixir-format
 msgid "Test updated successfully"
 msgstr ""
@@ -307,7 +307,7 @@ msgstr ""
 msgid "Assessment Criteria"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:40
+#: lib/testiroom_web/live/test_live/components/test_form.ex:41
 #, elixir-autogen, elixir-format, fuzzy
 msgid "from"
 msgstr ""
@@ -317,17 +317,17 @@ msgstr ""
 msgid "General Information"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:63
+#: lib/testiroom_web/live/test_live/components/test_form.ex:68
 #, elixir-autogen, elixir-format
 msgid "Add grade"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:55
+#: lib/testiroom_web/live/test_live/components/test_form.ex:56
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Delete grade"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:68
+#: lib/testiroom_web/live/test_live/components/test_form.ex:73
 #, elixir-autogen, elixir-format
 msgid "Student report settings"
 msgstr ""
@@ -340,4 +340,9 @@ msgstr ""
 #: lib/testiroom_web/live/test_live/components/test_form.ex:24
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Duration in minutes"
+msgstr ""
+
+#: lib/testiroom/exams/test.ex:68
+#, elixir-autogen, elixir-format
+msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr ""
