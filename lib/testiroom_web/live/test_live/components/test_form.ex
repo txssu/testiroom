@@ -21,7 +21,7 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Synchronization") %></h2>
           <.input field={@form[:starts_at]} type="datetime-local" label={gettext("Starts at")} />
           <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
-          <.input field={@form[:duration_in_seconds]} type="number" label={gettext("Duration in seconds")} />
+          <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
 
           <fieldset>
             <legend class="mb-8 block text-lg font-semibold leading-6 text-zinc-800">
@@ -81,7 +81,9 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
 
   @impl Phoenix.LiveComponent
   def update(%{test: test} = assigns, socket) do
-    changeset = Exams.change_test(test)
+    changeset = test
+    |> Map.put(:duration_in_minutes, test.duration_in_seconds && div(test.duration_in_seconds, 60))
+    |> Exams.change_test()
 
     {:ok,
      socket

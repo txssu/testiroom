@@ -15,6 +15,7 @@ defmodule Testiroom.Exams.Test do
     field :starts_at, :naive_datetime
     field :ends_at, :naive_datetime
     field :duration_in_seconds, :integer
+    field :duration_in_minutes, :integer, virtual: true
     field :show_correctness_for_student, :boolean, default: true
     field :show_score_for_student, :boolean, default: true
     field :show_grade_for_student, :boolean, default: true
@@ -36,7 +37,7 @@ defmodule Testiroom.Exams.Test do
       :description,
       :starts_at,
       :ends_at,
-      :duration_in_seconds,
+      :duration_in_minutes,
       :show_correctness_for_student,
       :show_score_for_student,
       :show_grade_for_student,
@@ -47,5 +48,12 @@ defmodule Testiroom.Exams.Test do
       sort_param: :grades_order,
       drop_param: :grades_delete
     )
+    |> convert_duration_to_seconds()
+  end
+
+  def convert_duration_to_seconds(changeset) do
+    minutes = get_change(changeset, :duration_in_minutes)
+
+    put_change(changeset, :duration_in_seconds, minutes && minutes * 60)
   end
 end

@@ -85,11 +85,6 @@ msgstr ""
 msgid "Description"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:24
-#, elixir-autogen, elixir-format
-msgid "Duration in seconds"
-msgstr ""
-
 #: lib/testiroom_web/live/task_live/index.ex:28
 #, elixir-autogen, elixir-format
 msgid "Edit Task"
@@ -196,12 +191,12 @@ msgstr ""
 msgid "Task updated successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:126
+#: lib/testiroom_web/live/test_live/components/test_form.ex:128
 #, elixir-autogen, elixir-format
 msgid "Test created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:111
+#: lib/testiroom_web/live/test_live/components/test_form.ex:113
 #, elixir-autogen, elixir-format
 msgid "Test updated successfully"
 msgstr ""
@@ -340,4 +335,9 @@ msgstr ""
 #: lib/testiroom_web/live/test_live/components/test_form.ex:21
 #, elixir-autogen, elixir-format
 msgid "Synchronization"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:24
+#, elixir-autogen, elixir-format
+msgid "Duration in minutes"
 msgstr ""

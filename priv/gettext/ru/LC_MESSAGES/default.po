@@ -85,11 +85,6 @@ msgstr "Выберите тип"
 msgid "Description"
 msgstr "Описание"
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:24
-#, elixir-autogen, elixir-format
-msgid "Duration in seconds"
-msgstr "Длительность в секундах"
-
 #: lib/testiroom_web/live/task_live/index.ex:28
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Edit Task"
@@ -196,12 +191,12 @@ msgstr "Задание успешно создано"
 msgid "Task updated successfully"
 msgstr "Задание успешно обновлено"
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:126
+#: lib/testiroom_web/live/test_live/components/test_form.ex:128
 #, elixir-autogen, elixir-format
 msgid "Test created successfully"
 msgstr "Тест успешно создан"
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:111
+#: lib/testiroom_web/live/test_live/components/test_form.ex:113
 #, elixir-autogen, elixir-format
 msgid "Test updated successfully"
 msgstr "Тест успешно обновлён"
@@ -341,3 +336,8 @@ msgstr "Настройки отчёта ученика"
 #, elixir-autogen, elixir-format
 msgid "Synchronization"
 msgstr "Синхронизация"
+
+#: lib/testiroom_web/live/test_live/components/test_form.ex:24
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Duration in minutes"
+msgstr "Длительность в минутах"
