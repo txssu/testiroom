@@ -18,20 +18,22 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         <.input field={@form[:question]} type="textarea" label={gettext("Question")} />
         <fieldset>
           <legend class="block text-sm font-semibold leading-6 text-zinc-800"><%= gettext("Options") %></legend>
-          <div>
+          <div class="space-y-2">
             <.inputs_for :let={option} field={@form[:options]}>
-              <input type="hidden" name="task[options_order][]" value={option.index} />
-              <div class="mb-2 flex-col gap-4 sm:flex">
-                <div class="flex-grow">
-                  <.input field={option[:text]} type="text" />
+              <div>
+                <input type="hidden" name="task[options_order][]" value={option.index} />
+                <div class="mb-2 flex flex-col gap-4 sm:flex-row">
+                  <div class="flex-grow">
+                    <.input field={option[:text]} type="text" />
+                  </div>
+                  <div class="mt-0 sm:mt-4">
+                    <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
+                  </div>
                 </div>
-                <div class="mt-4">
-                  <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
-                </div>
+                <.button class="mt-2" tag={:label} name="task[options_delete][]" value={option.index}>
+                  <%= gettext("Delete") %>
+                </.button>
               </div>
-              <.button tag={:label} name="task[options_delete][]" value={option.index}>
-                <%= gettext("Delete") %>
-              </.button>
             </.inputs_for>
           </div>
           <.button tag={:label} name="task[options_order][]" class="mt-3">
