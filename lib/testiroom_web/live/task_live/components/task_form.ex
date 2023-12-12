@@ -26,9 +26,15 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
                   <div class="flex-grow">
                     <.input field={option[:text]} type="text" />
                   </div>
-                  <div class="mt-0 sm:mt-4">
-                    <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
-                  </div>
+                  <%= if Ecto.Changeset.get_field(@form.source, :type) == :text do %>
+                    <div class="hidden">
+                      <.input field={option[:is_correct]} type="checkbox" />
+                    </div>
+                  <% else %>
+                    <div class="mt-0 sm:mt-4">
+                      <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
+                    </div>
+                  <% end %>
                 </div>
                 <.button class="mt-2" tag={:label} name="task[options_delete][]" value={option.index}>
                   <%= gettext("Delete") %>
