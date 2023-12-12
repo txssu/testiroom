@@ -23,7 +23,7 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
           <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
 
-          <fieldset phx-feedbak-for={@form[:grades].name}>
+          <fieldset phx-feedback-for={@form[:grades].name}>
             <legend class="block text-lg font-semibold leading-6 text-zinc-800">
               <%= gettext("Assessment Criteria") %>
             </legend>
