@@ -38,7 +38,49 @@ defmodule Testiroom.Exams.Task do
       sort_param: :options_order,
       drop_param: :options_delete
     )
+    |> validate_correct_options_count()
+    |> validate_options_count()
   end
+
+  defp validate_options_count(changeset) do
+    case get_field(changeset, :type) do
+      :text -> validate_length(changeset, :options, min: 1)
+      type when type in [:multiple, :single] -> validate_length(changeset, :options, min: 2)
+      nil -> changeset
+    end
+  end
+
+  defp validate_correct_options_count(changeset) do
+    correct_count =
+      changeset
+      |> get_field(:options)
+      |> Enum.count(& &1.is_correct)
+
+    type = get_field(changeset, :type)
+
+    check_correct_options_count(changeset, type, correct_count)
+  end
+
+  def check_correct_options_count(changeset, :multiple, correct_count) do
+    if correct_count >= 1 do
+      changeset
+    else
+      add_error(changeset, :options, dgettext("errors", "must be at least one correct answer"))
+    end
+  end
+
+  def check_correct_options_count(changeset, :single, correct_count) do
+    if correct_count == 1 do
+      changeset
+    else
+      add_error(changeset, :options, dgettext("errors", "must be exactly one correct answer"))
+    end
+  end
+
+  def check_correct_options_count(changeset, _type, _correct_count) do
+    changeset
+  end
+
 
   def types, do: @types_with_names
 

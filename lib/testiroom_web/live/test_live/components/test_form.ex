@@ -61,12 +61,12 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
                 </div>
               </.inputs_for>
             </div>
-            <.error :for={msg <- Enum.map(@form[:grades].errors, &translate_error/1)}>
-              <%= msg %>
-            </.error>
             <.button tag={:label} name="test[grades_order][]" class="mt-3">
               <%= gettext("Add grade") %>
             </.button>
+            <.error :for={msg <- Enum.map(@form[:grades].errors, &translate_error/1)}>
+              <%= msg %>
+            </.error>
           </fieldset>
           <input type="hidden" name="test[grades_delete][]" />
 

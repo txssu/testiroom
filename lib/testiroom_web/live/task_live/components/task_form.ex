@@ -16,7 +16,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         <.input field={@form[:order]} type="hidden" value={@order} />
         <.input field={@form[:type]} type="select" label={gettext("Type")} prompt={gettext("Choose a type")} options={Exams.Task.types()} />
         <.input field={@form[:question]} type="textarea" label={gettext("Question")} />
-        <fieldset>
+        <fieldset phx-feedback-for={@form[:options].name}>
           <legend class="block text-sm font-semibold leading-6 text-zinc-800"><%= gettext("Options") %></legend>
           <div class="space-y-2">
             <.inputs_for :let={option} field={@form[:options]}>
@@ -39,6 +39,9 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
           <.button tag={:label} name="task[options_order][]" class="mt-3">
             <%= gettext("Add option") %>
           </.button>
+          <.error :for={msg <- Enum.map(@form[:options].errors, &translate_error/1)}>
+            <%= msg %>
+          </.error>
         </fieldset>
         <.input field={@form[:shuffle_options]} type="checkbox" label={gettext("Shuffle options")} />
         <.input field={@form[:score]} type="number" label={gettext("Score")} />

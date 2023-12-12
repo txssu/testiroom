@@ -110,3 +110,13 @@ msgstr ""
 
 msgid "must be equal to %{number}"
 msgstr ""
+
+#: lib/testiroom/exams/task.ex:69
+#, elixir-autogen, elixir-format
+msgid "must be at least one correct answer"
+msgstr ""
+
+#: lib/testiroom/exams/task.ex:77
+#, elixir-autogen, elixir-format
+msgid "must be exactly one correct answer"
+msgstr ""

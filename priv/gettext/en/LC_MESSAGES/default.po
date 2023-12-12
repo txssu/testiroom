@@ -28,6 +28,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
+#: lib/testiroom_web/live/task_live/components/task_form.ex:34
 #: lib/testiroom_web/live/task_live/index.html.heex:28
 #: lib/testiroom_web/live/test_live/index.html.heex:21
 #, elixir-autogen, elixir-format
@@ -123,13 +124,13 @@ msgstr ""
 msgid "Save Test"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:44
+#: lib/testiroom_web/live/task_live/components/task_form.ex:49
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:42
+#: lib/testiroom_web/live/task_live/components/task_form.ex:47
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr ""
@@ -154,7 +155,7 @@ msgstr ""
 msgid "Show score for student"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:41
+#: lib/testiroom_web/live/task_live/components/task_form.ex:46
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
 msgstr ""
@@ -164,12 +165,12 @@ msgstr ""
 msgid "Single select"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:100
+#: lib/testiroom_web/live/task_live/components/task_form.ex:105
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:83
+#: lib/testiroom_web/live/task_live/components/task_form.ex:88
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr ""
@@ -205,17 +206,12 @@ msgstr ""
 msgid "Tasks"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:33
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Delete option"
-msgstr ""
-
 #: lib/testiroom_web/live/task_live/components/task_form.ex:20
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Options"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:44
+#: lib/testiroom_web/live/task_live/components/task_form.ex:49
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr ""
@@ -290,7 +286,7 @@ msgstr ""
 msgid "General Information"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/components/test_form.ex:68
+#: lib/testiroom_web/live/test_live/components/test_form.ex:65
 #, elixir-autogen, elixir-format
 msgid "Add grade"
 msgstr ""
@@ -320,12 +316,12 @@ msgstr ""
 msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:38
+#: lib/testiroom_web/live/task_live/components/task_form.ex:40
 #, elixir-autogen, elixir-format
 msgid "Add option"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:29
+#: lib/testiroom_web/live/task_live/components/task_form.ex:30
 #, elixir-autogen, elixir-format
 msgid "Correct answer"
 msgstr ""
