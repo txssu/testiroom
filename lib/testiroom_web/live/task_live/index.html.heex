@@ -2,7 +2,7 @@
   <%= gettext("Listing Tasks") %>
 </.test_editor_header>
 
-<ul class="flex flex-wrap gap-4 mt-4">
+<ul class="mt-4 flex flex-wrap gap-4">
   <li :for={order <- 0..@max_order}>
     <.button kind={if order == @order, do: :page_outline, else: :page_outline_inactive} tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{order}"}>
       <%= order + 1 %>

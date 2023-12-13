@@ -15,7 +15,7 @@ defmodule TestiroomWeb.Live.Components.TestEditorHeader do
       <%= render_slot(@inner_block) %>
       <:subtitle><%= render_slot(@subtitle) %></:subtitle>
       <:actions>
-        <div class="h-full space-x-4 flex flex-nowrap items-end">
+        <div class="flex h-full flex-nowrap items-end space-x-4">
           <.button tag={:link} kind={:base} patch={~p"/tests/#{@test_id}/"} class={active_class(@active == :editor)}>
             <%= gettext("Editor") %>
           </.button>

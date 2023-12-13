@@ -2,10 +2,10 @@ defmodule TestiroomWeb.TaskLive.Index do
   @moduledoc false
   use TestiroomWeb, :live_view
 
+  import TestiroomWeb.Live.Components.TestEditorHeader
+
   alias Testiroom.Exams
   alias Testiroom.Exams.Task
-
-  import TestiroomWeb.Live.Components.TestEditorHeader
 
   @impl Phoenix.LiveView
   def mount(_params, _session, socket) do

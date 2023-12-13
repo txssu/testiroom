@@ -61,7 +61,7 @@ defmodule Testiroom.Exams.Test do
   end
 
   def validate_grades(changeset) do
-    grades = get_field(changeset, :grades) |> IO.inspect()
+    grades = get_field(changeset, :grades)
 
     if grades == [] or Enum.find(grades, &(&1.from == 0)) do
       changeset

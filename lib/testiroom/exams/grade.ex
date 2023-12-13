@@ -29,7 +29,7 @@ defmodule Testiroom.Exams.Grade do
       %__MODULE__{from: 82, grade: "5"},
       %__MODULE__{from: 65, grade: "4"},
       %__MODULE__{from: 45, grade: "3"},
-      %__MODULE__{from: 0, grade: "2"},
+      %__MODULE__{from: 0, grade: "2"}
     ]
   end
 end
