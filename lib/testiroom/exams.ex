@@ -468,7 +468,21 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: [])
+  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: []) |> maybe_shuffle_options()
+
+  def maybe_shuffle_options(attempt) do
+    Map.update!(attempt, :student_answers, fn answers ->
+      Enum.map(answers, fn answer ->
+        Map.update!(answer, :task, fn task ->
+          if task.shuffle_options do
+            Map.update!(task, :options, &Enum.shuffle/1)
+          else
+            task
+          end
+        end)
+      end)
+    end)
+  end
 
   def change_student_answer(%StudentAnswer{} = student_answer, attrs \\ %{}) do
     StudentAnswer.changeset(student_answer, attrs)
