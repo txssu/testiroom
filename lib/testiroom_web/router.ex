@@ -11,7 +11,7 @@ defmodule TestiroomWeb.Router do
     plug :protect_from_forgery
 
     plug :put_secure_browser_headers, %{
-      "content-security-policy" => "default-src 'self'; img-src 'self' data: blob:;"
+      "content-security-policy" => "default-src 'self'; img-src 'self' data: blob:; style-src 'self' https://fonts.googleapis.com; font-src 'self' https://fonts.gstatic.com;"
     }
 
     plug :fetch_current_user
@@ -42,6 +42,15 @@ defmodule TestiroomWeb.Router do
       live "/tests/:test_id/tasks/:order", TaskLive.Index, :index
       live "/tests/:test_id/tasks/:order/new", TaskLive.Index, :new
       live "/tests/:test_id/tasks/:order/:task_id/", TaskLive.Index, :edit
+    end
+
+    live_session :exam,
+      on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}],
+      layout: {TestiroomWeb.Layouts, :exam} do
+      live "/exams/tests/:test_id", ExamLive.Start
+
+      live "/exams/:attempt_id/result", ExamLive.Result, :index
+      live "/exams/:attempt_id/:order", ExamLive.Testing
     end
   end
 

@@ -6,8 +6,8 @@ defmodule Testiroom.Repo.Migrations.CreateTests do
       add :id, :binary_id, primary_key: true
       add :title, :text, null: false
       add :description, :text
-      add :starts_at, :naive_datetime
-      add :ends_at, :naive_datetime
+      add :starts_at, :timestamptz
+      add :ends_at, :timestamptz
       add :duration_in_seconds, :integer
       add :show_correctness_for_student, :boolean, default: true, null: false
       add :show_score_for_student, :boolean, default: true, null: false

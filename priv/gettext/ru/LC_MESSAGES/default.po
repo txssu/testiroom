@@ -11,7 +11,7 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/testiroom_web/components/core_components.ex:496
+#: lib/testiroom_web/components/core_components.ex:512
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Действия"
@@ -28,7 +28,7 @@ msgstr "закрыть"
 msgid "Are you sure?"
 msgstr "Вы уверены?"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:34
+#: lib/testiroom_web/live/task_live/components/task_form.ex:40
 #: lib/testiroom_web/live/task_live/index.html.heex:28
 #: lib/testiroom_web/live/test_live/index.html.heex:21
 #, elixir-autogen, elixir-format
@@ -102,7 +102,7 @@ msgstr "Оценка"
 msgid "Listing Tasks"
 msgstr "Список заданий"
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Multiple select"
 msgstr "Множественный выбор"
@@ -124,13 +124,13 @@ msgstr "Вопрос"
 msgid "Save Test"
 msgstr "Сохранить тест"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:49
+#: lib/testiroom_web/live/task_live/components/task_form.ex:55
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Сохранение..."
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:47
+#: lib/testiroom_web/live/task_live/components/task_form.ex:53
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr "Баллы"
@@ -155,22 +155,22 @@ msgstr "Показывать оценку ученикам"
 msgid "Show score for student"
 msgstr "Показывать баллы ученикам"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:46
+#: lib/testiroom_web/live/task_live/components/task_form.ex:52
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
 msgstr "Перемешать варианты ответа"
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Single select"
 msgstr "Одиночный выбор"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:105
+#: lib/testiroom_web/live/task_live/components/task_form.ex:111
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr "Задание успешно создано"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:88
+#: lib/testiroom_web/live/task_live/components/task_form.ex:94
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr "Задание успешно обновлено"
@@ -185,7 +185,7 @@ msgstr "Тест успешно создан"
 msgid "Test updated successfully"
 msgstr "Тест успешно обновлён"
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Text input"
 msgstr "Ввод текста"
@@ -211,7 +211,7 @@ msgstr "Задания"
 msgid "Options"
 msgstr "Варианты ответа"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:49
+#: lib/testiroom_web/live/task_live/components/task_form.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr "Сохранить задание"
@@ -254,7 +254,7 @@ msgstr "Попытка восстановить соединение"
 #: lib/testiroom_web/components/core_components.ex:135
 #, elixir-autogen, elixir-format
 msgid "Error!"
-msgstr "Error!"
+msgstr "Ошибка!"
 
 #: lib/testiroom_web/components/core_components.ex:148
 #, elixir-autogen, elixir-format
@@ -316,12 +316,85 @@ msgstr "Длительность в минутах"
 msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr "должны охватывать значения от 0 до 100 (необходимо добавить оценку от 0%)."
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:40
+#: lib/testiroom_web/live/task_live/components/task_form.ex:46
 #, elixir-autogen, elixir-format
 msgid "Add option"
 msgstr "Добавить вариант ответа"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:30
+#: lib/testiroom_web/live/task_live/components/task_form.ex:35
 #, elixir-autogen, elixir-format
 msgid "Correct answer"
 msgstr "Верный ответ"
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Test duration: 1 minute"
+msgid_plural "Test duration: %{count} minutes"
+msgstr[0] "Длительность теста: %{count} минута"
+msgstr[1] "Длительность теста: %{count} минуты"
+msgstr[2] "Длительность теста: %{count} минут"
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "/"
+msgstr "из"
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
+#, elixir-autogen, elixir-format
+msgid "Enter your answer"
+msgstr "Введите свой ответ"
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "Next"
+msgstr "Далее"
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Previous"
+msgstr "Назад"
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Review"
+msgstr "Обзор"
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:19
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Start test"
+msgstr "Начать тест"
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:16
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Test ends at"
+msgstr "Тест заканчивается в"
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Test starts at"
+msgstr "Тест начинается в"
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "Wrap up"
+msgstr "Завершить"
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:100
+#, elixir-autogen, elixir-format, fuzzy
+msgid "one answer"
+msgstr "один ответ"
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
+#, elixir-autogen, elixir-format
+msgid "one or more answers"
+msgstr "один или несколько ответов"
+
+#: lib/testiroom_web/live/exam_live/testing.ex:81
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Task"
+msgstr "Задание"
+
+#: lib/testiroom_web/live/exam_live/start.ex:24
+#, elixir-autogen, elixir-format
+msgid "This test is over or hasn't started yet"
+msgstr "Тест закончился или ещё не начался"

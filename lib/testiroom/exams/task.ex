@@ -6,6 +6,7 @@ defmodule Testiroom.Exams.Task do
   import TestiroomWeb.Gettext
 
   alias Testiroom.Exams.Option
+  alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
 
   @types ~w[multiple single text]a
@@ -25,6 +26,8 @@ defmodule Testiroom.Exams.Task do
     belongs_to :test, Test
 
     has_many :options, Option, on_replace: :delete
+
+    has_many :student_answers, StudentAnswer
 
     timestamps(type: :utc_datetime)
   end

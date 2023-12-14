@@ -1,0 +1,20 @@
+<div class="flex flex-col gap-2.5">
+  <h2 class="select-none text-2xl font-medium"><%= @test.title %></h2>
+  <p class="select-none"><%= @test.description %></p>
+</div>
+<div class="flex flex-col gap-2.5">
+  <div>
+    <%= if @test.duration_in_seconds do %>
+      <p>
+        <%= ngettext("Test duration: 1 minute", "Test duration: %{count} minutes", div(@test.duration_in_seconds, 60)) %>
+      </p>
+    <% end %>
+    <%= if @test.starts_at do %>
+      <p><%= gettext("Test starts at") %> <%= format_datetime(@test.starts_at) %></p>
+    <% end %>
+    <%= if @test.ends_at do %>
+      <p><%= gettext("Test ends at") %> <%= format_datetime(@test.ends_at) %></p>
+    <% end %>
+  </div>
+  <.button kind={:tall} phx-click="start"><%= gettext("Start test")%></.button>
+</div>

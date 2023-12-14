@@ -6,8 +6,10 @@ defmodule Testiroom.Exams do
   import Ecto.Query, warn: false
 
   alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Attempt
   alias Testiroom.Exams.Grade
   alias Testiroom.Exams.Option
+  alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
@@ -43,7 +45,7 @@ defmodule Testiroom.Exams do
       ** (Ecto.NoResultsError)
 
   """
-  def get_test!(id), do: Test |> Repo.get!(id) |> Repo.preload(:grades)
+  def get_test!(id), do: Test |> Repo.get!(id) |> Repo.preload([:grades, :tasks])
 
   @doc """
   Creates a test.
@@ -407,5 +409,75 @@ defmodule Testiroom.Exams do
   """
   def change_option(%Option{} = option, attrs \\ %{}) do
     Option.changeset(option, attrs)
+  end
+
+  def start_attempt(user, test) do
+    attempt = maybe_add_ended_at(%Attempt{user: user, test: test})
+
+    multi =
+      Ecto.Multi.new()
+      |> Ecto.Multi.insert(:attempt, attempt)
+      |> Ecto.Multi.run(:student_answers, fn _repo, %{attempt: attempt} ->
+        tasks = get_varitant(test)
+        create_answers(attempt, tasks)
+      end)
+
+    case Repo.transaction(multi) do
+      {:ok, %{attempt: attempt}} -> {:ok, attempt}
+      {:error, _failed_operation, changeset, _changes_so_far} -> {:error, changeset}
+    end
+  end
+
+  def update_attempt_ended_now!(attempt) do
+    attempt
+    |> Attempt.changeset(%{ended_at: DateTime.utc_now()})
+    |> Repo.update!()
+  end
+
+  defp maybe_add_ended_at(attempt) do
+    if duration = attempt.test.duration_in_seconds do
+      ended_at = DateTime.add(DateTime.utc_now(:second), duration, :second)
+      %{attempt | ended_at: ended_at}
+    else
+      attempt
+    end
+  end
+
+  defp get_varitant(test) do
+    test.tasks
+    |> Enum.group_by(& &1.order)
+    |> Enum.map(fn {_order, tasks} ->
+      Enum.random(tasks)
+    end)
+  end
+
+  defp create_answers(attempt, tasks) do
+    multi =
+      tasks
+      |> Stream.with_index()
+      |> Enum.reduce(
+        Ecto.Multi.new(),
+        fn {task, index}, multi ->
+          Ecto.Multi.insert(multi, index, %StudentAnswer{order: task.order, attempt: attempt, task: task})
+        end
+      )
+
+    case Repo.transaction(multi) do
+      {:ok, answers} -> {:ok, answers}
+      {:error, _failed_operation, changeset, _changes_so_far} -> {:error, changeset}
+    end
+  end
+
+  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: [])
+
+  def change_student_answer(%StudentAnswer{} = student_answer, attrs \\ %{}) do
+    StudentAnswer.changeset(student_answer, attrs)
+  end
+
+  def update_student_answer(%StudentAnswer{} = student_answer, selected_options, attrs) do
+    student_answer
+    |> StudentAnswer.changeset(attrs)
+    |> Ecto.Changeset.put_assoc(:selected_options, selected_options)
+    |> Repo.update()
   end
 end

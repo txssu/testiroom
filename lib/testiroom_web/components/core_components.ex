@@ -209,7 +209,9 @@ defmodule TestiroomWeb.CoreComponents do
                                    referrerpolicy rel target type)
 
   attr :tag, :atom, default: :button, values: ~w[button link label]a
-  attr :kind, :atom, default: :default, values: ~w[default base page_base page page_outline page_outline_inactive]a
+  attr :kind, :atom, default: :default, values: ~w[base default
+                                                   page_base page page_outline page_outline_inactive
+                                                   tall_base tall tall_outline tall_outline_inactive]a
 
   attr :name, :string, default: nil
   attr :value, :string, default: nil
@@ -226,7 +228,7 @@ defmodule TestiroomWeb.CoreComponents do
 
   def button(%{tag: :link} = assigns) do
     ~H"""
-    <.link class={["inline-block", button_class(@kind), @class]} {@rest}>
+    <.link class={["inline-block text-center", button_class(@kind), @class]} {@rest}>
       <%= render_slot(@inner_block) %>
     </.link>
     """
@@ -258,6 +260,19 @@ defmodule TestiroomWeb.CoreComponents do
 
   @page_outline_inactive_button "#{@page_base_button} border-2 border-ink-gray"
   defp button_class(:page_outline_inactive), do: @page_outline_inactive_button
+
+  @tall_base_button "py-4 px-8 rounded-[16px] phx-submit-loading:opacity-75 text-sm font-semibold leading-6"
+  defp button_class(:tall_base), do: @tall_base_button
+
+  @tall_button "#{@tall_base_button} bg-primary hover:bg-dark-primary text-white active:text-white/80"
+  defp button_class(:tall), do: @tall_button
+
+  @tall_outline_button "#{@tall_base_button} border-2 border-primary hover:bg-ink-light-gray text-ink-dark active:text-ink-dark/80"
+  defp button_class(:tall_outline), do: @tall_outline_button
+
+  @tall_outline_inactive_button "#{@tall_base_button} border-2 border-ink-gray"
+  defp button_class(:tall_outline_inactive), do: @tall_outline_inactive_button
+
 
   @doc """
   Renders an input with label and error messages.
@@ -296,7 +311,7 @@ defmodule TestiroomWeb.CoreComponents do
 
   attr :subtype, :string,
     default: "default",
-    values: ~w(default inline)
+    values: ~w(default inline wide)
 
   attr :field, HTML.FormField, doc: "a form field struct retrieved from the form, for example: @form[:email]"
 
@@ -390,6 +405,7 @@ defmodule TestiroomWeb.CoreComponents do
         class={[
           @subtype == "default" && "mt-2 block w-full",
           @subtype == "inline" && "inline",
+          @subtype == "wide" && "p-4 block w-full",
           "rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",

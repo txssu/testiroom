@@ -11,7 +11,7 @@ msgstr ""
 "Language: en\n"
 "Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: lib/testiroom_web/components/core_components.ex:496
+#: lib/testiroom_web/components/core_components.ex:512
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -28,7 +28,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:34
+#: lib/testiroom_web/live/task_live/components/task_form.ex:40
 #: lib/testiroom_web/live/task_live/index.html.heex:28
 #: lib/testiroom_web/live/test_live/index.html.heex:21
 #, elixir-autogen, elixir-format
@@ -102,7 +102,7 @@ msgstr ""
 msgid "Listing Tasks"
 msgstr ""
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Multiple select"
 msgstr ""
@@ -124,13 +124,13 @@ msgstr ""
 msgid "Save Test"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:49
+#: lib/testiroom_web/live/task_live/components/task_form.ex:55
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:47
+#: lib/testiroom_web/live/task_live/components/task_form.ex:53
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr ""
@@ -155,22 +155,22 @@ msgstr ""
 msgid "Show score for student"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:46
+#: lib/testiroom_web/live/task_live/components/task_form.ex:52
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
 msgstr ""
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Single select"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:105
+#: lib/testiroom_web/live/task_live/components/task_form.ex:111
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:88
+#: lib/testiroom_web/live/task_live/components/task_form.ex:94
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr ""
@@ -185,7 +185,7 @@ msgstr ""
 msgid "Test updated successfully"
 msgstr ""
 
-#: lib/testiroom/exams/task.ex:12
+#: lib/testiroom/exams/task.ex:13
 #, elixir-autogen, elixir-format
 msgid "Text input"
 msgstr ""
@@ -211,7 +211,7 @@ msgstr ""
 msgid "Options"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:49
+#: lib/testiroom_web/live/task_live/components/task_form.ex:55
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr ""
@@ -316,12 +316,84 @@ msgstr ""
 msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:40
+#: lib/testiroom_web/live/task_live/components/task_form.ex:46
 #, elixir-autogen, elixir-format
 msgid "Add option"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:30
+#: lib/testiroom_web/live/task_live/components/task_form.ex:35
 #, elixir-autogen, elixir-format
 msgid "Correct answer"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:9
+#, elixir-autogen, elixir-format
+msgid "Test duration: 1 minute"
+msgid_plural "Test duration: %{count} minutes"
+msgstr[0] ""
+msgstr[1] ""
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:14
+#, elixir-autogen, elixir-format
+msgid "/"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
+#, elixir-autogen, elixir-format
+msgid "Enter your answer"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:21
+#, elixir-autogen, elixir-format
+msgid "Next"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:18
+#, elixir-autogen, elixir-format
+msgid "Previous"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:26
+#, elixir-autogen, elixir-format
+msgid "Review"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:19
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Start test"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:16
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Test ends at"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/start.html.heex:13
+#, elixir-autogen, elixir-format
+msgid "Test starts at"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.html.heex:48
+#, elixir-autogen, elixir-format
+msgid "Wrap up"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:100
+#, elixir-autogen, elixir-format, fuzzy
+msgid "one answer"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
+#, elixir-autogen, elixir-format
+msgid "one or more answers"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.ex:81
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Task"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/start.ex:24
+#, elixir-autogen, elixir-format
+msgid "This test is over or hasn't started yet"
 msgstr ""

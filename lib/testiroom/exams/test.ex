@@ -13,8 +13,8 @@ defmodule Testiroom.Exams.Test do
   schema "tests" do
     field :description, :string
     field :title, :string
-    field :starts_at, :naive_datetime
-    field :ends_at, :naive_datetime
+    field :starts_at, :utc_datetime
+    field :ends_at, :utc_datetime
     field :duration_in_seconds, :integer
     field :duration_in_minutes, :integer, virtual: true
     field :show_correctness_for_student, :boolean, default: true
