@@ -6,7 +6,10 @@ defmodule Testiroom.Repo.Migrations.CreateStudentAnswers do
       add :id, :binary_id, primary_key: true
       add :order, :integer, null: false
       add :text_input, :string
-      add :attempt_id, references(:attempts, on_delete: :delete_all, type: :binary_id), null: false
+
+      add :attempt_id, references(:attempts, on_delete: :delete_all, type: :binary_id),
+        null: false
+
       add :task_id, references(:tasks, on_delete: :delete_all, type: :binary_id), null: false
 
       timestamps(type: :utc_datetime)
@@ -16,8 +19,12 @@ defmodule Testiroom.Repo.Migrations.CreateStudentAnswers do
     create index(:student_answers, [:task_id])
 
     create table(:students_selected_options, primary_key: false) do
-      add :student_answer_id, references(:student_answers, on_delete: :delete_all, type: :binary_id), null: false
-      add :option_id, references(:task_options, on_delete: :delete_all, type: :binary_id), null: false
+      add :student_answer_id,
+          references(:student_answers, on_delete: :delete_all, type: :binary_id),
+          null: false
+
+      add :option_id, references(:task_options, on_delete: :delete_all, type: :binary_id),
+        null: false
     end
 
     create index(:students_selected_options, [:student_answer_id])

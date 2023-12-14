@@ -436,7 +436,8 @@ defmodule Testiroom.Exams do
 
   defp maybe_add_ended_at(attempt) do
     if duration = attempt.test.duration_in_seconds do
-      ended_at = DateTime.add(DateTime.utc_now(:second), duration, :second)
+      now = DateTime.utc_now(:second)
+      ended_at = DateTime.add(now, duration, :second)
       %{attempt | ended_at: ended_at}
     else
       attempt
@@ -473,15 +474,17 @@ defmodule Testiroom.Exams do
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->
       Enum.map(answers, fn answer ->
-        Map.update!(answer, :task, fn task ->
-          if task.shuffle_options do
-            Map.update!(task, :options, &Enum.shuffle/1)
-          else
-            task
-          end
-        end)
+        Map.update!(answer, :task, &maybe_shuffle_task_options/1)
       end)
     end)
+  end
+
+  defp maybe_shuffle_task_options(task) do
+    if task.shuffle_options do
+      Map.update!(task, :options, &Enum.shuffle/1)
+    else
+      task
+    end
   end
 
   def change_student_answer(%StudentAnswer{} = student_answer, attrs \\ %{}) do

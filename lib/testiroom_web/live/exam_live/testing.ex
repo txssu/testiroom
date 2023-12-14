@@ -79,6 +79,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
   defp page_title(attempt, order) do
     task = gettext("Task")
-    "#{task} №#{to_string(order + 1)} · #{attempt.test.title}"
+    order_in_title = to_string(order + 1)
+    "#{task} №#{order_in_title} · #{attempt.test.title}"
   end
 end

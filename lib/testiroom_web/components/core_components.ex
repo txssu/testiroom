@@ -273,7 +273,6 @@ defmodule TestiroomWeb.CoreComponents do
   @tall_outline_inactive_button "#{@tall_base_button} border-2 border-ink-gray"
   defp button_class(:tall_outline_inactive), do: @tall_outline_inactive_button
 
-
   @doc """
   Renders an input with label and error messages.
 
@@ -405,7 +404,7 @@ defmodule TestiroomWeb.CoreComponents do
         class={[
           @subtype == "default" && "mt-2 block w-full",
           @subtype == "inline" && "inline",
-          @subtype == "wide" && "p-4 block w-full",
+          @subtype == "wide" && "block w-full p-4",
           "rounded-lg text-zinc-900 focus:ring-0 sm:text-sm sm:leading-6",
           "phx-no-feedback:border-zinc-300 phx-no-feedback:focus:border-zinc-400",
           @errors == [] && "border-zinc-300 focus:border-zinc-400",
