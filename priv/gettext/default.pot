@@ -11,7 +11,7 @@
 msgid ""
 msgstr ""
 
-#: lib/testiroom_web/components/core_components.ex:512
+#: lib/testiroom_web/components/core_components.ex:511
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr ""
@@ -91,6 +91,7 @@ msgstr ""
 msgid "Edit Task"
 msgstr ""
 
+#: lib/testiroom_web/live/exam_live/result.html.heex:7
 #: lib/testiroom_web/live/test_live/components/test_form.ex:37
 #, elixir-autogen, elixir-format
 msgid "Grade"
@@ -237,6 +238,7 @@ msgid "Settings"
 msgstr ""
 
 #: lib/testiroom_web/components/layouts/app.html.heex:5
+#: lib/testiroom_web/components/layouts/root.html.heex:8
 #, elixir-autogen, elixir-format
 msgid "Testiroom"
 msgstr ""
@@ -388,7 +390,7 @@ msgstr ""
 msgid "one or more answers"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:81
+#: lib/testiroom_web/live/exam_live/testing.ex:86
 #, elixir-autogen, elixir-format
 msgid "Task"
 msgstr ""
@@ -396,4 +398,25 @@ msgstr ""
 #: lib/testiroom_web/live/exam_live/start.ex:24
 #, elixir-autogen, elixir-format
 msgid "This test is over or hasn't started yet"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Possible correct answers"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/result.ex:10
+#: lib/testiroom_web/live/exam_live/result.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Result"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Total score"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:43
+#, elixir-autogen, elixir-format
+msgid "Your answer"
 msgstr ""

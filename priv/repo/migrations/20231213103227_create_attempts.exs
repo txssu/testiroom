@@ -8,6 +8,10 @@ defmodule Testiroom.Repo.Migrations.CreateAttempts do
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id), null: false
       add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id), null: false
 
+      add :score, :integer
+      add :max_score, :integer
+      add :grade_id, references(:grades, on_delete: :delete_all, type: :binary_id)
+
       timestamps(type: :utc_datetime)
     end
 

@@ -11,7 +11,7 @@ msgstr ""
 "Language: ru\n"
 "Plural-Forms: nplurals=3; plural=(n%10==1 && n%100 != 11 ? 0 : n%10>=2 && n%10<=4 && (n%100<10||n%100>=20) ? 1 : 2);\n"
 
-#: lib/testiroom_web/components/core_components.ex:512
+#: lib/testiroom_web/components/core_components.ex:511
 #, elixir-autogen, elixir-format
 msgid "Actions"
 msgstr "Действия"
@@ -91,6 +91,7 @@ msgstr "Описание"
 msgid "Edit Task"
 msgstr "Редактирование задания"
 
+#: lib/testiroom_web/live/exam_live/result.html.heex:7
 #: lib/testiroom_web/live/test_live/components/test_form.ex:37
 #, elixir-autogen, elixir-format
 msgid "Grade"
@@ -237,6 +238,7 @@ msgid "Settings"
 msgstr "Настройки"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:5
+#: lib/testiroom_web/components/layouts/root.html.heex:8
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Testiroom"
 msgstr "Тестирум"
@@ -389,7 +391,7 @@ msgstr "один ответ"
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:81
+#: lib/testiroom_web/live/exam_live/testing.ex:86
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
@@ -398,3 +400,24 @@ msgstr "Задание"
 #, elixir-autogen, elixir-format
 msgid "This test is over or hasn't started yet"
 msgstr "Тест закончился или ещё не начался"
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:46
+#, elixir-autogen, elixir-format
+msgid "Possible correct answers"
+msgstr "Возможные верные ответы"
+
+#: lib/testiroom_web/live/exam_live/result.ex:10
+#: lib/testiroom_web/live/exam_live/result.html.heex:17
+#, elixir-autogen, elixir-format
+msgid "Result"
+msgstr "Результат"
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:4
+#, elixir-autogen, elixir-format
+msgid "Total score"
+msgstr "Всего баллов"
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:43
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Your answer"
+msgstr "Ваш ответ"

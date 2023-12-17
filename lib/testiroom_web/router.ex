@@ -50,6 +50,7 @@ defmodule TestiroomWeb.Router do
       live "/exams/tests/:test_id", ExamLive.Start
 
       live "/exams/:attempt_id/result", ExamLive.Result, :index
+      live "/exams/:attempt_id/result/:order", ExamLive.Result, :show
       live "/exams/:attempt_id/:order", ExamLive.Testing
     end
   end

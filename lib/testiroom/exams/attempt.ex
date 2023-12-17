@@ -5,6 +5,7 @@ defmodule Testiroom.Exams.Attempt do
   import Ecto.Changeset
 
   alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Grade
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
 
@@ -13,10 +14,14 @@ defmodule Testiroom.Exams.Attempt do
   schema "attempts" do
     field :ended_at, :utc_datetime
 
+    field :score, :integer
+    field :max_score, :integer
+    belongs_to :grade, Grade
+
     belongs_to :user, User
     belongs_to :test, Test
 
-    has_many :student_answers, StudentAnswer
+    has_many :student_answers, StudentAnswer, preload_order: [asc: :order]
 
     timestamps(type: :utc_datetime)
   end
@@ -24,7 +29,7 @@ defmodule Testiroom.Exams.Attempt do
   @doc false
   def changeset(attempt, attrs) do
     attempt
-    |> cast(attrs, [:ended_at])
+    |> cast(attrs, [:ended_at, :score, :max_score, :grade_id])
     |> validate_required([:ended_at])
   end
 end

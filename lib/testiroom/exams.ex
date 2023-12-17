@@ -428,10 +428,47 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def update_attempt_ended_now!(attempt) do
+  def wrap_up_attempt!(attempt) do
+    attrs =
+      %{}
+      |> maybe_update_ended_time(attempt)
+      |> add_score_and_grade(attempt)
+
     attempt
-    |> Attempt.changeset(%{ended_at: DateTime.utc_now()})
+    |> Attempt.changeset(attrs)
     |> Repo.update!()
+  end
+
+  def maybe_update_ended_time(attrs, attempt) do
+    now = DateTime.utc_now()
+
+    if DateTime.before?(now, attempt.ended_at) do
+      Map.put(attrs, :ended_at, now)
+    else
+      attrs
+    end
+  end
+
+  def add_score_and_grade(attrs, attempt) do
+    {scores, max_scores} =
+      attempt.student_answers
+      |> Enum.map(&StudentAnswer.get_score/1)
+      |> Enum.unzip()
+
+    score = Enum.sum(scores)
+    max_score = Enum.sum(max_scores)
+
+    grade_score = score / max_score * 100
+
+    grade_id =
+      attempt.test.grades
+      |> Enum.find(fn grade -> grade_score >= grade.from end)
+      |> Map.fetch!(:id)
+
+    attrs
+    |> Map.put(:grade_id, grade_id)
+    |> Map.put(:score, score)
+    |> Map.put(:max_score, max_score)
   end
 
   defp maybe_add_ended_at(attempt) do
@@ -469,7 +506,8 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: []) |> maybe_shuffle_options()
+  def get_attempt!(id),
+    do: Attempt |> Repo.get!(id) |> Repo.preload(grade: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
 
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->

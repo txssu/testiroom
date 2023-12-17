@@ -1,3 +1,77 @@
 <div>
-  TODO
+  <h1 class="mb-4 text-3xl"><%= @test.title %></h1>
+  <%= if @test.show_score_for_student do %>
+    <p class="mb-2"><%= gettext("Total score") %>: <%= @attempt.score %>/<%= @attempt.max_score %></p>
+  <% end %>
+  <%= if @test.show_grade_for_student do %>
+    <p><%= gettext("Grade") %>: <%= @attempt.grade.grade %></p>
+  <% end %>
+</div>
+
+<%= if @test.show_correctness_for_student do %>
+  <div class="flex justify-center">
+    <table class="max-w-[160px] rounded-[10px] rounded-border border-separate border-spacing-0 border border-l-0 border-black bg-white">
+      <thead>
+        <tr class="h-10">
+          <th class="px-4 py-2 font-medium">№</th>
+          <th class="px-4 py-2 font-medium"><%= gettext("Result") %></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr :for={answer <- @attempt.student_answers} phx-click={JS.patch(~p"/exams/#{@attempt}/result/#{answer.task.order}")} class="h-10 cursor-pointer">
+          <td class="text-center"><%= answer.task.order + 1 %></td>
+          <td class={
+            if Exams.StudentAnswer.correct?(answer),
+              do: "bg-correct",
+              else: "bg-incorrect"
+          }>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+<% end %>
+
+<div>
+  <.modal :if={@live_action == :show} id="result-modal" show on_cancel={JS.patch(~p"/exams/#{@attempt}/result/")}>
+    <div>
+      <h1 class="text-3xl"><%= @answer.task.question %></h1>
+    </div>
+    <div class="mt-6">
+      <%= case @answer.task.type do %>
+        <% :text -> %>
+          <h2 class="font-medium"><%= gettext("Your answer") %>:</h2>
+          <p class="mb-4"><%= @answer.text_input %></p>
+          <%= if @test.show_answer_for_student do %>
+            <h2 class="font-medium"><%= gettext("Possible correct answers") %>:</h2>
+            <ul>
+              <li :for={option <- @answer.task.options}>
+                <%= option.text %>
+              </li>
+            </ul>
+          <% end %>
+        <% type when type in [:single, :multiple] -> %>
+          <ul class="flex flex-col gap-2.5">
+            <li :for={option <- @answer.task.options} class="flex gap-4">
+              <div class={[
+                "flex grow select-none rounded-lg px-6 py-4 outline outline-1",
+                "outline-ink-gray text-ink-dark",
+                option.id in @selected_option_ids && "outline-primary bg-ink-light-gray outline-2"
+              ]}>
+                <%= option.text %>
+              </div>
+              <%= if @test.show_answer_for_student do %>
+                <div class="w-[20px] flex flex-none items-center">
+                  <%= if option.is_correct do %>
+                    <.icon name="hero-check-circle-solid" />
+                  <% else %>
+                    <div class="h-5 w-5"></div>
+                  <% end %>
+                </div>
+              <% end %>
+            </li>
+          </ul>
+      <% end %>
+    </div>
+  </.modal>
 </div>

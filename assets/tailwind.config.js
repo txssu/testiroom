@@ -20,7 +20,9 @@ module.exports = {
         "ink-dark": "#3C3A36",
         "ink-dark-gray": "#78746D",
         "ink-gray": "#BEBAB3",
-        "ink-light-gray": "#F8F2EE"
+        "ink-light-gray": "#F8F2EE",
+        "correct": "#C4FFBA",
+        "incorrect": "#FFA9A9"
       }
     },
   },

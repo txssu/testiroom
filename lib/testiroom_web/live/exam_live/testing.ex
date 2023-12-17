@@ -52,12 +52,17 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
   @impl Phoenix.LiveView
   def handle_event("wrap-up", _params, socket) do
-    Exams.update_attempt_ended_now!(socket.assigns.attempt)
     {:noreply, wrap_up(socket)}
   end
 
   def wrap_up(socket) do
-    push_navigate(socket, to: ~p"/exams/#{socket.assigns.attempt}/result")
+    student_answers = Enum.map(socket.assigns.answers, &elem(&1, 1))
+
+    attempt = Map.put(socket.assigns.attempt, :student_answers, student_answers)
+
+    Exams.wrap_up_attempt!(attempt)
+
+    push_navigate(socket, to: ~p"/exams/#{attempt}/result")
   end
 
   defp check_attempt_duration(socket) do
