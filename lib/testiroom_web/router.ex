@@ -26,7 +26,10 @@ defmodule TestiroomWeb.Router do
   scope "/", TestiroomWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
+    live_session :index_test_list,
+    on_mount: [{TestiroomWeb.UserAuth, :mount_current_user}] do
+      live "/", TestListLive
+    end
   end
 
   scope "/", TestiroomWeb do

@@ -31,6 +31,8 @@ defmodule Testiroom.Exams do
     Repo.all(query)
   end
 
+  def list_tests, do: Repo.all(Test)
+
   @doc """
   Gets a single test.
 
