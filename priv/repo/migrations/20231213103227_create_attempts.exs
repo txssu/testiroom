@@ -4,7 +4,7 @@ defmodule Testiroom.Repo.Migrations.CreateAttempts do
   def change do
     create table(:attempts, primary_key: false) do
       add :id, :binary_id, primary_key: true
-      add :ended_at, :timestamptz, null: false
+      add :ended_at, :timestamptz
       add :user_id, references(:users, on_delete: :delete_all, type: :binary_id), null: false
       add :test_id, references(:tests, on_delete: :delete_all, type: :binary_id), null: false
 

@@ -28,8 +28,6 @@ defmodule Testiroom.Exams.Attempt do
 
   @doc false
   def changeset(attempt, attrs) do
-    attempt
-    |> cast(attrs, [:ended_at, :score, :max_score, :grade_id])
-    |> validate_required([:ended_at])
+    cast(attempt, attrs, [:ended_at, :score, :max_score, :grade_id])
   end
 end

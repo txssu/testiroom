@@ -16,7 +16,8 @@ defmodule TestiroomWeb.ExamLive.Start do
     %{current_user: user, test: test} = socket.assigns
     now = DateTime.utc_now()
 
-    if DateTime.after?(now, test.starts_at) and DateTime.before?(now, test.ends_at) do
+    if (!test.starts_at || DateTime.after?(now, test.starts_at)) &&
+         (!test.ends_at || DateTime.before?(now, test.ends_at)) do
       {:ok, attempt} = Exams.start_attempt(user, test)
 
       {:noreply, push_navigate(socket, to: ~p"/exams/#{attempt}/0")}

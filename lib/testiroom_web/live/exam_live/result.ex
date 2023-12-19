@@ -8,7 +8,7 @@ defmodule TestiroomWeb.ExamLive.Result do
     attempt = Exams.get_attempt!(id)
     now = DateTime.utc_now()
 
-    if DateTime.before?(now, attempt.ended_at) do
+    if attempt.ended_at && DateTime.before?(now, attempt.ended_at) do
       {:ok, socket |> put_flash(:error, gettext("Finish the test first")) |> push_navigate(to: ~p"/exams/#{id}/0")}
     else
       result = gettext("Result")
