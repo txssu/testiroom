@@ -406,7 +406,7 @@ msgstr "Тест закончился или ещё не начался"
 msgid "Possible correct answers"
 msgstr "Возможные верные ответы"
 
-#: lib/testiroom_web/live/exam_live/result.ex:10
+#: lib/testiroom_web/live/exam_live/result.ex:14
 #: lib/testiroom_web/live/exam_live/result.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Result"
@@ -421,3 +421,8 @@ msgstr "Всего баллов"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Your answer"
 msgstr "Ваш ответ"
+
+#: lib/testiroom_web/live/exam_live/result.ex:12
+#, elixir-autogen, elixir-format
+msgid "Finish the test first"
+msgstr "Сначала закончите тест"

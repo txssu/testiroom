@@ -6,15 +6,20 @@ defmodule TestiroomWeb.ExamLive.Result do
 
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
+    now = DateTime.utc_now()
 
-    result = gettext("Result")
-    page_title = "#{result} · #{attempt.test.title}"
+    if DateTime.before?(now, attempt.ended_at) do
+      {:ok, socket |> put_flash(:error, gettext("Finish the test first")) |> push_navigate(to: ~p"/exams/#{id}/0")}
+    else
+      result = gettext("Result")
+      page_title = "#{result} · #{attempt.test.title}"
 
-    {:ok,
-     socket
-     |> assign(:page_title, page_title)
-     |> assign(:attempt, attempt)
-     |> assign(:test, attempt.test)}
+      {:ok,
+       socket
+       |> assign(:page_title, page_title)
+       |> assign(:attempt, attempt)
+       |> assign(:test, attempt.test)}
+    end
   end
 
   def handle_params(%{"order" => order_param}, _uri, socket) do
