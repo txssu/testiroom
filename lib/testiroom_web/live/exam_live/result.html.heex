@@ -63,7 +63,7 @@
               <%= if @test.show_answer_for_student do %>
                 <div class="w-[20px] flex flex-none items-center">
                   <%= if option.is_correct do %>
-                    <.icon name="hero-check-circle-solid" />
+                    <.icon name="hero-check-circle-solid" class="bg-primary" />
                   <% else %>
                     <div class="h-5 w-5"></div>
                   <% end %>
