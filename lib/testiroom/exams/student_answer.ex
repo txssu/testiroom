@@ -48,8 +48,9 @@ defmodule Testiroom.Exams.StudentAnswer do
         student_answer.text_input in answers
 
       :single ->
-        [selected_option] = student_answer.selected_options
-        selected_option.is_correct
+        student_answer.selected_options
+        |> Enum.map(& &1.is_correct)
+        |> List.first(false)
 
       :multiple ->
         selected_options = student_answer.selected_options
