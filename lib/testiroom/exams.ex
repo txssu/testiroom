@@ -444,7 +444,7 @@ defmodule Testiroom.Exams do
   def maybe_update_ended_time(attrs, attempt) do
     now = DateTime.utc_now()
 
-    if attempt.ended_at && DateTime.before?(now, attempt.ended_at) do
+    if is_nil(attempt.ended_at) or DateTime.before?(now, attempt.ended_at) do
       Map.put(attrs, :ended_at, now)
     else
       attrs
