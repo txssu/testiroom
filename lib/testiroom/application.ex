@@ -19,7 +19,9 @@ defmodule Testiroom.Application do
       # Start a worker by calling: Testiroom.Worker.start_link(arg)
       # {Testiroom.Worker, arg},
       # Start to serve requests, typically the last entry
-      TestiroomWeb.Endpoint
+      TestiroomWeb.Endpoint,
+
+      {Registry, keys: :unique, name: Testiroom.Proctoring}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html
