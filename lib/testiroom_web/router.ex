@@ -50,11 +50,16 @@ defmodule TestiroomWeb.Router do
     live_session :exam,
       on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}],
       layout: {TestiroomWeb.Layouts, :exam} do
-      live "/exams/tests/:test_id", ExamLive.Start
+      live "/tests/:test_id/exam", ExamLive.Start
 
       live "/exams/:attempt_id/result", ExamLive.Result, :index
       live "/exams/:attempt_id/result/:order", ExamLive.Result, :show
       live "/exams/:attempt_id/:order", ExamLive.Testing
+    end
+
+    live_session :proctor,
+      on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}] do
+      live "/tests/:test_id/proctor", ProctorLive.Progress
     end
   end
 
