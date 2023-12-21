@@ -11,7 +11,7 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
       <.form for={@form} phx-change="validate" phx-target={@myself}>
         <%= case @answer.task.type do %>
           <% :text -> %>
-            <.input type="text" subtype="wide" field={@form[:text_input]} placeholder={prompt_message(:text)} autocomplete="off" />
+            <.input type="text" subtype="wide" field={@form[:text_input]} placeholder={prompt_message(:text)} autocomplete="off" phx-debounce="blur" />
           <% type when type in [:single, :multiple] -> %>
             <fieldset>
               <legend class="text-ink-gray w-full text-center text-sm leading-5"><%= prompt_message(type) %></legend>
