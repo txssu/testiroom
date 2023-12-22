@@ -425,7 +425,7 @@ defmodule Testiroom.Exams do
       end)
 
     case Repo.transaction(multi) do
-      {:ok, %{attempt: attempt}} -> {:ok, attempt}
+      {:ok, %{attempt: attempt}} -> {:ok, get_attempt!(attempt.id)}
       {:error, _failed_operation, changeset, _changes_so_far} -> {:error, changeset}
     end
   end

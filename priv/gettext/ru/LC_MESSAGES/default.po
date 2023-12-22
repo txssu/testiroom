@@ -46,6 +46,7 @@ msgstr "Редактировать"
 msgid "Edit Test"
 msgstr "Редактирование теста"
 
+#: lib/testiroom_web/live/test_list_live.ex:12
 #: lib/testiroom_web/live/test_live/components/test_form.ex:23
 #: lib/testiroom_web/live/test_live/index.html.heex:13
 #, elixir-autogen, elixir-format
@@ -64,12 +65,14 @@ msgstr "Список тестов"
 msgid "New Test"
 msgstr "Новый тест"
 
+#: lib/testiroom_web/live/test_list_live.ex:11
 #: lib/testiroom_web/live/test_live/components/test_form.ex:22
 #: lib/testiroom_web/live/test_live/index.html.heex:12
 #, elixir-autogen, elixir-format
 msgid "Starts at"
 msgstr "Начало в"
 
+#: lib/testiroom_web/live/test_list_live.ex:10
 #: lib/testiroom_web/live/test_live/components/test_form.ex:17
 #: lib/testiroom_web/live/test_live/index.html.heex:11
 #, elixir-autogen, elixir-format
@@ -92,6 +95,7 @@ msgid "Edit Task"
 msgstr "Редактирование задания"
 
 #: lib/testiroom_web/live/exam_live/result.html.heex:7
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
 #: lib/testiroom_web/live/test_live/components/test_form.ex:37
 #, elixir-autogen, elixir-format
 msgid "Grade"
@@ -203,6 +207,7 @@ msgid "Editor"
 msgstr "Редактор"
 
 #: lib/testiroom_web/live/components/test_editor_header.ex:23
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Tasks"
 msgstr "Задания"
@@ -336,7 +341,8 @@ msgstr[0] "Длительность теста: %{count} минута"
 msgstr[1] "Длительность теста: %{count} минуты"
 msgstr[2] "Длительность теста: %{count} минут"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:14
+#: lib/testiroom_web/live/exam_live/testing.html.heex:16
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "/"
 msgstr "из"
@@ -346,17 +352,17 @@ msgstr "из"
 msgid "Enter your answer"
 msgstr "Введите свой ответ"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:21
+#: lib/testiroom_web/live/exam_live/testing.html.heex:23
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "Далее"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:18
+#: lib/testiroom_web/live/exam_live/testing.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Previous"
 msgstr "Назад"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:26
+#: lib/testiroom_web/live/exam_live/testing.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Review"
 msgstr "Обзор"
@@ -376,7 +382,7 @@ msgstr "Тест заканчивается в"
 msgid "Test starts at"
 msgstr "Тест начинается в"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:48
+#: lib/testiroom_web/live/exam_live/testing.html.heex:50
 #, elixir-autogen, elixir-format
 msgid "Wrap up"
 msgstr "Завершить"
@@ -391,12 +397,12 @@ msgstr "один ответ"
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:86
+#: lib/testiroom_web/live/exam_live/testing.ex:91
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
 
-#: lib/testiroom_web/live/exam_live/start.ex:24
+#: lib/testiroom_web/live/exam_live/start.ex:28
 #, elixir-autogen, elixir-format
 msgid "This test is over or hasn't started yet"
 msgstr "Тест закончился или ещё не начался"
@@ -426,3 +432,34 @@ msgstr "Ваш ответ"
 #, elixir-autogen, elixir-format
 msgid "Finish the test first"
 msgstr "Сначала закончите тест"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:35
+#, elixir-autogen, elixir-format
+msgid "Average answer time"
+msgstr "Среднее время ответа"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:5
+#, elixir-autogen, elixir-format
+msgid "Completed test"
+msgstr "Завершили тест"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:3
+#, elixir-autogen, elixir-format
+msgid "No one has started the test"
+msgstr "Никто ещё не начал тест"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:6
+#, elixir-autogen, elixir-format
+msgid "Passing rate"
+msgstr "Процент успешных решений"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:27
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "Ratio"
+msgstr "Результат"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
+#, elixir-autogen, elixir-format
+msgid "Username"
+msgstr "Имя пользователя"

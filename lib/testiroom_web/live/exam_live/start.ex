@@ -3,6 +3,7 @@ defmodule TestiroomWeb.ExamLive.Start do
   use TestiroomWeb, :live_view
 
   alias Testiroom.Exams
+  alias Testiroom.Proctoring
 
   @impl Phoenix.LiveView
   def mount(%{"test_id" => test_id}, _session, socket) do
@@ -19,6 +20,8 @@ defmodule TestiroomWeb.ExamLive.Start do
     if (!test.starts_at || DateTime.after?(now, test.starts_at)) &&
          (!test.ends_at || DateTime.before?(now, test.ends_at)) do
       {:ok, attempt} = Exams.start_attempt(user, test)
+
+      Proctoring.notify_proctor(test.id, {:started, user, attempt.student_answers})
 
       {:noreply, push_navigate(socket, to: ~p"/exams/#{attempt}/0")}
     else

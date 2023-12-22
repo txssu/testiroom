@@ -61,6 +61,10 @@ defmodule Testiroom.Exams.StudentAnswer do
     end
   end
 
+  def answer_given?(student_answer) do
+    not (is_nil(student_answer.text_input) and student_answer.selected_options == [])
+  end
+
   defp all_selected_correct?(selected_options) do
     Enum.all?(selected_options, & &1.is_correct)
   end

@@ -27,7 +27,7 @@ defmodule TestiroomWeb.Router do
     pipe_through :browser
 
     live_session :index_test_list,
-    on_mount: [{TestiroomWeb.UserAuth, :mount_current_user}] do
+      on_mount: [{TestiroomWeb.UserAuth, :mount_current_user}] do
       live "/", TestListLive
     end
   end

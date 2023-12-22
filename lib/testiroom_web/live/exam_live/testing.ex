@@ -5,6 +5,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   import TestiroomWeb.ExamLive.Components.BottomModal
 
   alias Testiroom.Exams
+  alias Testiroom.Proctoring
   alias TestiroomWeb.ExamLive.Components.AnswerForm
 
   @impl Phoenix.LiveView
@@ -32,7 +33,8 @@ defmodule TestiroomWeb.ExamLive.Testing do
      |> assign(:order, order)
      |> assign(:previous_order, max(0, order - 1))
      |> assign(:next_order, min(max_order, order + 1))
-     |> assign(:current_answer, answers[order])}
+     |> assign(:current_answer, answers[order])
+     |> notify_open_task()}
   end
 
   @impl Phoenix.LiveView
@@ -42,7 +44,8 @@ defmodule TestiroomWeb.ExamLive.Testing do
     {:noreply,
      socket
      |> assign(:current_answer, answer)
-     |> assign(:answers, Map.put(answers, order, answer))}
+     |> assign(:answers, Map.put(answers, order, answer))
+     |> notify_answer(answer)}
   end
 
   @impl Phoenix.LiveView
@@ -62,7 +65,9 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
     Exams.wrap_up_attempt!(attempt)
 
-    push_navigate(socket, to: ~p"/exams/#{attempt}/result")
+    socket
+    |> push_navigate(to: ~p"/exams/#{attempt}/result")
+    |> notify_wrap_up()
   end
 
   defp check_attempt_duration(socket) do
@@ -86,5 +91,26 @@ defmodule TestiroomWeb.ExamLive.Testing do
     task = gettext("Task")
     order_in_title = to_string(order + 1)
     "#{task} №#{order_in_title} · #{attempt.test.title}"
+  end
+
+  defp notify_answer(socket, answer) do
+    %{attempt: attempt, current_user: user} = socket.assigns
+    Proctoring.notify_proctor(attempt.test.id, {:answer, user.id, answer})
+
+    socket
+  end
+
+  defp notify_wrap_up(socket) do
+    %{attempt: attempt, current_user: user} = socket.assigns
+    Proctoring.notify_proctor(attempt.test.id, {:wrap_up, user.id})
+
+    socket
+  end
+
+  defp notify_open_task(socket) do
+    %{attempt: attempt, current_user: user, order: order} = socket.assigns
+    Proctoring.notify_proctor(attempt.test.id, {:open_task, user.id, order})
+
+    socket
   end
 end
