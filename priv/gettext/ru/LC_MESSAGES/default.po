@@ -223,6 +223,7 @@ msgid "Save Task"
 msgstr "Сохранить задание"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:24
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:25
 #: lib/testiroom_web/live/user_confirmation_live.ex:20
 #: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
@@ -236,6 +237,7 @@ msgid "Log out"
 msgstr "Выйти"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:21
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:25
 #: lib/testiroom_web/live/user_confirmation_live.ex:20
 #: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
@@ -528,6 +530,7 @@ msgstr "для создания аккаунта."
 msgid "to your account now."
 msgstr "в ваш аккаунт."
 
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:16
 #: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
 #: lib/testiroom_web/live/user_registration_live.ex:35
@@ -631,3 +634,23 @@ msgstr "Ссылка для подтверждения пользователя 
 #, elixir-autogen, elixir-format
 msgid "User confirmed successfully."
 msgstr "Пользователь успешно подтвержден."
+
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:44
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
+msgstr "Если ваш адрес электронной почты есть в нашей системе и он еще не был подтвержден, вы получите электронное письмо с инструкциями в ближайшее время."
+
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:11
+#, elixir-autogen, elixir-format
+msgid "No confirmation instructions received?"
+msgstr "Не получили инструкции по подтверждению?"
+
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Resend confirmation instructions"
+msgstr "Повторно отправить инструкции по подтверждению"
+
+#: lib/testiroom_web/live/user_confirmation_instructions_live.ex:12
+#, elixir-autogen, elixir-format, fuzzy
+msgid "We'll send a new confirmation link to your inbox"
+msgstr "Мы отправим новую ссылку для подтверждения на ваш почтовый ящик"
