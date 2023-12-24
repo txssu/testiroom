@@ -463,3 +463,86 @@ msgstr "Результат"
 #, elixir-autogen, elixir-format
 msgid "Username"
 msgstr "Имя пользователя"
+
+#: lib/testiroom_web/live/user_registration_live.ex:14
+#, elixir-autogen, elixir-format
+msgid "Already registered?"
+msgstr "Уже зарегестрированы?"
+
+#: lib/testiroom_web/live/user_registration_live.ex:39
+#, elixir-autogen, elixir-format
+msgid "Create an account"
+msgstr "Создать аккаунт"
+
+#: lib/testiroom_web/live/user_login_live.ex:11
+#, elixir-autogen, elixir-format
+msgid "Don't have an account?"
+msgstr "Нет аккаунта?"
+
+#: lib/testiroom_web/live/user_login_live.ex:26
+#, elixir-autogen, elixir-format
+msgid "Forgot your password?"
+msgstr "Забыли пароль?"
+
+#: lib/testiroom_web/live/user_registration_live.ex:32
+#, elixir-autogen, elixir-format
+msgid "Oops, something went wrong! Please check the errors below."
+msgstr "Упс, что-то пошло не так! Проверьте ошибки ниже."
+
+#: lib/testiroom_web/live/user_registration_live.ex:12
+#, elixir-autogen, elixir-format
+msgid "Register for an account"
+msgstr "Зарегистрируйтесь для создания аккаунта"
+
+#: lib/testiroom_web/live/user_login_live.ex:31
+#: lib/testiroom_web/live/user_registration_live.ex:16
+#, elixir-autogen, elixir-format
+msgid "Sign in"
+msgstr "Войти"
+
+#: lib/testiroom_web/live/user_login_live.ex:9
+#, elixir-autogen, elixir-format
+msgid "Sign in to account"
+msgstr "Войти в аккаунт"
+
+#: lib/testiroom_web/live/user_login_live.ex:13
+#, elixir-autogen, elixir-format
+msgid "Sign up"
+msgstr "Зарегестрируйтесь"
+
+#: lib/testiroom_web/live/user_login_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "for an account now."
+msgstr "для создания аккаунта."
+
+#: lib/testiroom_web/live/user_registration_live.ex:18
+#, elixir-autogen, elixir-format
+msgid "to your account now."
+msgstr "в ваш аккаунт."
+
+#: lib/testiroom_web/live/user_login_live.ex:20
+#: lib/testiroom_web/live/user_registration_live.ex:35
+#, elixir-autogen, elixir-format
+msgid "Email"
+msgstr "Электронная почта"
+
+#: lib/testiroom_web/live/user_login_live.ex:24
+#, elixir-autogen, elixir-format
+msgid "Keep me logged in"
+msgstr "Запомнить меня"
+
+#: lib/testiroom_web/live/user_login_live.ex:21
+#: lib/testiroom_web/live/user_registration_live.ex:36
+#, elixir-autogen, elixir-format
+msgid "Password"
+msgstr "Пароль"
+
+#: lib/testiroom_web/live/user_login_live.ex:30
+#, elixir-autogen, elixir-format
+msgid "Signing in..."
+msgstr "Вход..."
+
+#: lib/testiroom_web/live/user_registration_live.ex:39
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Creating account..."
+msgstr "Создание аккаунта..."
