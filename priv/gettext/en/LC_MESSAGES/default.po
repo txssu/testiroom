@@ -559,11 +559,13 @@ msgid "Creating account..."
 msgstr ""
 
 #: lib/testiroom_web/live/user_reset_password_live.ex:18
+#: lib/testiroom_web/live/user_settings_live.ex:44
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr ""
 
 #: lib/testiroom_web/live/user_reset_password_live.ex:17
+#: lib/testiroom_web/live/user_settings_live.ex:43
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr ""
@@ -652,4 +654,51 @@ msgstr ""
 #: lib/testiroom_web/live/user_confirmation_instructions_live.ex:12
 #, elixir-autogen, elixir-format, fuzzy
 msgid "We'll send a new confirmation link to your inbox"
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:117
+#, elixir-autogen, elixir-format
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:10
+#, elixir-autogen, elixir-format
+msgid "Account Settings"
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:28
+#, elixir-autogen, elixir-format
+msgid "Change Email"
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:55
+#, elixir-autogen, elixir-format
+msgid "Change Password"
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:28
+#: lib/testiroom_web/live/user_settings_live.ex:55
+#, elixir-autogen, elixir-format
+msgid "Changing..."
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:23
+#: lib/testiroom_web/live/user_settings_live.ex:49
+#, elixir-autogen, elixir-format
+msgid "Current password"
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:70
+#, elixir-autogen, elixir-format
+msgid "Email change link is invalid or it has expired."
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:67
+#, elixir-autogen, elixir-format
+msgid "Email changed successfully."
+msgstr ""
+
+#: lib/testiroom_web/live/user_settings_live.ex:11
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address and password settings"
 msgstr ""

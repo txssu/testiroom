@@ -560,11 +560,13 @@ msgid "Creating account..."
 msgstr "Создание аккаунта..."
 
 #: lib/testiroom_web/live/user_reset_password_live.ex:18
+#: lib/testiroom_web/live/user_settings_live.ex:44
 #, elixir-autogen, elixir-format
 msgid "Confirm new password"
 msgstr "Подтвердите новый пароль"
 
 #: lib/testiroom_web/live/user_reset_password_live.ex:17
+#: lib/testiroom_web/live/user_settings_live.ex:43
 #, elixir-autogen, elixir-format
 msgid "New password"
 msgstr "Новый пароль"
@@ -654,3 +656,51 @@ msgstr "Повторно отправить инструкции по подтв
 #, elixir-autogen, elixir-format, fuzzy
 msgid "We'll send a new confirmation link to your inbox"
 msgstr "Мы отправим новую ссылку для подтверждения на ваш почтовый ящик"
+
+#: lib/testiroom_web/live/user_settings_live.ex:117
+#, elixir-autogen, elixir-format
+msgid "A link to confirm your email change has been sent to the new address."
+msgstr "Ссылка для подтверждения изменения адреса электронной почты отправлена на новый адрес."
+
+#: lib/testiroom_web/live/user_settings_live.ex:10
+#, elixir-autogen, elixir-format
+msgid "Account Settings"
+msgstr "Настройки аккаунта"
+
+#: lib/testiroom_web/live/user_settings_live.ex:28
+#, elixir-autogen, elixir-format
+msgid "Change Email"
+msgstr "Изменить электронную почту"
+
+#: lib/testiroom_web/live/user_settings_live.ex:55
+#, elixir-autogen, elixir-format
+msgid "Change Password"
+msgstr "Изменить пароль"
+
+#: lib/testiroom_web/live/user_settings_live.ex:28
+#: lib/testiroom_web/live/user_settings_live.ex:55
+#, elixir-autogen, elixir-format
+msgid "Changing..."
+msgstr "Изменение..."
+
+#: lib/testiroom_web/live/user_settings_live.ex:23
+#: lib/testiroom_web/live/user_settings_live.ex:49
+#, elixir-autogen, elixir-format
+msgid "Current password"
+msgstr "Текущий пароль"
+
+#: lib/testiroom_web/live/user_settings_live.ex:70
+#, elixir-autogen, elixir-format
+msgid "Email change link is invalid or it has expired."
+msgstr "Ссылка для изменения адреса электронной почты недействительна или истекла."
+
+#: lib/testiroom_web/live/user_settings_live.ex:67
+#, elixir-autogen, elixir-format
+msgid "Email changed successfully."
+msgstr "Электронная почта успешно изменена"
+
+#: lib/testiroom_web/live/user_settings_live.ex:11
+#, elixir-autogen, elixir-format
+msgid "Manage your account email address and password settings"
+msgstr "Управление адресом электронной почты и настройками пароля вашей учетной записи"
+
