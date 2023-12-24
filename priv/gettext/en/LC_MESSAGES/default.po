@@ -223,6 +223,7 @@ msgid "Save Task"
 msgstr ""
 
 #: lib/testiroom_web/components/layouts/app.html.heex:24
+#: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
 msgid "Log in"
@@ -234,6 +235,7 @@ msgid "Log out"
 msgstr ""
 
 #: lib/testiroom_web/components/layouts/app.html.heex:21
+#: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
 msgid "Register"
@@ -480,6 +482,7 @@ msgstr ""
 msgid "Don't have an account?"
 msgstr ""
 
+#: lib/testiroom_web/live/user_forgot_password_live.ex:11
 #: lib/testiroom_web/live/user_login_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
@@ -522,6 +525,7 @@ msgstr ""
 msgid "to your account now."
 msgstr ""
 
+#: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
 #: lib/testiroom_web/live/user_registration_live.ex:35
 #, elixir-autogen, elixir-format
@@ -578,4 +582,24 @@ msgstr ""
 #: lib/testiroom_web/live/user_reset_password_live.ex:20
 #, elixir-autogen, elixir-format
 msgid "Resetting..."
+msgstr ""
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Send password reset instructions"
+msgstr ""
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:18
+#, elixir-autogen, elixir-format
+msgid "Sending..."
+msgstr ""
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:12
+#, elixir-autogen, elixir-format
+msgid "We'll send a password reset link to your inbox"
+msgstr ""
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:43
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr ""

@@ -223,6 +223,7 @@ msgid "Save Task"
 msgstr "Сохранить задание"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:24
+#: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
 msgid "Log in"
@@ -234,6 +235,7 @@ msgid "Log out"
 msgstr "Выйти"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:21
+#: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
 msgid "Register"
@@ -481,6 +483,7 @@ msgstr "Создать аккаунт"
 msgid "Don't have an account?"
 msgstr "Нет аккаунта?"
 
+#: lib/testiroom_web/live/user_forgot_password_live.ex:11
 #: lib/testiroom_web/live/user_login_live.ex:26
 #, elixir-autogen, elixir-format
 msgid "Forgot your password?"
@@ -523,6 +526,7 @@ msgstr "для создания аккаунта."
 msgid "to your account now."
 msgstr "в ваш аккаунт."
 
+#: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
 #: lib/testiroom_web/live/user_registration_live.ex:35
 #, elixir-autogen, elixir-format
@@ -580,3 +584,23 @@ msgstr "Ссылка для сброса пароля недействитель
 #, elixir-autogen, elixir-format
 msgid "Resetting..."
 msgstr "Сброс..."
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:19
+#, elixir-autogen, elixir-format
+msgid "Send password reset instructions"
+msgstr "Отправить инструкции для сброса пароля"
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:18
+#, elixir-autogen, elixir-format
+msgid "Sending..."
+msgstr "Отправка..."
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:12
+#, elixir-autogen, elixir-format
+msgid "We'll send a password reset link to your inbox"
+msgstr "Мы отправим ссылку для сброса пароля на ваш почтовый ящик"
+
+#: lib/testiroom_web/live/user_forgot_password_live.ex:43
+#, elixir-autogen, elixir-format
+msgid "If your email is in our system, you will receive instructions to reset your password shortly."
+msgstr "Если ваш адрес электронной почты есть в нашей системе, вы получите инструкции по сбросу пароля в ближайшее время."
