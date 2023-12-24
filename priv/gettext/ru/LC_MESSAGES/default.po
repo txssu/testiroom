@@ -223,6 +223,7 @@ msgid "Save Task"
 msgstr "Сохранить задание"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:24
+#: lib/testiroom_web/live/user_confirmation_live.ex:20
 #: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
@@ -235,6 +236,7 @@ msgid "Log out"
 msgstr "Выйти"
 
 #: lib/testiroom_web/components/layouts/app.html.heex:21
+#: lib/testiroom_web/live/user_confirmation_live.ex:20
 #: lib/testiroom_web/live/user_forgot_password_live.ex:24
 #: lib/testiroom_web/live/user_reset_password_live.ex:25
 #, elixir-autogen, elixir-format
@@ -604,3 +606,28 @@ msgstr "Мы отправим ссылку для сброса пароля на
 #, elixir-autogen, elixir-format
 msgid "If your email is in our system, you will receive instructions to reset your password shortly."
 msgstr "Если ваш адрес электронной почты есть в нашей системе, вы получите инструкции по сбросу пароля в ближайшее время."
+
+#: lib/testiroom_web/live/user_confirmation_live.ex:10
+#, elixir-autogen, elixir-format
+msgid "Confirm Account"
+msgstr "Подтвердить аккаунт"
+
+#: lib/testiroom_web/live/user_confirmation_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "Confirm my account"
+msgstr "Подтвердить мой аккаунт"
+
+#: lib/testiroom_web/live/user_confirmation_live.ex:15
+#, elixir-autogen, elixir-format
+msgid "Confirming..."
+msgstr "Подтверждение..."
+
+#: lib/testiroom_web/live/user_confirmation_live.ex:53
+#, elixir-autogen, elixir-format
+msgid "User confirmation link is invalid or it has expired."
+msgstr "Ссылка для подтверждения пользователя недействительна или истекла."
+
+#: lib/testiroom_web/live/user_confirmation_live.ex:38
+#, elixir-autogen, elixir-format
+msgid "User confirmed successfully."
+msgstr "Пользователь успешно подтвержден."
