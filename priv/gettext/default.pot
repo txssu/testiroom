@@ -533,6 +533,7 @@ msgstr ""
 #: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
 #: lib/testiroom_web/live/user_registration_live.ex:35
+#: lib/testiroom_web/live/user_settings_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr ""
@@ -701,4 +702,29 @@ msgstr ""
 #: lib/testiroom_web/live/user_settings_live.ex:11
 #, elixir-autogen, elixir-format
 msgid "Manage your account email address and password settings"
+msgstr ""
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:8
+#, elixir-autogen, elixir-format
+msgid "Account created successfully!"
+msgstr ""
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:31
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr ""
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:39
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr ""
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:14
+#, elixir-autogen, elixir-format
+msgid "Password updated successfully!"
+msgstr ""
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:18
+#, elixir-autogen, elixir-format
+msgid "Welcome back!"
 msgstr ""

@@ -534,6 +534,7 @@ msgstr "в ваш аккаунт."
 #: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
 #: lib/testiroom_web/live/user_registration_live.ex:35
+#: lib/testiroom_web/live/user_settings_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Email"
 msgstr "Электронная почта"
@@ -704,3 +705,27 @@ msgstr "Электронная почта успешно изменена"
 msgid "Manage your account email address and password settings"
 msgstr "Управление адресом электронной почты и настройками пароля вашей учетной записи"
 
+#: lib/testiroom_web/controllers/user_session_controller.ex:8
+#, elixir-autogen, elixir-format
+msgid "Account created successfully!"
+msgstr "Аккаунт успешно создан!"
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:31
+#, elixir-autogen, elixir-format
+msgid "Invalid email or password"
+msgstr "Недействительный адрес электронной почты или пароль"
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:39
+#, elixir-autogen, elixir-format
+msgid "Logged out successfully."
+msgstr "Вы успешно вышли из системы."
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:14
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Password updated successfully!"
+msgstr "Пароль успешно обновлен!"
+
+#: lib/testiroom_web/controllers/user_session_controller.ex:18
+#, elixir-autogen, elixir-format
+msgid "Welcome back!"
+msgstr "Добро пожаловать!"
