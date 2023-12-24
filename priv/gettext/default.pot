@@ -728,3 +728,9 @@ msgstr ""
 #, elixir-autogen, elixir-format
 msgid "Welcome back!"
 msgstr ""
+
+#: lib/testiroom_web/user_auth.ex:160
+#: lib/testiroom_web/user_auth.ex:209
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr ""

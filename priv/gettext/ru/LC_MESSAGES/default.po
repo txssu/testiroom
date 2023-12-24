@@ -729,3 +729,9 @@ msgstr "Пароль успешно обновлен!"
 #, elixir-autogen, elixir-format
 msgid "Welcome back!"
 msgstr "Добро пожаловать!"
+
+#: lib/testiroom_web/user_auth.ex:160
+#: lib/testiroom_web/user_auth.ex:209
+#, elixir-autogen, elixir-format
+msgid "You must log in to access this page."
+msgstr "Вы должны войти, чтобы получить доступ к этой странице."
