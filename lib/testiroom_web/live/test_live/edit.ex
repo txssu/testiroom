@@ -7,13 +7,8 @@ defmodule TestiroomWeb.TestLive.Edit do
   alias Testiroom.Exams
 
   @impl Phoenix.LiveView
-  def mount(_params, _session, socket) do
-    {:ok, socket}
-  end
-
-  @impl Phoenix.LiveView
-  def handle_params(%{"test_id" => id}, _uri, socket) do
-    {:noreply,
+  def mount(%{"test_id" => id}, _session, socket) do
+    {:ok,
      socket
      |> assign(:page_title, gettext("Edit Test"))
      |> assign(:test, Exams.get_test!(id))}
