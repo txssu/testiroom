@@ -12,14 +12,21 @@ defmodule TestiroomWeb.ExamLive.Testing do
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
 
-    answers = Map.new(attempt.student_answers, &{&1.order, &1})
+    if attempt.user_id == socket.assigns.current_user.id do
+      answers = Map.new(attempt.student_answers, &{&1.order, &1})
 
-    {:ok,
-     socket
-     |> assign(:attempt, attempt)
-     |> assign(:answers, answers)
-     |> assign(:max_order, answers |> Map.keys() |> Enum.max())
-     |> check_attempt_duration()}
+      {:ok,
+       socket
+       |> assign(:attempt, attempt)
+       |> assign(:answers, answers)
+       |> assign(:max_order, answers |> Map.keys() |> Enum.max())
+       |> check_attempt_duration()}
+    else
+      {:ok,
+       socket
+       |> put_flash(:error, gettext("You do not have permission to open other testing sessions."))
+       |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
+    end
   end
 
   @impl Phoenix.LiveView

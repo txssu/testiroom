@@ -405,7 +405,7 @@ msgstr "один ответ"
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:98
+#: lib/testiroom_web/live/exam_live/testing.ex:105
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
@@ -736,7 +736,12 @@ msgstr "Добро пожаловать!"
 msgid "You must log in to access this page."
 msgstr "Вы должны войти, чтобы получить доступ к этой странице."
 
-#: lib/testiroom_web/live/exam_live/testing.ex:44
+#: lib/testiroom_web/live/exam_live/testing.ex:51
 #, elixir-autogen, elixir-format
 msgid "Your attempt has already been completed."
 msgstr "Ваша попытка уже завершена."
+
+#: lib/testiroom_web/live/exam_live/testing.ex:27
+#, elixir-autogen, elixir-format
+msgid "You do not have permission to open other testing sessions."
+msgstr "У вас нет разрешения на открытие чужих сессий тестирования."
