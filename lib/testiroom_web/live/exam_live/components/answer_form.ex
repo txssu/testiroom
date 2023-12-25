@@ -80,6 +80,7 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
 
     case Exams.update_student_answer(answer, selected_options, student_answer_params) do
       {:ok, answer} -> notify_parent(answer)
+      {:error, :attempt_is_ended} -> notify_parent(:attempt_is_ended)
       {:error, _changeset} -> nil
     end
 

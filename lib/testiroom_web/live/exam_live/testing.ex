@@ -38,6 +38,13 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   @impl Phoenix.LiveView
+  def handle_info({AnswerForm, :attempt_is_ended}, socket) do
+    {:noreply,
+     socket
+     |> put_flash(:error, gettext("Your attempt has already been completed."))
+     |> push_navigate(to: ~p"/exams/#{socket.assigns.attempt}/result")}
+  end
+
   def handle_info({AnswerForm, answer}, socket) do
     %{answers: answers, order: order} = socket.assigns
 

@@ -354,7 +354,7 @@ msgstr[1] ""
 msgid "/"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:103
 #, elixir-autogen, elixir-format
 msgid "Enter your answer"
 msgstr ""
@@ -394,17 +394,17 @@ msgstr ""
 msgid "Wrap up"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:100
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
 #, elixir-autogen, elixir-format, fuzzy
 msgid "one answer"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
 #, elixir-autogen, elixir-format
 msgid "one or more answers"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:91
+#: lib/testiroom_web/live/exam_live/testing.ex:98
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr ""
@@ -733,4 +733,9 @@ msgstr ""
 #: lib/testiroom_web/user_auth.ex:209
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/testing.ex:44
+#, elixir-autogen, elixir-format
+msgid "Your attempt has already been completed."
 msgstr ""

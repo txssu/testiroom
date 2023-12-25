@@ -355,7 +355,7 @@ msgstr[2] "Длительность теста: %{count} минут"
 msgid "/"
 msgstr "из"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:103
 #, elixir-autogen, elixir-format
 msgid "Enter your answer"
 msgstr "Введите свой ответ"
@@ -395,17 +395,17 @@ msgstr "Тест начинается в"
 msgid "Wrap up"
 msgstr "Завершить"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:100
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
 #, elixir-autogen, elixir-format, fuzzy
 msgid "one answer"
 msgstr "один ответ"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
 #, elixir-autogen, elixir-format
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:91
+#: lib/testiroom_web/live/exam_live/testing.ex:98
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
@@ -735,3 +735,8 @@ msgstr "Добро пожаловать!"
 #, elixir-autogen, elixir-format
 msgid "You must log in to access this page."
 msgstr "Вы должны войти, чтобы получить доступ к этой странице."
+
+#: lib/testiroom_web/live/exam_live/testing.ex:44
+#, elixir-autogen, elixir-format
+msgid "Your attempt has already been completed."
+msgstr "Ваша попытка уже завершена."
