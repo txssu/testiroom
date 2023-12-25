@@ -41,7 +41,7 @@ msgstr ""
 msgid "Edit"
 msgstr ""
 
-#: lib/testiroom_web/live/test_live/edit.ex:18
+#: lib/testiroom_web/live/test_live/edit.ex:16
 #, elixir-autogen, elixir-format
 msgid "Edit Test"
 msgstr ""
@@ -743,4 +743,9 @@ msgstr ""
 #: lib/testiroom_web/live/exam_live/testing.ex:27
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/edit.ex:21
+#, elixir-autogen, elixir-format
+msgid "You cannot edit other users' tests."
 msgstr ""

@@ -41,7 +41,7 @@ msgstr "Удалить"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: lib/testiroom_web/live/test_live/edit.ex:18
+#: lib/testiroom_web/live/test_live/edit.ex:16
 #, elixir-autogen, elixir-format
 msgid "Edit Test"
 msgstr "Редактирование теста"
@@ -745,3 +745,8 @@ msgstr "Ваша попытка уже завершена."
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
 msgstr "У вас нет разрешения на открытие чужих сессий тестирования."
+
+#: lib/testiroom_web/live/test_live/edit.ex:21
+#, elixir-autogen, elixir-format
+msgid "You cannot edit other users' tests."
+msgstr "Вы не можете редактировать чужие тесты."
