@@ -12,20 +12,30 @@ defmodule TestiroomWeb.ExamLive.Testing do
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
 
-    if attempt.user_id == socket.assigns.current_user.id do
-      answers = Map.new(attempt.student_answers, &{&1.order, &1})
+    cond do
+      attempt.user_id != socket.assigns.current_user.id ->
+        {:ok,
+         socket
+         |> put_flash(:error, gettext("You do not have permission to open other testing sessions."))
+         |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
 
-      {:ok,
-       socket
-       |> assign(:attempt, attempt)
-       |> assign(:answers, answers)
-       |> assign(:max_order, answers |> Map.keys() |> Enum.max())
-       |> check_attempt_duration()}
-    else
-      {:ok,
-       socket
-       |> put_flash(:error, gettext("You do not have permission to open other testing sessions."))
-       |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
+      Proctoring.examinee_passing_test?(id) ->
+        {:ok,
+         socket
+         |> put_flash(:error, gettext("You have already opened this attempt in another tab."))
+         |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
+
+      true ->
+        answers = Map.new(attempt.student_answers, &{&1.order, &1})
+
+        Proctoring.register_examinee(attempt.id)
+
+        {:ok,
+         socket
+         |> assign(:attempt, attempt)
+         |> assign(:answers, answers)
+         |> assign(:max_order, answers |> Map.keys() |> Enum.max())
+         |> check_attempt_duration()}
     end
   end
 
