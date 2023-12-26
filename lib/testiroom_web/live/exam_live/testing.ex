@@ -129,6 +129,18 @@ defmodule TestiroomWeb.ExamLive.Testing do
     |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
   end
 
+  defp format_remaining_time(seconds) do
+    [div(seconds, 60), rem(seconds, 60)]
+    |> Enum.map(&add_leading_zero/1)
+    |> Enum.join(":")
+  end
+
+  defp add_leading_zero(time) do
+    time
+    |> Integer.to_string()
+    |> String.pad_leading(2, "0")
+  end
+
   defp notify_answer(socket, answer) do
     %{attempt: attempt, current_user: user} = socket.assigns
     Proctoring.notify_proctor(attempt.test.id, {:answer, user.id, answer})

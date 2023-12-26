@@ -4,7 +4,7 @@
   </h2>
   <%= if assigns[:ends_at] do %>
     <div id="test-timer" class="text-ink-dark-gray mt-2 text-center" phx-hook="TestTimer" phx-update="ignore" data-ends-at={@ends_at}>
-      <%= div(@ends_after, 60) %>:<%= rem(@ends_after, 60) %>
+      <%= format_remaining_time(@ends_after) %>
     </div>
   <% end %>
 </div>

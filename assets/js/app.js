@@ -26,11 +26,14 @@ let Hooks = {}
 
 Hooks.TestTimer = {
   mounted() {
+    const zeroPad = (num) => String(num).padStart(2, '0')
+
     const endsAt = new Date(this.el.dataset.endsAt)
 
     let setContent = () => {
       const seconds = Math.floor((endsAt - new Date()) / 1000 + 1)
-      this.el.textContent = `${Math.floor(seconds / 60)}:${seconds % 60}`
+
+      this.el.textContent = [Math.floor(seconds / 60), seconds % 60].map(zeroPad).join(":")
     }
 
     setContent()
