@@ -14,8 +14,13 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
             <.input type="text" subtype="wide" field={@form[:text_input]} placeholder={prompt_message(:text)} autocomplete="off" phx-debounce="blur" />
           <% type when type in [:single, :multiple] -> %>
             <fieldset>
-              <legend class="text-ink-gray w-full text-center text-sm leading-5"><%= prompt_message(type) %></legend>
-              <.option :for={{option, index} <- Stream.with_index(@answer.task.options)} field={@form[:selected_options]} type={@answer.task.type} option={option} index={index} />
+              <div phx-feedback-for={@form[:selected_options].name}>
+                <legend class="text-ink-gray w-full text-center text-sm leading-5"><%= prompt_message(type) %></legend>
+                <.option :for={{option, index} <- Stream.with_index(@answer.task.options)} field={@form[:selected_options]} type={@answer.task.type} option={option} index={index} />
+                <.error :for={msg <- Enum.map(@form[:selected_options].errors, &translate_error/1)}>
+                  <%= msg %>
+                </.error>
+              </div>
             </fieldset>
         <% end %>
       </.form>
@@ -78,13 +83,21 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
 
     selected_options = Enum.map(selected_options_params, &fetch_options(&1, options))
 
-    case Exams.update_student_answer(answer, selected_options, student_answer_params) do
-      {:ok, answer} -> notify_parent(answer)
-      {:error, :attempt_is_ended} -> notify_parent(:attempt_is_ended)
-      {:error, _changeset} -> nil
-    end
+    updated_socket =
+      case Exams.update_student_answer(answer, selected_options, student_answer_params) do
+        {:ok, answer} ->
+          notify_parent(answer)
+          socket
 
-    {:noreply, socket}
+        {:error, :attempt_is_ended} ->
+          notify_parent(:attempt_is_ended)
+          socket
+
+        {:error, changeset} ->
+          assign_form(socket, changeset)
+      end
+
+    {:noreply, updated_socket}
   end
 
   defp assign_form(socket, %Ecto.Changeset{} = changeset) do
