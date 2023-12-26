@@ -14,11 +14,19 @@ defmodule TestiroomWeb.ExamLive.Result do
       result = gettext("Result")
       page_title = "#{result} · #{attempt.test.title}"
 
+      ended_attempt =
+        if is_nil(attempt.score) or is_nil(attempt.grade) do
+          Exams.wrap_up_attempt!(attempt)
+          Exams.get_attempt!(id)
+        else
+          attempt
+        end
+
       {:ok,
        socket
        |> assign(:page_title, page_title)
-       |> assign(:attempt, attempt)
-       |> assign(:test, attempt.test)}
+       |> assign(:attempt, ended_attempt)
+       |> assign(:test, ended_attempt.test)}
     end
   end
 
