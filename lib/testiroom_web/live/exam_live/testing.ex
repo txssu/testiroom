@@ -130,9 +130,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   defp format_remaining_time(seconds) do
-    [div(seconds, 60), rem(seconds, 60)]
-    |> Enum.map(&add_leading_zero/1)
-    |> Enum.join(":")
+    Enum.map_join([div(seconds, 60), rem(seconds, 60)], ":", &add_leading_zero/1)
   end
 
   defp add_leading_zero(time) do
