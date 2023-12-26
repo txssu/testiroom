@@ -49,7 +49,9 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
             <%= msg %>
           </.error>
         </fieldset>
+        <%= unless Ecto.Changeset.get_field(@form.source, :type) == :text do %>
         <.input field={@form[:shuffle_options]} type="checkbox" label={gettext("Shuffle options")} />
+        <% end %>
         <.input field={@form[:score]} type="number" label={gettext("Score")} />
         <:actions>
           <.button phx-disable-with={gettext("Saving...")}><%= gettext("Save Task") %></.button>
