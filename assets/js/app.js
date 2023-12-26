@@ -36,7 +36,21 @@ Hooks.TestTimer = {
     setContent()
     setInterval(setContent, 1000);
   }
+}
 
+Hooks.LinkCopier = {
+  mounted() {
+    const link =
+      window.location.protocol
+      + "//"
+      + window.location.host
+      + this.el.dataset.link
+
+    this.el.addEventListener("click", () => {
+      navigator.clipboard.writeText(link)
+      this.pushEvent("link-copied")
+    })
+  }
 }
 
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")

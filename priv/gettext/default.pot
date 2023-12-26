@@ -23,20 +23,20 @@ msgid "close"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/index.html.heex:27
-#: lib/testiroom_web/live/test_live/index.html.heex:20
+#: lib/testiroom_web/live/test_live/index.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Are you sure?"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/components/task_form.ex:40
 #: lib/testiroom_web/live/task_live/index.html.heex:28
-#: lib/testiroom_web/live/test_live/index.html.heex:21
+#: lib/testiroom_web/live/test_live/index.html.heex:26
 #, elixir-autogen, elixir-format
 msgid "Delete"
 msgstr ""
 
 #: lib/testiroom_web/live/task_live/index.html.heex:23
-#: lib/testiroom_web/live/test_live/index.html.heex:16
+#: lib/testiroom_web/live/test_live/index.html.heex:21
 #, elixir-autogen, elixir-format
 msgid "Edit"
 msgstr ""
@@ -758,4 +758,14 @@ msgstr ""
 #: lib/testiroom_web/live/exam_live/testing.ex:26
 #, elixir-autogen, elixir-format
 msgid "You have already opened this attempt in another tab."
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/index.html.heex:16
+#, elixir-autogen, elixir-format
+msgid "Copy Link"
+msgstr ""
+
+#: lib/testiroom_web/live/test_live/index.ex:40
+#, elixir-autogen, elixir-format
+msgid "Link copied to clipboard"
 msgstr ""

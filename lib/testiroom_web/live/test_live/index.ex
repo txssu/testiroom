@@ -35,4 +35,8 @@ defmodule TestiroomWeb.TestLive.Index do
 
     {:noreply, stream_delete(socket, :tests, test)}
   end
+
+  def handle_event("link-copied", _params, socket) do
+    {:noreply, put_flash(socket, :info, gettext("Link copied to clipboard"))}
+  end
 end
