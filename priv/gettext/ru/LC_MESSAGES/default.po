@@ -41,7 +41,7 @@ msgstr "Удалить"
 msgid "Edit"
 msgstr "Редактировать"
 
-#: lib/testiroom_web/live/test_live/edit.ex:16
+#: lib/testiroom_web/live/test_live/edit.ex:21
 #, elixir-autogen, elixir-format
 msgid "Edit Test"
 msgstr "Редактирование теста"
@@ -355,7 +355,7 @@ msgstr[2] "Длительность теста: %{count} минут"
 msgid "/"
 msgstr "из"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:103
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:116
 #, elixir-autogen, elixir-format
 msgid "Enter your answer"
 msgstr "Введите свой ответ"
@@ -395,17 +395,17 @@ msgstr "Тест начинается в"
 msgid "Wrap up"
 msgstr "Завершить"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:101
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:114
 #, elixir-autogen, elixir-format, fuzzy
 msgid "one answer"
 msgstr "один ответ"
 
-#: lib/testiroom_web/live/exam_live/components/answer_form.ex:102
+#: lib/testiroom_web/live/exam_live/components/answer_form.ex:115
 #, elixir-autogen, elixir-format
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:105
+#: lib/testiroom_web/live/exam_live/testing.ex:121
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
@@ -477,7 +477,7 @@ msgstr "Имя пользователя"
 msgid "Already registered?"
 msgstr "Уже зарегестрированы?"
 
-#: lib/testiroom_web/live/user_registration_live.ex:39
+#: lib/testiroom_web/live/user_registration_live.ex:40
 #, elixir-autogen, elixir-format
 msgid "Create an account"
 msgstr "Создать аккаунт"
@@ -533,7 +533,7 @@ msgstr "в ваш аккаунт."
 #: lib/testiroom_web/live/user_confirmation_instructions_live.ex:16
 #: lib/testiroom_web/live/user_forgot_password_live.ex:16
 #: lib/testiroom_web/live/user_login_live.ex:20
-#: lib/testiroom_web/live/user_registration_live.ex:35
+#: lib/testiroom_web/live/user_registration_live.ex:36
 #: lib/testiroom_web/live/user_settings_live.ex:17
 #, elixir-autogen, elixir-format
 msgid "Email"
@@ -545,7 +545,7 @@ msgid "Keep me logged in"
 msgstr "Запомнить меня"
 
 #: lib/testiroom_web/live/user_login_live.ex:21
-#: lib/testiroom_web/live/user_registration_live.ex:36
+#: lib/testiroom_web/live/user_registration_live.ex:37
 #, elixir-autogen, elixir-format
 msgid "Password"
 msgstr "Пароль"
@@ -555,7 +555,7 @@ msgstr "Пароль"
 msgid "Signing in..."
 msgstr "Вход..."
 
-#: lib/testiroom_web/live/user_registration_live.ex:39
+#: lib/testiroom_web/live/user_registration_live.ex:40
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Creating account..."
 msgstr "Создание аккаунта..."
@@ -736,17 +736,27 @@ msgstr "Добро пожаловать!"
 msgid "You must log in to access this page."
 msgstr "Вы должны войти, чтобы получить доступ к этой странице."
 
-#: lib/testiroom_web/live/exam_live/testing.ex:51
+#: lib/testiroom_web/live/exam_live/testing.ex:63
 #, elixir-autogen, elixir-format
 msgid "Your attempt has already been completed."
 msgstr "Ваша попытка уже завершена."
 
-#: lib/testiroom_web/live/exam_live/testing.ex:27
+#: lib/testiroom_web/live/exam_live/testing.ex:19
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
 msgstr "У вас нет разрешения на открытие чужих сессий тестирования."
 
-#: lib/testiroom_web/live/test_live/edit.ex:21
+#: lib/testiroom_web/live/test_live/edit.ex:26
 #, elixir-autogen, elixir-format
 msgid "You cannot edit other users' tests."
 msgstr "Вы не можете редактировать чужие тесты."
+
+#: lib/testiroom_web/live/user_registration_live.ex:35
+#, elixir-autogen, elixir-format
+msgid "Fullname"
+msgstr "ФИО"
+
+#: lib/testiroom_web/live/exam_live/testing.ex:26
+#, elixir-autogen, elixir-format
+msgid "You have already opened this attempt in another tab."
+msgstr "Вы уже открыли эту попытку в другой вкладке."

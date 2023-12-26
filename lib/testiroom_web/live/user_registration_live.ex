@@ -32,6 +32,7 @@ defmodule TestiroomWeb.UserRegistrationLive do
           <%= gettext("Oops, something went wrong! Please check the errors below.") %>
         </.error>
 
+        <.input field={@form[:fullname]} type="text" label={gettext("Fullname")} required />
         <.input field={@form[:email]} type="email" label={gettext("Email")} required />
         <.input field={@form[:password]} type="password" label={gettext("Password")} required />
 

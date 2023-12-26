@@ -9,6 +9,7 @@ defmodule Testiroom.Accounts.User do
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "users" do
+    field :fullname, :string
     field :email, :string
     field :password, :string, virtual: true, redact: true
     field :hashed_password, :string, redact: true
@@ -44,7 +45,8 @@ defmodule Testiroom.Accounts.User do
   """
   def registration_changeset(user, attrs, opts \\ []) do
     user
-    |> cast(attrs, [:email, :password])
+    |> cast(attrs, [:email, :password, :fullname])
+    |> validate_required([:fullname])
     |> validate_email(opts)
     |> validate_password(opts)
   end
