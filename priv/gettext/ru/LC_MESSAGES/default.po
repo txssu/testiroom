@@ -129,13 +129,13 @@ msgstr "Вопрос"
 msgid "Save Test"
 msgstr "Сохранить тест"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:55
+#: lib/testiroom_web/live/task_live/components/task_form.ex:57
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr "Сохранение..."
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:53
+#: lib/testiroom_web/live/task_live/components/task_form.ex:55
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr "Баллы"
@@ -160,7 +160,7 @@ msgstr "Показывать оценку ученикам"
 msgid "Show score for student"
 msgstr "Показывать баллы ученикам"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:52
+#: lib/testiroom_web/live/task_live/components/task_form.ex:53
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
 msgstr "Перемешать варианты ответа"
@@ -170,12 +170,12 @@ msgstr "Перемешать варианты ответа"
 msgid "Single select"
 msgstr "Одиночный выбор"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:111
+#: lib/testiroom_web/live/task_live/components/task_form.ex:113
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr "Задание успешно создано"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:94
+#: lib/testiroom_web/live/task_live/components/task_form.ex:96
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr "Задание успешно обновлено"
@@ -217,7 +217,7 @@ msgstr "Задания"
 msgid "Options"
 msgstr "Варианты ответа"
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:55
+#: lib/testiroom_web/live/task_live/components/task_form.ex:57
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr "Сохранить задание"
@@ -255,11 +255,6 @@ msgstr "Настройки"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Testiroom"
 msgstr "Тестирум"
-
-#: lib/testiroom_web/components/layouts/app.html.heex:8
-#, elixir-autogen, elixir-format, fuzzy
-msgid "Tests"
-msgstr "Тесты"
 
 #: lib/testiroom_web/components/core_components.ex:144
 #, elixir-autogen, elixir-format
@@ -349,7 +344,7 @@ msgstr[0] "Длительность теста: %{count} минута"
 msgstr[1] "Длительность теста: %{count} минуты"
 msgstr[2] "Длительность теста: %{count} минут"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:16
+#: lib/testiroom_web/live/exam_live/testing.html.heex:18
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:5
 #, elixir-autogen, elixir-format
 msgid "/"
@@ -360,17 +355,17 @@ msgstr "из"
 msgid "Enter your answer"
 msgstr "Введите свой ответ"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:23
+#: lib/testiroom_web/live/exam_live/testing.html.heex:25
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr "Далее"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:20
+#: lib/testiroom_web/live/exam_live/testing.html.heex:22
 #, elixir-autogen, elixir-format
 msgid "Previous"
 msgstr "Назад"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:28
+#: lib/testiroom_web/live/exam_live/testing.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Review"
 msgstr "Обзор"
@@ -390,7 +385,7 @@ msgstr "Тест заканчивается в"
 msgid "Test starts at"
 msgstr "Тест начинается в"
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:50
+#: lib/testiroom_web/live/exam_live/testing.html.heex:52
 #, elixir-autogen, elixir-format
 msgid "Wrap up"
 msgstr "Завершить"
@@ -770,3 +765,8 @@ msgstr "Ссылка"
 #, elixir-autogen, elixir-format
 msgid "Link copied to clipboard"
 msgstr "Ссылка скопирована в буфер обмена"
+
+#: lib/testiroom_web/components/layouts/app.html.heex:8
+#, elixir-autogen, elixir-format, fuzzy
+msgid "My Tests"
+msgstr "Мои тесты"
