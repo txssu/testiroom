@@ -123,6 +123,12 @@ defmodule TestiroomWeb.ExamLive.Testing do
     "#{task} №#{order_in_title} · #{attempt.test.title}"
   end
 
+  defp restore_new_lines(text) do
+    text
+    |> String.split("\n", trim: false)
+    |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+  end
+
   defp notify_answer(socket, answer) do
     %{attempt: attempt, current_user: user} = socket.assigns
     Proctoring.notify_proctor(attempt.test.id, {:answer, user.id, answer})

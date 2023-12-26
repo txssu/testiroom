@@ -1,5 +1,7 @@
 <div>
-  <h2 class="select-none text-2xl font-medium"><%= @current_answer.task.question %></h2>
+  <h2 class="select-none text-2xl font-medium">
+    <%= restore_new_lines(@current_answer.task.question) %>
+  </h2>
   <%= if assigns[:ends_at] do %>
     <div id="test-timer" class="text-ink-dark-gray mt-2 text-center" phx-hook="TestTimer" phx-update="ignore" data-ends-at={@ends_at}>
       <%= div(@ends_after, 60) %>:<%= rem(@ends_after, 60) %>
