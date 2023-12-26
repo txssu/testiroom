@@ -14,16 +14,18 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
     cond do
       attempt.user_id != socket.assigns.current_user.id ->
-        {:ok,
-         socket
-         |> put_flash(:error, gettext("You do not have permission to open other testing sessions."))
-         |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
+        navigate_with_error(
+          socket,
+          gettext("You do not have permission to open other testing sessions."),
+          ~p"/tests/#{attempt.test_id}/exam"
+        )
 
       Proctoring.examinee_passing_test?(id) ->
-        {:ok,
-         socket
-         |> put_flash(:error, gettext("You have already opened this attempt in another tab."))
-         |> push_navigate(to: ~p"/tests/#{attempt.test_id}/exam")}
+        navigate_with_error(
+          socket,
+          gettext("You have already opened this attempt in another tab."),
+          ~p"/tests/#{attempt.test_id}/exam"
+        )
 
       true ->
         answers = Map.new(attempt.student_answers, &{&1.order, &1})
@@ -92,6 +94,10 @@ defmodule TestiroomWeb.ExamLive.Testing do
     socket
     |> push_navigate(to: ~p"/exams/#{attempt}/result")
     |> notify_wrap_up()
+  end
+
+  defp navigate_with_error(socket, message, url) do
+    {:ok, socket |> put_flash(:error, message) |> push_navigate(to: url)}
   end
 
   defp check_attempt_duration(socket) do
