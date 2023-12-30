@@ -4,6 +4,8 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
 
   alias Testiroom.Exams
 
+  @uploads_path Application.app_dir(:testiroom, "priv/static/uploads")
+
   @impl Phoenix.LiveComponent
   def render(assigns) do
     ~H"""
@@ -16,6 +18,7 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         <.input field={@form[:order]} type="hidden" value={@order} />
         <.input field={@form[:type]} type="select" label={gettext("Type")} prompt={gettext("Choose a type")} options={Exams.Task.types()} />
         <.input field={@form[:question]} type="textarea" label={gettext("Question")} />
+        <.live_file_input upload={@uploads.image} />
         <fieldset phx-feedback-for={@form[:options].name}>
           <legend class="block text-sm font-semibold leading-6 text-zinc-800"><%= gettext("Options") %></legend>
           <div class="space-y-2">
@@ -69,7 +72,8 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
     {:ok,
      socket
      |> assign(assigns)
-     |> assign_form(changeset)}
+     |> assign_form(changeset)
+     |> allow_upload(:image, accept: ["image/*"], max_entries: 1)}
   end
 
   @impl Phoenix.LiveComponent
@@ -83,7 +87,19 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
   end
 
   def handle_event("save", %{"task" => task_params}, socket) do
-    save_task(socket, socket.assigns.action, task_params)
+    uploads =
+      consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
+        dest = Path.join(@uploads_path, Path.basename(path))
+        # You will need to create `priv/static/uploads` for `File.cp!/2` to work.
+        File.cp!(path, dest)
+        {:ok, ~p"/uploads/#{Path.basename(dest)}"}
+      end)
+
+    image = List.first(uploads)
+
+    params = Map.put(task_params, "media_path", image)
+
+    save_task(socket, socket.assigns.action, params)
   end
 
   defp save_task(socket, :edit, task_params) do

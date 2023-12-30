@@ -7,6 +7,11 @@
       <%= format_remaining_time(@ends_after) %>
     </div>
   <% end %>
+  <%= if @current_answer.task.media_path do %>
+    <div class="flex justify-center">
+      <img class="max-h-72" src={@current_answer.task.media_path} />
+    </div>
+  <% end %>
 </div>
 
 <div class="w-full">
