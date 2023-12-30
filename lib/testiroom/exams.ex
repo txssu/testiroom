@@ -511,8 +511,8 @@ defmodule Testiroom.Exams do
   def update_student_answer(%StudentAnswer{} = student_answer, selected_options, attrs) do
     answer_in_db = Repo.get!(Attempt, student_answer.attempt_id)
     now = DateTime.utc_now()
-
-    if DateTime.before?(now, answer_in_db.ended_at) do
+    
+    if is_nil(answer_in_db.ended_at) or DateTime.before?(now, answer_in_db.ended_at) do
       student_answer
       |> StudentAnswer.changeset(attrs)
       |> Ecto.Changeset.put_assoc(:selected_options, selected_options)
