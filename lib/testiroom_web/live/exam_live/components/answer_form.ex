@@ -8,7 +8,7 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
   def render(assigns) do
     ~H"""
     <div>
-      <.form for={@form} phx-change="validate" phx-target={@myself}>
+      <.form for={@form} phx-change="validate" phx-submit="validate" phx-target={@myself}>
         <%= case @answer.task.type do %>
           <% :text -> %>
             <.input type="text" subtype="wide" field={@form[:text_input]} placeholder={prompt_message(:text)} autocomplete="off" phx-debounce="blur" />
