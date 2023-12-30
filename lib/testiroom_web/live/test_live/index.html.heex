@@ -7,7 +7,7 @@
   </:actions>
 </.header>
 
-<.table id="tests" rows={@streams.tests}>
+<.table id="tests" rows={@streams.tests} row_click={fn {_id, test} -> JS.navigate(~p"/tests/#{test}/proctor") end}>
   <:col :let={{_id, test}} label={gettext("Title")}><%= test.title %></:col>
   <:col :let={{_id, test}} label={gettext("Starts at")}><%= test.starts_at %></:col>
   <:col :let={{_id, test}} label={gettext("Ends at")}><%= test.ends_at %></:col>
