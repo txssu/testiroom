@@ -5,7 +5,6 @@ defmodule Testiroom.Exams.Attempt do
   import Ecto.Changeset
 
   alias Testiroom.Accounts.User
-  alias Testiroom.Exams.Grade
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
 
@@ -13,10 +12,6 @@ defmodule Testiroom.Exams.Attempt do
   @foreign_key_type :binary_id
   schema "attempts" do
     field :ended_at, :utc_datetime
-
-    field :score, :integer
-    field :max_score, :integer
-    belongs_to :grade, Grade
 
     belongs_to :user, User
     belongs_to :test, Test
@@ -28,6 +23,33 @@ defmodule Testiroom.Exams.Attempt do
 
   @doc false
   def changeset(attempt, attrs) do
-    cast(attempt, attrs, [:ended_at, :score, :max_score, :grade_id])
+    cast(attempt, attrs, [:ended_at])
+  end
+
+  def get_score_and_max_score(attempt) do
+    {scores, max_scores} =
+      attempt.student_answers
+      |> Enum.map(&StudentAnswer.get_score/1)
+      |> Enum.unzip()
+
+    score = Enum.sum(scores)
+    max_score = Enum.sum(max_scores)
+
+    {score, max_score}
+  end
+
+  def get_score(attempt) do
+    attempt |> get_score_and_max_score() |> elem(0)
+  end
+
+  def get_correctness_ratio(attempt) do
+    {score, max_score} = get_score_and_max_score(attempt)
+
+    score / max_score * 100
+  end
+
+  def get_grade(attempt) do
+    ratio = get_correctness_ratio(attempt)
+    Enum.find(attempt.test.grades, fn grade -> ratio >= grade.from end)
   end
 end

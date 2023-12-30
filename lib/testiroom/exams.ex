@@ -434,7 +434,6 @@ defmodule Testiroom.Exams do
     attrs =
       %{}
       |> maybe_update_ended_time(attempt)
-      |> add_score_and_grade(attempt)
 
     attempt
     |> Attempt.changeset(attrs)
@@ -449,28 +448,6 @@ defmodule Testiroom.Exams do
     else
       attrs
     end
-  end
-
-  def add_score_and_grade(attrs, attempt) do
-    {scores, max_scores} =
-      attempt.student_answers
-      |> Enum.map(&StudentAnswer.get_score/1)
-      |> Enum.unzip()
-
-    score = Enum.sum(scores)
-    max_score = Enum.sum(max_scores)
-
-    grade_score = score / max_score * 100
-
-    grade_id =
-      attempt.test.grades
-      |> Enum.find(fn grade -> grade_score >= grade.from end)
-      |> Map.fetch!(:id)
-
-    attrs
-    |> Map.put(:grade_id, grade_id)
-    |> Map.put(:score, score)
-    |> Map.put(:max_score, max_score)
   end
 
   defp maybe_add_ended_at(attempt) do
@@ -509,7 +486,7 @@ defmodule Testiroom.Exams do
   end
 
   def get_attempt!(id),
-    do: Attempt |> Repo.get!(id) |> Repo.preload(grade: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
+    do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
 
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->

@@ -3,6 +3,7 @@ defmodule TestiroomWeb.ExamLive.Result do
   use TestiroomWeb, :live_view
 
   alias Testiroom.Exams
+  alias Testiroom.Exams.Attempt
 
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
@@ -14,19 +15,17 @@ defmodule TestiroomWeb.ExamLive.Result do
       result = gettext("Result")
       page_title = "#{result} · #{attempt.test.title}"
 
-      ended_attempt =
-        if is_nil(attempt.score) or is_nil(attempt.grade) do
-          Exams.wrap_up_attempt!(attempt)
-          Exams.get_attempt!(id)
-        else
-          attempt
-        end
+      {score, max_score} = Attempt.get_score_and_max_score(attempt)
+      grade = Attempt.get_grade(attempt)
 
       {:ok,
        socket
        |> assign(:page_title, page_title)
-       |> assign(:attempt, ended_attempt)
-       |> assign(:test, ended_attempt.test)}
+       |> assign(:attempt, attempt)
+       |> assign(:test, attempt.test)
+       |> assign(:score, score)
+       |> assign(:max_score, max_score)
+       |> assign(:grade, grade)}
     end
   end
 

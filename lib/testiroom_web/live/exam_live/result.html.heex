@@ -1,10 +1,10 @@
 <div>
   <h1 class="mb-4 text-3xl"><%= @test.title %></h1>
   <%= if @test.show_score_for_student do %>
-    <p class="mb-2"><%= gettext("Total score") %>: <%= @attempt.score %>/<%= @attempt.max_score %></p>
+    <p class="mb-2"><%= gettext("Total score") %>: <%= @score %>/<%= @max_score %></p>
   <% end %>
   <%= if @test.show_grade_for_student do %>
-    <p><%= gettext("Grade") %>: <%= @attempt.grade.grade %></p>
+    <p><%= gettext("Grade") %>: <%= @grade.grade %></p>
   <% end %>
 </div>
 
