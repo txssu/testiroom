@@ -44,8 +44,10 @@ defmodule Testiroom.Exams.StudentAnswer do
 
     case task.type do
       :text ->
-        answers = Enum.map(task.options, &Map.fetch!(&1, :text))
-        student_answer.text_input in answers
+        answers = for %{text: text} <- task.options, do: String.downcase(text)
+        student_input = String.downcase(student_answer.text_input)
+
+        student_input in answers
 
       :single ->
         student_answer.selected_options
