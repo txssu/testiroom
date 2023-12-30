@@ -57,7 +57,7 @@
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
         <tr :for={user <- @users} class="group hover:bg-zinc-50">
           <.column>
-            <%= user.email %>
+            <%= user.fullname %>
           </.column>
           <.column>
             <%= get_grade(@answers, user.id, @test) %>
