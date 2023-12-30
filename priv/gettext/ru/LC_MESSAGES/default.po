@@ -415,7 +415,7 @@ msgstr "Тест закончился или ещё не начался"
 msgid "Possible correct answers"
 msgstr "Возможные верные ответы"
 
-#: lib/testiroom_web/live/exam_live/result.ex:14
+#: lib/testiroom_web/live/exam_live/result.ex:15
 #: lib/testiroom_web/live/exam_live/result.html.heex:17
 #, elixir-autogen, elixir-format
 msgid "Result"
@@ -431,7 +431,7 @@ msgstr "Всего баллов"
 msgid "Your answer"
 msgstr "Ваш ответ"
 
-#: lib/testiroom_web/live/exam_live/result.ex:12
+#: lib/testiroom_web/live/exam_live/result.ex:13
 #, elixir-autogen, elixir-format
 msgid "Finish the test first"
 msgstr "Сначала закончите тест"
@@ -770,3 +770,8 @@ msgstr "Ссылка скопирована в буфер обмена"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "My Tests"
 msgstr "Мои тесты"
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:8
+#, elixir-autogen, elixir-format
+msgid "Time per task"
+msgstr "Времени на одну задачу"
