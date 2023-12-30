@@ -96,6 +96,21 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     end)
   end
 
+  defp get_passing_rate(_answers, _tasks_count, 0) do
+    0
+  end
+
+  defp get_passing_rate(answers, tasks_count, started_count) do
+    answers_count =
+      answers
+      |> Enum.map(fn {_user, answers} ->
+        Enum.count(answers, fn {_order, answer} -> StudentAnswer.correct?(answer) end)
+      end)
+      |> Enum.sum()
+
+    round(answers_count / tasks_count / started_count * 100)
+  end
+
   def get_ratio(answers, user_id) do
     {scores, max_scores} =
       answers
