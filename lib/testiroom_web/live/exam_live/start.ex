@@ -21,7 +21,7 @@ defmodule TestiroomWeb.ExamLive.Start do
          (!test.ends_at || DateTime.before?(now, test.ends_at)) do
       {:ok, attempt} = Exams.start_attempt(user, test)
 
-      Proctoring.notify_proctor(test.id, {:started, user, attempt.student_answers})
+      Proctoring.notify_started(test, user, attempt.student_answers)
 
       {:noreply, push_navigate(socket, to: ~p"/exams/#{attempt}/0")}
     else

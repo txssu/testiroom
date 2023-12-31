@@ -46,14 +46,15 @@ defmodule TestiroomWeb.ExamLive.Testing do
     order = String.to_integer(order_param)
     %{attempt: attempt, answers: answers, max_order: max_order} = socket.assigns
 
+    Proctoring.notify_open_task(attempt.test_id, attempt.user_id, order)
+
     {:noreply,
      socket
      |> assign(:page_title, page_title(attempt, order))
      |> assign(:order, order)
      |> assign(:previous_order, max(0, order - 1))
      |> assign(:next_order, min(max_order, order + 1))
-     |> assign(:current_answer, answers[order])
-     |> notify_open_task()}
+     |> assign(:current_answer, answers[order])}
   end
 
   @impl Phoenix.LiveView
@@ -65,13 +66,14 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   def handle_info({AnswerForm, answer}, socket) do
-    %{answers: answers, order: order} = socket.assigns
+    %{answers: answers, order: order, attempt: attempt} = socket.assigns
+
+    Proctoring.notify_answer(attempt.test_id, attempt.user_id, answer)
 
     {:noreply,
      socket
      |> assign(:current_answer, answer)
-     |> assign(:answers, Map.put(answers, order, answer))
-     |> notify_answer(answer)}
+     |> assign(:answers, Map.put(answers, order, answer))}
   end
 
   @impl Phoenix.LiveView
@@ -90,10 +92,9 @@ defmodule TestiroomWeb.ExamLive.Testing do
     attempt = Map.put(socket.assigns.attempt, :student_answers, student_answers)
 
     Exams.wrap_up_attempt!(attempt)
+    Proctoring.notify_wrap_up(attempt.test_id, attempt.user_id)
 
-    socket
-    |> push_navigate(to: ~p"/exams/#{attempt}/result")
-    |> notify_wrap_up()
+    push_navigate(socket, to: ~p"/exams/#{attempt}/result")
   end
 
   defp navigate_with_error(socket, message, url) do
@@ -137,26 +138,5 @@ defmodule TestiroomWeb.ExamLive.Testing do
     time
     |> Integer.to_string()
     |> String.pad_leading(2, "0")
-  end
-
-  defp notify_answer(socket, answer) do
-    %{attempt: attempt, current_user: user} = socket.assigns
-    Proctoring.notify_proctor(attempt.test.id, {:answer, user.id, answer})
-
-    socket
-  end
-
-  defp notify_wrap_up(socket) do
-    %{attempt: attempt, current_user: user} = socket.assigns
-    Proctoring.notify_proctor(attempt.test.id, {:wrap_up, user.id})
-
-    socket
-  end
-
-  defp notify_open_task(socket) do
-    %{attempt: attempt, current_user: user, order: order} = socket.assigns
-    Proctoring.notify_proctor(attempt.test.id, {:open_task, user.id, order})
-
-    socket
   end
 end
