@@ -45,7 +45,7 @@ defmodule Testiroom.Exams.StudentAnswer do
     case task.type do
       :text ->
         answers = for %{text: text} <- task.options, do: String.downcase(text)
-        student_input = String.downcase(student_answer.text_input)
+        student_input = student_answer || String.downcase(student_answer.text_input)
 
         student_input in answers
 
