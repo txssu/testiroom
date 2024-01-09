@@ -3,5 +3,6 @@
   subdirectories: ["priv/*/migrations"],
   plugins: [Styler, TailwindFormatter, Phoenix.LiveView.HTMLFormatter],
   inputs: ["*.{heex,ex,exs}", "{config,lib,test}/**/*.{heex,ex,exs}", "priv/*/seeds.exs"],
-  line_length: 175
+  line_length: 175,
+  locals_without_parens: [handle: 2, handle: 3]
 ]
