@@ -16,30 +16,33 @@ defmodule TestiroomWeb.ProctorLive.Progress do
   end
 
   @impl Phoenix.LiveView
-  def handle_info({:started, user, answers}, socket) do
+  def handle_info({:proctoring, event}, socket) do
+    {:noreply, handle_proctoring(event, socket)}
+  end
+
+  def handle_proctoring({:started, user, answers}, socket) do
     ordered_answers = Map.new(answers, &{&1.order, &1})
 
-    {:noreply,
-     socket
-     |> update(:started_count, &(&1 + 1))
-     |> update(:users, &[user | &1])
-     |> update(:answers, &Map.put(&1, user.id, ordered_answers))}
+    socket
+    |> update(:started_count, &(&1 + 1))
+    |> update(:users, &[user | &1])
+    |> update(:answers, &Map.put(&1, user.id, ordered_answers))
   end
 
-  def handle_info({:open_task, user_id, order}, socket) do
+  def handle_proctoring({:open_task, user_id, order}, socket) do
     event = Proctoring.Event.new_open_task(user_id, order, DateTime.utc_now())
 
-    {:noreply, update(socket, :opens_history, &[event | &1])}
+    update(socket, :opens_history, &[event | &1])
   end
 
-  def handle_info({:answer, user_id, answer}, socket) do
-    {:noreply, update(socket, :answers, &update_user_answer(&1, user_id, answer.task.order, answer))}
+  def handle_proctoring({:answer, user_id, answer}, socket) do
+    update(socket, :answers, &update_user_answer(&1, user_id, answer.task.order, answer))
   end
 
-  def handle_info({:wrap_up, user_id}, socket) do
+  def handle_proctoring({:wrap_up, user_id}, socket) do
     event = Proctoring.Event.new_wrap_up(user_id, DateTime.utc_now())
 
-    {:noreply, socket |> update(:ended_count, &(&1 + 1)) |> update(:opens_history, &[event | &1])}
+    socket |> update(:ended_count, &(&1 + 1)) |> update(:opens_history, &[event | &1])
   end
 
   defp assign_pubsub_data(socket, test) do

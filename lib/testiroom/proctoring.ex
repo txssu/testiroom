@@ -20,7 +20,7 @@ defmodule Testiroom.Proctoring do
 
   def notify_proctor(test_id, event) do
     Registry.dispatch(__MODULE__, {:proctor, test_id}, fn entries ->
-      for {pid, _value} <- entries, do: send(pid, event)
+      for {pid, _value} <- entries, do: send(pid, {:proctoring, event})
     end)
   end
 
