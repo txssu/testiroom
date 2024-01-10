@@ -39,7 +39,7 @@ defmodule Testiroom.Proctoring.Dispatcher do
   defp init_handlers(handlers_data) do
     Enum.map(handlers_data, fn {type, module, init_options} ->
       {:ok, call_options, fields} = module.init(init_options)
-      {type, module, call_options, fields}
+      {type, module, call_options, Macro.escape(fields)}
     end)
   end
 
