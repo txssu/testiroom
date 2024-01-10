@@ -34,7 +34,7 @@ defmodule Testiroom.Proctoring do
   end
 
   def notify_open_task(test_id, user, task) do
-    notify_proctor(test_id, %Event.OpenedTask{user: user, task: task})
+    notify_proctor(test_id, %Event.OpenedTask{user: user, task: task, at: DateTime.utc_now(:millisecond)})
   end
 
   def notify_answer(_test_id, _user_id, _answer) do
