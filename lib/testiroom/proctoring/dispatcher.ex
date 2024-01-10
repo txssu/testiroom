@@ -21,6 +21,11 @@ defmodule Testiroom.Proctoring.Dispatcher do
 
     quote do
       unquote(struct)
+
+      def handle(data, %event_type{} = event) do
+        do_handle(event_type, event, data)
+      end
+
       unquote(handlers)
     end
   end
@@ -49,7 +54,7 @@ defmodule Testiroom.Proctoring.Dispatcher do
     modules = Enum.map(data, fn {_type, module, options, _fields} -> {module, options} end)
 
     quote do
-      def handle(%__MODULE__{} = data, unquote(type), event) do
+      defp do_handle(unquote(type), event, %__MODULE__{} = data) do
         Enum.reduce(unquote(modules), data, fn {module, options}, acc -> module.call(acc, event, options) end)
       end
     end
