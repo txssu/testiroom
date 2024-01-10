@@ -8,13 +8,13 @@ defmodule Testiroom.Proctoring.Monitor do
   alias Testiroom.Proctoring.TimeTracker
   alias Testiroom.Proctoring.UsersTracker
 
-  handle Event.Started, Counter, :started_counter
-  handle Event.Ended, Counter, :ended_counter
+  defhandler Event.Started, Counter, :started_counter
+  defhandler Event.Ended, Counter, :ended_counter
 
-  handle Event.Started, UsersTracker
+  defhandler Event.Started, UsersTracker
 
-  handle Event.OpenedTask, CurrentTaskTracker
-  handle Event.Ended, CurrentTaskTracker
+  defhandler Event.OpenedTask, CurrentTaskTracker
+  defhandler Event.Ended, CurrentTaskTracker
 
-  handle Event.OpenedTask, TimeTracker
+  defhandler Event.OpenedTask, TimeTracker
 end

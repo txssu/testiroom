@@ -4,6 +4,8 @@ defmodule Testiroom.Proctoring.Dispatcher do
     quote do
       import unquote(__MODULE__)
 
+      require unquote(__MODULE__)
+
       @before_compile unquote(__MODULE__)
 
       Module.register_attribute(__MODULE__, :handlers, accumulate: true)
@@ -30,7 +32,7 @@ defmodule Testiroom.Proctoring.Dispatcher do
     end
   end
 
-  defmacro handle(type, module, options \\ []) do
+  defmacro defhandler(type, module, options \\ []) do
     quote do
       @handlers {unquote(type), unquote(module), unquote(options)}
     end
