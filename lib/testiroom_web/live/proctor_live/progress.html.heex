@@ -18,11 +18,8 @@
           <.column>
             <%= user.fullname %>
           </.column>
-          <td
-            :for={order <- 0..@max_task_order}
-            class={[@monitor.current_task[user_id] && @monitor.current_task[user_id].order == order && "outline-primary outline outline-1"]}
-          >
-          </td>
+          <% current_order = @monitor.current_task[user_id] && @monitor.current_task[user_id].order %>
+          <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1"]}></td>
         </tr>
       </tbody>
     </table>
