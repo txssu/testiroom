@@ -55,6 +55,11 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     |> String.pad_leading(2, "0")
   end
 
+  defp correctness_color(correct?)
+  defp correctness_color(true), do: "bg-correct"
+  defp correctness_color(false), do: "bg-incorrect"
+  defp correctness_color(nil), do: ""
+
   slot :inner_block, required: true
 
   defp column(assigns) do

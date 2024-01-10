@@ -20,7 +20,9 @@
             <%= user.fullname %>
           </.column>
           <% current_order = @monitor.current_task[user_id] && @monitor.current_task[user_id].order %>
-          <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1"]}></td>
+          <% current_user_correctness = @monitor.user_answers_correctness[user_id] %>
+          <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1", correctness_color(current_user_correctness[order])]}>
+          </td>
         </tr>
       </tbody>
     </table>

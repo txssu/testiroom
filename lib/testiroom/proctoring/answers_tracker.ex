@@ -1,15 +1,17 @@
 defmodule Testiroom.Proctoring.AnswersTracker do
   @moduledoc false
+  alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Proctoring.Event
 
   def init([]) do
-    {:ok, [], [user_answers: %{}, provided_answers_counter: 0]}
+    {:ok, [], [user_answers: %{}, provided_answers_counter: 0, user_answers_correctness: %{}]}
   end
 
   def call(data, event, []) do
     data
     |> maybe_update_counter(event)
     |> insert_user_answer(event)
+    |> set_correctness(event)
   end
 
   defp maybe_update_counter(data, %Event.ProvidedAnswer{user: user, answer: answer}) do
@@ -29,6 +31,18 @@ defmodule Testiroom.Proctoring.AnswersTracker do
       data,
       :user_answers,
       &Map.update(&1, user.id, %{answer.task.order => answer}, fn answers -> Map.put(answers, answer.task.order, answer) end)
+    )
+  end
+
+  defp set_correctness(data, %Event.ProvidedAnswer{user: user, answer: answer}) do
+    correct? = StudentAnswer.correct?(answer)
+
+    Map.update!(
+      data,
+      :user_answers_correctness,
+      &Map.update(&1, user.id, %{answer.task.order => correct?}, fn answers ->
+        Map.put(answers, answer.task.order, correct?)
+      end)
     )
   end
 end
