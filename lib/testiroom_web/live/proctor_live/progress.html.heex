@@ -1,5 +1,6 @@
 <div>
   <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
+  <p><%= gettext("Time per task") %>: <%= format_time_per_task(@monitor, @tasks_count) %></p>
 
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
