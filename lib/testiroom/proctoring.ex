@@ -1,5 +1,6 @@
 defmodule Testiroom.Proctoring do
   @moduledoc false
+  alias Testiroom.Proctoring.Event
 
   def register_proctor(test_id) do
     Registry.register(__MODULE__, {:proctor, test_id}, [])
@@ -24,19 +25,19 @@ defmodule Testiroom.Proctoring do
     end)
   end
 
-  def notify_started(test, user, student_answers) do
-    notify_proctor(test.id, {:started, user, student_answers})
+  def notify_started(test, _user, _student_answers) do
+    notify_proctor(test.id, %Event.Started{})
+  end
+
+  def notify_wrap_up(test_id, _user_id) do
+    notify_proctor(test_id, %Event.Ended{})
   end
 
   def notify_answer(test_id, user_id, answer) do
-    notify_proctor(test_id, {:answer, user_id, answer})
-  end
-
-  def notify_wrap_up(test_id, user_id) do
-    notify_proctor(test_id, {:wrap_up, user_id})
+    # notify_proctor(test_id, {:answer, user_id, answer})
   end
 
   def notify_open_task(test_id, user_id, order) do
-    notify_proctor(test_id, {:open_task, user_id, order})
+    # notify_proctor(test_id, {:open_task, user_id, order})
   end
 end

@@ -1,13 +1,10 @@
 <div>
-  <%= if @started_count == 0 do %>
-    <p><%= gettext("No one has started the test") %></p>
-  <% else %>
-    <p><%= gettext("Completed test") %>: <%= @ended_count %> <%= gettext("/") %> <%= @started_count %></p>
-    <p><%= gettext("Passing rate") %>: <%= get_passing_rate(@answers, @tasks_count, @started_count) %>%</p>
-    <p>
-      <%= gettext("Time per task") %>: <%= average_all_tasks_answer_time(@opens_history, @tasks_count, @started_count) %>
-    </p>
-  <% end %>
+  <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
+  <%!-- <p><%= gettext("Passing rate") %>: <%= get_passing_rate(@answers, @tasks_count, @started_count) %>%</p>
+  <p>
+    <%= gettext("Time per task") %>: <%= average_all_tasks_answer_time(@opens_history, @tasks_count, @started_count) %>
+  </p> --%>
+  <%!--
 
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
@@ -75,4 +72,5 @@
       </tbody>
     </table>
   </div>
+  --%>
 </div>
