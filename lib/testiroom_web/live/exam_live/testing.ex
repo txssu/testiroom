@@ -69,9 +69,9 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   def handle_info({AnswerForm, answer}, socket) do
-    %{answers: answers, order: order, attempt: attempt} = socket.assigns
+    %{answers: answers, order: order, attempt: attempt, current_user: user} = socket.assigns
 
-    Proctoring.notify_answer(attempt.test_id, attempt.user_id, answer)
+    Proctoring.notify_answer(attempt.test_id, user, answer)
 
     {:noreply,
      socket
