@@ -1,76 +1,22 @@
 <div>
   <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
-  <%!-- <p><%= gettext("Passing rate") %>: <%= get_passing_rate(@answers, @tasks_count, @started_count) %>%</p>
-  <p>
-    <%= gettext("Time per task") %>: <%= average_all_tasks_answer_time(@opens_history, @tasks_count, @started_count) %>
-  </p> --%>
-  <%!--
 
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
         <tr>
-          <th class="p-0 pr-6 pb-4 font-normal">
-            <%= gettext("Tasks") %>
-          </th>
-          <th :for={order <- 1..@tasks_count} class="p-0 pr-6 pb-4 font-normal">
-            <%= order %>
-          </th>
-        </tr>
-      </thead>
-      <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-        <tr class="group hover:bg-zinc-50">
-          <.column>
-            <%= gettext("Ratio") %>
-          </.column>
-          <.column :for={{_order, ratio} <- correct_answers_ratio(@answers)}>
-            <%= ratio %>%
-          </.column>
-        </tr>
-        <tr class="group hover:bg-zinc-50">
-          <.column>
-            <%= gettext("Average answer time") %>
-          </.column>
-          <.column :for={{_order, time} <- time_per_task(@opens_history)}>
-            <%= time |> div(1000) |> div(60) %>:<%= time |> div(1000) |> rem(60) %>
-          </.column>
-        </tr>
-      </tbody>
-    </table>
-  </div>
-
-  <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
-    <table class="w-[40rem] mt-11 sm:w-full">
-      <thead class="text-left text-sm leading-6 text-zinc-500">
-        <tr>
-          <th :for={label <- [gettext("Username"), gettext("Grade"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
+          <th :for={label <- [gettext("Username")]} class="p-0 pr-6 pb-4 font-normal">
             <%= label %>
           </th>
-          <th :for={order <- 1..@tasks_count} class="p-0 px-3 pb-4 text-center font-normal">
-            <%= order %>
-          </th>
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-        <tr :for={user <- @users} class="group hover:bg-zinc-50">
+        <tr :for={{_id, user} <- @monitor.users} class="group hover:bg-zinc-50">
           <.column>
             <%= user.fullname %>
           </.column>
-          <.column>
-            <%= get_grade(@answers, user.id, @test) %>
-          </.column>
-          <.column>
-            <%= get_ratio(@answers, user.id) |> round() %>
-          </.column>
-
-          <td
-            :for={order <- 0..(@tasks_count - 1)}
-            class={[get_last_opened_order(@opens_history, user.id) == order && "outline-primary outline outline-1", correctness_color(@answers[user.id][order])]}
-          >
-          </td>
         </tr>
       </tbody>
     </table>
   </div>
-  --%>
 </div>

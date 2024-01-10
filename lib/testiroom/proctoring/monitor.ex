@@ -4,11 +4,12 @@ defmodule Testiroom.Proctoring.Monitor do
 
   alias Testiroom.Proctoring.Counter
   alias Testiroom.Proctoring.Event
+  alias Testiroom.Proctoring.UsersTracker
 
   handle Event.Started, Counter, :started_counter
   handle Event.Ended, Counter, :ended_counter
 
-  # handle :started, UsersTracker
+  handle Event.Started, UsersTracker
 
   # handle :open_task, CurrentTaskTracker
 
