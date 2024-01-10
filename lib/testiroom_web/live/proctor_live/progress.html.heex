@@ -8,12 +8,18 @@
           <th :for={label <- [gettext("Username")]} class="p-0 pr-6 pb-4 font-normal">
             <%= label %>
           </th>
+          <th :for={order <- 0..@max_task_order} class="p-0 pr-6 pb-4 font-normal">
+            <%= order + 1 %>
+          </th>
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
         <tr :for={{_id, user} <- @monitor.users} class="group hover:bg-zinc-50">
           <.column>
             <%= user.fullname %>
+          </.column>
+          <.column :for={_order <- 0..@max_task_order}>
+            WIP
           </.column>
         </tr>
       </tbody>

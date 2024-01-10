@@ -10,9 +10,15 @@ defmodule TestiroomWeb.ProctorLive.Progress do
   def mount(%{"test_id" => id}, _session, socket) do
     test = Exams.get_test!(id)
 
+    max_task_order = Exams.get_max_task_order(id)
+
     Proctoring.register_proctor(id)
 
-    {:ok, socket |> assign(:test, test) |> assign(:monitor, %Monitor{})}
+    {:ok,
+     socket
+     |> assign(:test, test)
+     |> assign(:monitor, %Monitor{})
+     |> assign(:max_task_order, max_task_order)}
   end
 
   @impl Phoenix.LiveView
