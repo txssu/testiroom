@@ -18,6 +18,7 @@ defmodule Testiroom.Proctoring.Monitor do
   defhandler Event.Ended, CurrentTaskTracker
 
   defhandler Event.OpenedTask, TimeTracker
+  defhandler Event.Ended, TimeTracker
 
   defhandler Event.ProvidedAnswer, AnswersTracker
 end

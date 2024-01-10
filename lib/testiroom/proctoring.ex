@@ -30,7 +30,7 @@ defmodule Testiroom.Proctoring do
   end
 
   def notify_wrap_up(test_id, user) do
-    notify_proctor(test_id, %Event.Ended{user: user})
+    notify_proctor(test_id, %Event.Ended{user: user, at: DateTime.utc_now()})
   end
 
   def notify_open_task(test_id, user, task) do

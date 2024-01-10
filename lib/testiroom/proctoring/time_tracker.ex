@@ -6,15 +6,13 @@ defmodule Testiroom.Proctoring.TimeTracker do
     {:ok, [], [last_opened: %{}, spended_time_per_task: %{}]}
   end
 
-  # %{task.order => milliseconds}
-
   def call(data, event, []) do
     data
     |> update_spended_time_per_task(event)
     |> update_last_opened_task(event)
   end
 
-  defp update_spended_time_per_task(data, %Event.OpenedTask{user: user, at: datetime}) do
+  defp update_spended_time_per_task(data, %{user: user, at: datetime}) do
     case data.last_opened[user.id] do
       nil ->
         data
@@ -29,5 +27,9 @@ defmodule Testiroom.Proctoring.TimeTracker do
 
   defp update_last_opened_task(data, %Event.OpenedTask{user: user} = event) do
     put_in(data.last_opened[user.id], event)
+  end
+
+  defp update_last_opened_task(data, %Event.Ended{user: user}) do
+    put_in(data.last_opened[user.id], nil)
   end
 end
