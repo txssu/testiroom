@@ -1,4 +1,5 @@
 defmodule Testiroom.Proctoring.Event.Ended do
   @moduledoc false
-  defstruct []
+  @enforce_keys :user
+  defstruct user: nil
 end

@@ -3,6 +3,7 @@ defmodule Testiroom.Proctoring.Monitor do
   use Testiroom.Proctoring.Dispatcher
 
   alias Testiroom.Proctoring.Counter
+  alias Testiroom.Proctoring.CurrentTaskTracker
   alias Testiroom.Proctoring.Event
   alias Testiroom.Proctoring.UsersTracker
 
@@ -11,7 +12,8 @@ defmodule Testiroom.Proctoring.Monitor do
 
   handle Event.Started, UsersTracker
 
-  # handle :open_task, CurrentTaskTracker
+  handle Event.OpenedTask, CurrentTaskTracker
+  handle Event.Ended, CurrentTaskTracker
 
   # handle :open_task, TotalTimeTracker
   # handle :open_task, TaskTimeTracker

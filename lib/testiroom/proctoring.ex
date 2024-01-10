@@ -29,15 +29,15 @@ defmodule Testiroom.Proctoring do
     notify_proctor(test.id, %Event.Started{user: user})
   end
 
-  def notify_wrap_up(test_id, _user_id) do
-    notify_proctor(test_id, %Event.Ended{})
+  def notify_wrap_up(test_id, user) do
+    notify_proctor(test_id, %Event.Ended{user: user})
+  end
+
+  def notify_open_task(test_id, user, task) do
+    notify_proctor(test_id, %Event.OpenedTask{user: user, task: task})
   end
 
   def notify_answer(_test_id, _user_id, _answer) do
     # notify_proctor(test_id, {:answer, user_id, answer})
-  end
-
-  def notify_open_task(_test_id, _user_id, _order) do
-    # notify_proctor(test_id, {:open_task, user_id, order})
   end
 end
