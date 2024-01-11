@@ -67,14 +67,14 @@ defmodule TestiroomWeb.ProctorLive.Progress do
       |> Map.new(fn {key, value} -> {key, if(value, do: 1, else: 0)} end)
       |> Map.merge(acc, fn _key, a, b -> b + a end)
     end)
-    |> Map.new(fn {key, value} -> {key, round(value / started * 100)} end)
+    |> Map.new(fn {key, value} -> {key, value / started} end)
   end
 
   defp get_grade(test, ratio) do
-    score = format_ratio(ratio)
+    percents = ratio_to_percents(ratio)
 
     test.grades
-    |> Enum.find(fn grade -> score >= grade.from end)
+    |> Enum.find(fn grade -> percents >= grade.from end)
     |> Map.fetch!(:grade)
   end
 
@@ -85,7 +85,7 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     |> Kernel./(tasks_count)
   end
 
-  defp format_ratio(ratio) do
+  defp ratio_to_percents(ratio) do
     round(ratio * 100)
   end
 

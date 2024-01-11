@@ -20,7 +20,7 @@
           </.column>
           <% ratios = calculate_correctness_ratio_by_tasks(@monitor, @max_task_order) %>
           <.column :for={order <- 0..@max_task_order}>
-            <%= Map.get(ratios, order, 0) %>%
+            <%= ratios |> Map.get(order, 0) |> ratio_to_percents() %>%
           </.column>
         </tr>
         <tr class="group hover:bg-zinc-50">
@@ -57,7 +57,7 @@
             <%= get_grade(@test, ratio) %>
           </.column>
           <.column>
-            <%= format_ratio(ratio) %>%
+            <%= ratio_to_percents(ratio) %>%
           </.column>
           <% current_order = @monitor.current_task[user_id] && @monitor.current_task[user_id].order %>
           <% current_user_correctness = @monitor.user_answers_correctness[user_id] %>
