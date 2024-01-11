@@ -70,6 +70,14 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     |> Map.new(fn {key, value} -> {key, round(value / started * 100)} end)
   end
 
+  defp get_grade(test, ratio) do
+    score = format_ratio(ratio)
+
+    test.grades
+    |> Enum.find(fn grade -> score >= grade.from end)
+    |> Map.fetch!(:grade)
+  end
+
   defp calculate_correctness_ratio_by_user(%Monitor{user_answers_correctness: correctness}, user_id, tasks_count) do
     correctness
     |> Map.get(user_id, %{})

@@ -39,7 +39,7 @@
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
         <tr>
-          <th :for={label <- [gettext("Username"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
+          <th :for={label <- [gettext("Username"), gettext("Grade"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
             <%= label %>
           </th>
           <th :for={order <- 1..@tasks_count} class="p-0 px-3 pb-4 text-center font-normal">
@@ -53,6 +53,9 @@
             <%= user.fullname %>
           </.column>
           <% ratio = calculate_correctness_ratio_by_user(@monitor, user_id, @tasks_count) %>
+          <.column>
+            <%= get_grade(@test, ratio) %>
+          </.column>
           <.column>
             <%= format_ratio(ratio) %>%
           </.column>
