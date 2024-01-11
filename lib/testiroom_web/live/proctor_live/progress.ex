@@ -46,7 +46,7 @@ defmodule TestiroomWeb.ProctorLive.Progress do
       if started == 0 do
         Stream.map(0..max_task_order, fn _order -> 0 end)
       else
-        Stream.map(0..max_task_order, &Map.get(spended_time, &1, 0))
+        Stream.map(0..max_task_order, &div(Map.get(spended_time, &1, 0), started))
       end
 
     Enum.map(milliseconds, &format_millisecodns/1)
