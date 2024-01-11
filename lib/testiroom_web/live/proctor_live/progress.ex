@@ -70,6 +70,17 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     |> Map.new(fn {key, value} -> {key, round(value / started * 100)} end)
   end
 
+  defp calculate_correctness_ratio_by_user(%Monitor{user_answers_correctness: correctness}, user_id, tasks_count) do
+    correctness
+    |> Map.get(user_id, %{})
+    |> Enum.count(&elem(&1, 1))
+    |> Kernel./(tasks_count)
+  end
+
+  defp format_ratio(ratio) do
+    round(ratio * 100)
+  end
+
   defp add_leading_zero(time) do
     time
     |> Integer.to_string()

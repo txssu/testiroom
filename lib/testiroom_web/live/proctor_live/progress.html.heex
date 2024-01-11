@@ -1,7 +1,6 @@
 <div>
   <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
   <p><%= gettext("Time per task") %>: <%= format_time_per_task(@monitor, @tasks_count) %></p>
-  <%= inspect(calculate_correctness_ratio_by_tasks(@monitor, @max_task_order)) %>
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
@@ -20,7 +19,7 @@
             <%= gettext("Ratio") %>
           </.column>
           <% ratios = calculate_correctness_ratio_by_tasks(@monitor, @max_task_order) %>
-          <.column :for={order <- 0..@max_task_order }>
+          <.column :for={order <- 0..@max_task_order}>
             <%= Map.get(ratios, order, 0) %>%
           </.column>
         </tr>
@@ -40,7 +39,7 @@
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
         <tr>
-          <th :for={label <- [gettext("Username")]} class="p-0 pr-6 pb-4 font-normal">
+          <th :for={label <- [gettext("Username"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
             <%= label %>
           </th>
           <th :for={order <- 1..@tasks_count} class="p-0 px-3 pb-4 text-center font-normal">
@@ -52,6 +51,10 @@
         <tr :for={{user_id, user} <- @monitor.users} class="group hover:bg-zinc-50">
           <.column>
             <%= user.fullname %>
+          </.column>
+          <% ratio = calculate_correctness_ratio_by_user(@monitor, user_id, @tasks_count) %>
+          <.column>
+            <%= format_ratio(ratio) %>%
           </.column>
           <% current_order = @monitor.current_task[user_id] && @monitor.current_task[user_id].order %>
           <% current_user_correctness = @monitor.user_answers_correctness[user_id] %>
