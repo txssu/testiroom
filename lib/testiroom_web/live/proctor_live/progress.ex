@@ -41,6 +41,17 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     format_millisecodns(milliseconds)
   end
 
+  defp format_time_by_tasks(%Monitor{spended_time_per_task: spended_time, started_counter: started}, max_task_order) do
+    milliseconds =
+      if started == 0 do
+        Stream.map(0..max_task_order, fn _order -> 0 end)
+      else
+        Stream.map(0..max_task_order, &Map.get(spended_time, &1, 0))
+      end
+
+    Enum.map(milliseconds, &format_millisecodns/1)
+  end
+
   defp format_millisecodns(milliseconds) do
     total_seconds = div(milliseconds, 1000)
     seconds = total_seconds |> rem(60) |> add_leading_zero()
