@@ -432,8 +432,7 @@ defmodule Testiroom.Exams do
 
   def wrap_up_attempt!(attempt) do
     attrs =
-      %{}
-      |> maybe_update_ended_time(attempt)
+      maybe_update_ended_time(%{}, attempt)
 
     attempt
     |> Attempt.changeset(attrs)
@@ -485,8 +484,7 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def get_attempt!(id),
-    do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
+  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
 
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->
@@ -511,7 +509,7 @@ defmodule Testiroom.Exams do
   def update_student_answer(%StudentAnswer{} = student_answer, selected_options, attrs) do
     answer_in_db = Repo.get!(Attempt, student_answer.attempt_id)
     now = DateTime.utc_now()
-    
+
     if is_nil(answer_in_db.ended_at) or DateTime.before?(now, answer_in_db.ended_at) do
       student_answer
       |> StudentAnswer.changeset(attrs)

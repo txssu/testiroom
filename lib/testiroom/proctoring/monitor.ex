@@ -2,12 +2,12 @@ defmodule Testiroom.Proctoring.Monitor do
   @moduledoc false
   use Testiroom.Proctoring.Dispatcher
 
+  alias Testiroom.Proctoring.AnswersTracker
   alias Testiroom.Proctoring.Counter
   alias Testiroom.Proctoring.CurrentTaskTracker
   alias Testiroom.Proctoring.Event
   alias Testiroom.Proctoring.TimeTracker
   alias Testiroom.Proctoring.UsersTracker
-  alias Testiroom.Proctoring.AnswersTracker
 
   defhandler Event.Started, Counter, :started_counter
   defhandler Event.Ended, Counter, :ended_counter

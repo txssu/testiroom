@@ -4,6 +4,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
   import TestiroomWeb.ExamLive.Components.BottomModal
 
+  alias Phoenix.HTML
   alias Testiroom.Exams
   alias Testiroom.Proctoring
   alias TestiroomWeb.ExamLive.Components.AnswerForm
@@ -130,7 +131,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   defp restore_new_lines(text) do
     text
     |> String.split("\n", trim: false)
-    |> Enum.intersperse(Phoenix.HTML.Tag.tag(:br))
+    |> Enum.intersperse(HTML.Tag.tag(:br))
   end
 
   defp format_remaining_time(seconds) do

@@ -66,6 +66,7 @@ defmodule Testiroom.Proctoring.Dispatcher do
     fields =
       handlers_data
       |> Enum.flat_map(&elem(&1, 3))
+      |> Enum.sort()
       |> Enum.dedup_by(&elem(&1, 0))
 
     quote do

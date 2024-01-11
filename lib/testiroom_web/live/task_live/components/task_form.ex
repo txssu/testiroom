@@ -92,7 +92,8 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         dest = Path.join(@uploads_path, Path.basename(path))
         # You will need to create `priv/static/uploads` for `File.cp!/2` to work.
         File.cp!(path, dest)
-        {:ok, ~p"/uploads/#{Path.basename(dest)}"}
+        name = Path.basename(dest)
+        {:ok, ~p"/uploads/#{name}"}
       end)
 
     image = List.first(uploads)
