@@ -18,7 +18,7 @@
           <.column>
             <%= gettext("Ratio") %>
           </.column>
-          <% ratios = calculate_correctness_ratio_by_tasks(@monitor, @max_task_order) %>
+          <% ratios = calculate_correctness_ratio_by_tasks(@monitor) %>
           <.column :for={order <- 0..@max_task_order}>
             <%= ratios |> Map.get(order, 0) |> ratio_to_percents() %>%
           </.column>
