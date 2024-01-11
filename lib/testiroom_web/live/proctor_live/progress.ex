@@ -60,6 +60,16 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     "#{minutes}:#{seconds}"
   end
 
+  defp calculate_correctness_ratio_by_tasks(%Monitor{user_answers_correctness: correctness, started_counter: started}, max_task_order) do
+    correctness
+    |> Enum.reduce(%{}, fn {_user_id, correctnesses}, acc ->
+      correctnesses
+      |> Map.new(fn {key, value} -> {key, if(value, do: 1, else: 0)} end)
+      |> Map.merge(acc, fn _key, a, b -> b + a end)
+    end)
+    |> Map.new(fn {key, value} -> {key, round(value / started * 100)} end)
+  end
+
   defp add_leading_zero(time) do
     time
     |> Integer.to_string()

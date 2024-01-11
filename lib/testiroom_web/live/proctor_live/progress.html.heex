@@ -1,7 +1,7 @@
 <div>
   <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
   <p><%= gettext("Time per task") %>: <%= format_time_per_task(@monitor, @tasks_count) %></p>
-  <%= inspect(@monitor.spended_time_per_task) %>
+  <%= inspect(calculate_correctness_ratio_by_tasks(@monitor, @max_task_order)) %>
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
@@ -15,6 +15,15 @@
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
+        <tr class="group hover:bg-zinc-50">
+          <.column>
+            <%= gettext("Ratio") %>
+          </.column>
+          <% ratios = calculate_correctness_ratio_by_tasks(@monitor, @max_task_order) %>
+          <.column :for={order <- 0..@max_task_order }>
+            <%= Map.get(ratios, order, 0) %>%
+          </.column>
+        </tr>
         <tr class="group hover:bg-zinc-50">
           <.column>
             <%= gettext("Average answer time") %>
