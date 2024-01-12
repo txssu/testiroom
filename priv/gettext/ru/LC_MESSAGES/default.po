@@ -410,7 +410,7 @@ msgstr "Задание"
 msgid "This test is over or hasn't started yet"
 msgstr "Тест закончился или ещё не начался"
 
-#: lib/testiroom_web/live/exam_live/result.html.heex:46
+#: lib/testiroom_web/live/exam_live/result.html.heex:49
 #, elixir-autogen, elixir-format
 msgid "Possible correct answers"
 msgstr "Возможные верные ответы"
@@ -426,7 +426,7 @@ msgstr "Результат"
 msgid "Total score"
 msgstr "Всего баллов"
 
-#: lib/testiroom_web/live/exam_live/result.html.heex:43
+#: lib/testiroom_web/live/exam_live/result.html.heex:46
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Your answer"
 msgstr "Ваш ответ"
@@ -770,3 +770,8 @@ msgstr "Времени на одну задачу"
 #, elixir-autogen, elixir-format
 msgid "Suspicious activities"
 msgstr "Подозрительные действия"
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:37
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Exit"
+msgstr "Выйти"

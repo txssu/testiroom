@@ -409,7 +409,7 @@ msgstr ""
 msgid "This test is over or hasn't started yet"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/result.html.heex:46
+#: lib/testiroom_web/live/exam_live/result.html.heex:49
 #, elixir-autogen, elixir-format
 msgid "Possible correct answers"
 msgstr ""
@@ -425,7 +425,7 @@ msgstr ""
 msgid "Total score"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/result.html.heex:43
+#: lib/testiroom_web/live/exam_live/result.html.heex:46
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Your answer"
 msgstr ""
@@ -768,4 +768,9 @@ msgstr ""
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Suspicious activities"
+msgstr ""
+
+#: lib/testiroom_web/live/exam_live/result.html.heex:37
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Exit"
 msgstr ""
