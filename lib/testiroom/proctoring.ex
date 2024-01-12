@@ -31,28 +31,28 @@ defmodule Testiroom.Proctoring do
     end)
   end
 
-  def notify_started(test, user, _student_answers) do
-    notify_proctor(%Event.Started{test: test, user: user})
+  def notify_started(test, attempt, _student_answers) do
+    notify_proctor(%Event.Started{test: test, attempt: attempt})
   end
 
-  def notify_wrap_up(test, user) do
-    notify_proctor(%Event.Ended{test: test, user: user})
+  def notify_wrap_up(test, attempt) do
+    notify_proctor(%Event.Ended{test: test, attempt: attempt})
   end
 
-  def notify_open_task(test, user, task) do
-    notify_proctor(%Event.OpenedTask{test: test, user: user, task: task})
+  def notify_open_task(test, attempt, task) do
+    notify_proctor(%Event.OpenedTask{test: test, attempt: attempt, task: task})
   end
 
-  def notify_answer(test, user, answer) do
-    notify_proctor(%Event.ProvidedAnswer{test: test, user: user, student_answer: answer})
+  def notify_answer(test, attempt, answer) do
+    notify_proctor(%Event.ProvidedAnswer{test: test, attempt: attempt, student_answer: answer})
   end
 
-  def notify_started_cheating(test, user) do
-    notify_proctor(%Event.MaybeCheated{test: test, user: user, process: :started})
+  def notify_started_cheating(test, attempt) do
+    notify_proctor(%Event.MaybeCheated{test: test, attempt: attempt, process: :started})
   end
 
-  def notify_ended_cheating(test, user) do
-    notify_proctor(%Event.MaybeCheated{test: test, user: user, process: :ended})
+  def notify_ended_cheating(test, attempt) do
+    notify_proctor(%Event.MaybeCheated{test: test, attempt: attempt, process: :ended})
   end
 
   @events [Event.Started, Event.OpenedTask, Event.ProvidedAnswer, Event.Ended, Event.MaybeCheated]
@@ -66,9 +66,9 @@ defmodule Testiroom.Proctoring do
   defp get_events(test_id, event_type) do
     preload_fields =
       case event_type do
-        type when type in [Event.Started, Event.Ended, Event.MaybeCheated] -> [:user]
-        Event.OpenedTask -> [:user, :task]
-        Event.ProvidedAnswer -> [user: [], student_answer: [task: [:options], selected_options: []]]
+        type when type in [Event.Started, Event.Ended, Event.MaybeCheated] -> [attempt: [:user]]
+        Event.OpenedTask -> [attempt: [:user], task: []]
+        Event.ProvidedAnswer -> [attempt: [:user], student_answer: [task: [:options], selected_options: []]]
       end
 
     query =

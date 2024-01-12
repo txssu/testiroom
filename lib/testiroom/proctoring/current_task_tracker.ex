@@ -8,11 +8,11 @@ defmodule Testiroom.Proctoring.CurrentTaskTracker do
     {:ok, [], [{@field, %{}}]}
   end
 
-  def call(data, %Event.OpenedTask{user: user, task: task}, []) do
-    Map.update(data, @field, 1, &Map.put(&1, user.id, task))
+  def call(data, %Event.OpenedTask{attempt: attempt, task: task}, []) do
+    Map.update(data, @field, 1, &Map.put(&1, attempt.id, task))
   end
 
-  def call(data, %Event.Ended{user: user}, []) do
-    Map.update(data, @field, 1, &Map.put(&1, user.id, nil))
+  def call(data, %Event.Ended{attempt: attempt}, []) do
+    Map.update(data, @field, 1, &Map.put(&1, attempt.id, nil))
   end
 end

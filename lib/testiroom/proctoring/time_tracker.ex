@@ -14,8 +14,8 @@ defmodule Testiroom.Proctoring.TimeTracker do
     |> update_last_opened_task(event)
   end
 
-  defp update_spended_time_per_task(data, %module{user: user, inserted_at: datetime}) when module in [OpenedTask, Ended] do
-    case data.last_opened[user.id] do
+  defp update_spended_time_per_task(data, %module{attempt: attempt, inserted_at: datetime}) when module in [OpenedTask, Ended] do
+    case data.last_opened[attempt.id] do
       nil ->
         data
 
@@ -27,11 +27,11 @@ defmodule Testiroom.Proctoring.TimeTracker do
     end
   end
 
-  defp update_last_opened_task(data, %Event.OpenedTask{user: user} = event) do
-    put_in(data.last_opened[user.id], event)
+  defp update_last_opened_task(data, %Event.OpenedTask{attempt: attempt} = event) do
+    put_in(data.last_opened[attempt.id], event)
   end
 
-  defp update_last_opened_task(data, %Event.Ended{user: user}) do
-    put_in(data.last_opened[user.id], nil)
+  defp update_last_opened_task(data, %Event.Ended{attempt: attempt}) do
+    put_in(data.last_opened[attempt.id], nil)
   end
 end

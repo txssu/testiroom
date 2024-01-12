@@ -14,10 +14,10 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     |> set_correctness(event)
   end
 
-  defp maybe_update_counter(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
+  defp maybe_update_counter(data, %Event.ProvidedAnswer{attempt: attempt, student_answer: answer}) do
     result = Map.fetch!(data, :user_answers)
 
-    with {:ok, answers} <- Map.fetch(result, user.id),
+    with {:ok, answers} <- Map.fetch(result, attempt.id),
          {:ok, _answer} <- Map.fetch(answers, answer.task.order) do
       data
     else
@@ -26,21 +26,21 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     end
   end
 
-  defp insert_user_answer(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
+  defp insert_user_answer(data, %Event.ProvidedAnswer{attempt: attempt, student_answer: answer}) do
     Map.update!(
       data,
       :user_answers,
-      &Map.update(&1, user.id, %{answer.task.order => answer}, fn answers -> Map.put(answers, answer.task.order, answer) end)
+      &Map.update(&1, attempt.id, %{answer.task.order => answer}, fn answers -> Map.put(answers, answer.task.order, answer) end)
     )
   end
 
-  defp set_correctness(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
+  defp set_correctness(data, %Event.ProvidedAnswer{attempt: attempt, student_answer: answer}) do
     correct? = StudentAnswer.correct?(answer)
 
     Map.update!(
       data,
       :user_answers_correctness,
-      &Map.update(&1, user.id, %{answer.task.order => correct?}, fn answers ->
+      &Map.update(&1, attempt.id, %{answer.task.order => correct?}, fn answers ->
         Map.put(answers, answer.task.order, correct?)
       end)
     )

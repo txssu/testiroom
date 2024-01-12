@@ -12,23 +12,23 @@ defmodule Testiroom.Proctoring.CheatingTracker do
     |> change_cheating_state(event)
   end
 
-  defp maybe_update_counter(data, %Event.MaybeCheated{user: user, process: :started}) do
+  defp maybe_update_counter(data, %Event.MaybeCheated{attempt: attempt, process: :started}) do
     Map.update!(data, :maybe_cheated_counter, fn users ->
-      Map.update(users, user.id, 1, &(&1 + 1))
+      Map.update(users, attempt.id, 1, &(&1 + 1))
     end)
   end
 
   defp maybe_update_counter(data, _event), do: data
 
-  defp change_cheating_state(data, %Event.MaybeCheated{user: user, process: :started}) do
+  defp change_cheating_state(data, %Event.MaybeCheated{attempt: attempt, process: :started}) do
     Map.update!(data, :maybe_cheating, fn users ->
-      Map.put(users, user.id, true)
+      Map.put(users, attempt.id, true)
     end)
   end
 
-  defp change_cheating_state(data, %Event.MaybeCheated{user: user, process: :ended}) do
+  defp change_cheating_state(data, %Event.MaybeCheated{attempt: attempt, process: :ended}) do
     Map.update!(data, :maybe_cheating, fn users ->
-      Map.put(users, user.id, false)
+      Map.put(users, attempt.id, false)
     end)
   end
 end
