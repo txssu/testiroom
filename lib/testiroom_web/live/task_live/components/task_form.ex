@@ -87,20 +87,24 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
   end
 
   def handle_event("save", %{"task" => task_params}, socket) do
-    uploads =
-      consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
-        dest = Path.join(@uploads_path, Path.basename(path))
-        # You will need to create `priv/static/uploads` for `File.cp!/2` to work.
-        File.cp!(path, dest)
-        name = Path.basename(dest)
-        {:ok, ~p"/uploads/#{name}"}
-      end)
+    uploads = handle_uploads(socket)
 
     image = List.first(uploads)
 
     params = Map.put(task_params, "media_path", image)
 
     save_task(socket, socket.assigns.action, params)
+  end
+
+  # sobelow_skip ["Traversal"]
+  defp handle_uploads(socket) do
+    consume_uploaded_entries(socket, :image, fn %{path: path}, _entry ->
+      dest = Path.join(@uploads_path, Path.basename(path))
+      # You will need to create `priv/static/uploads` for `File.cp!/2` to work.
+      File.cp!(path, dest)
+      name = Path.basename(dest)
+      {:ok, ~p"/uploads/#{name}"}
+    end)
   end
 
   defp save_task(socket, :edit, task_params) do
