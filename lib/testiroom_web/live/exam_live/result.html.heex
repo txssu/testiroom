@@ -1,5 +1,5 @@
 <div>
-  <h1 class="mb-4 text-3xl"><%= @test.title %></h1>
+  <h1 class="text-2xl font-medium"><%= @test.title %></h1>
   <%= if @test.show_score_for_student do %>
     <p class="mb-2"><%= gettext("Total score") %>: <%= @score %>/<%= @max_score %></p>
   <% end %>
