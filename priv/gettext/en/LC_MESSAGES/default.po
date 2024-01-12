@@ -28,7 +28,7 @@ msgstr ""
 msgid "Are you sure?"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:40
+#: lib/testiroom_web/live/task_live/components/task_form.ex:43
 #: lib/testiroom_web/live/task_live/index.html.heex:28
 #: lib/testiroom_web/live/test_live/index.html.heex:26
 #, elixir-autogen, elixir-format
@@ -79,7 +79,7 @@ msgstr ""
 msgid "Title"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:17
+#: lib/testiroom_web/live/task_live/components/task_form.ex:19
 #, elixir-autogen, elixir-format
 msgid "Choose a type"
 msgstr ""
@@ -95,7 +95,7 @@ msgid "Edit Task"
 msgstr ""
 
 #: lib/testiroom_web/live/exam_live/result.html.heex:7
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:42
 #: lib/testiroom_web/live/test_live/components/test_form.ex:37
 #, elixir-autogen, elixir-format
 msgid "Grade"
@@ -118,7 +118,7 @@ msgstr ""
 msgid "New Task"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:18
+#: lib/testiroom_web/live/task_live/components/task_form.ex:20
 #: lib/testiroom_web/live/task_live/index.html.heex:20
 #, elixir-autogen, elixir-format
 msgid "Question"
@@ -129,13 +129,13 @@ msgstr ""
 msgid "Save Test"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:57
+#: lib/testiroom_web/live/task_live/components/task_form.ex:60
 #: lib/testiroom_web/live/test_live/components/test_form.ex:80
 #, elixir-autogen, elixir-format
 msgid "Saving..."
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:55
+#: lib/testiroom_web/live/task_live/components/task_form.ex:58
 #, elixir-autogen, elixir-format
 msgid "Score"
 msgstr ""
@@ -160,7 +160,7 @@ msgstr ""
 msgid "Show score for student"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:53
+#: lib/testiroom_web/live/task_live/components/task_form.ex:56
 #, elixir-autogen, elixir-format
 msgid "Shuffle options"
 msgstr ""
@@ -170,12 +170,12 @@ msgstr ""
 msgid "Single select"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:113
+#: lib/testiroom_web/live/task_live/components/task_form.ex:134
 #, elixir-autogen, elixir-format
 msgid "Task created successfully"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:96
+#: lib/testiroom_web/live/task_live/components/task_form.ex:117
 #, elixir-autogen, elixir-format
 msgid "Task updated successfully"
 msgstr ""
@@ -195,7 +195,7 @@ msgstr ""
 msgid "Text input"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:17
+#: lib/testiroom_web/live/task_live/components/task_form.ex:19
 #: lib/testiroom_web/live/task_live/index.html.heex:19
 #, elixir-autogen, elixir-format
 msgid "Type"
@@ -207,17 +207,17 @@ msgid "Editor"
 msgstr ""
 
 #: lib/testiroom_web/live/components/test_editor_header.ex:23
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:17
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:9
 #, elixir-autogen, elixir-format
 msgid "Tasks"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:20
+#: lib/testiroom_web/live/task_live/components/task_form.ex:23
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Options"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:57
+#: lib/testiroom_web/live/task_live/components/task_form.ex:60
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Save Task"
 msgstr ""
@@ -326,12 +326,12 @@ msgstr ""
 msgid "should cover values from 0 to 100 (you need to add a grade from 0%)"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:46
+#: lib/testiroom_web/live/task_live/components/task_form.ex:49
 #, elixir-autogen, elixir-format
 msgid "Add option"
 msgstr ""
 
-#: lib/testiroom_web/live/task_live/components/task_form.ex:35
+#: lib/testiroom_web/live/task_live/components/task_form.ex:38
 #, elixir-autogen, elixir-format
 msgid "Correct answer"
 msgstr ""
@@ -343,8 +343,8 @@ msgid_plural "Test duration: %{count} minutes"
 msgstr[0] ""
 msgstr[1] ""
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:18
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:5
+#: lib/testiroom_web/live/exam_live/testing.html.heex:23
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "/"
 msgstr ""
@@ -354,17 +354,17 @@ msgstr ""
 msgid "Enter your answer"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:25
+#: lib/testiroom_web/live/exam_live/testing.html.heex:30
 #, elixir-autogen, elixir-format
 msgid "Next"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:22
+#: lib/testiroom_web/live/exam_live/testing.html.heex:27
 #, elixir-autogen, elixir-format
 msgid "Previous"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:30
+#: lib/testiroom_web/live/exam_live/testing.html.heex:35
 #, elixir-autogen, elixir-format
 msgid "Review"
 msgstr ""
@@ -384,7 +384,7 @@ msgstr ""
 msgid "Test starts at"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.html.heex:52
+#: lib/testiroom_web/live/exam_live/testing.html.heex:57
 #, elixir-autogen, elixir-format
 msgid "Wrap up"
 msgstr ""
@@ -399,7 +399,7 @@ msgstr ""
 msgid "one or more answers"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:121
+#: lib/testiroom_web/live/exam_live/testing.ex:140
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr ""
@@ -435,33 +435,23 @@ msgstr ""
 msgid "Finish the test first"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:35
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:28
 #, elixir-autogen, elixir-format
 msgid "Average answer time"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:5
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:2
 #, elixir-autogen, elixir-format
 msgid "Completed test"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:3
-#, elixir-autogen, elixir-format
-msgid "No one has started the test"
-msgstr ""
-
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:6
-#, elixir-autogen, elixir-format
-msgid "Passing rate"
-msgstr ""
-
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:27
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:19
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Ratio"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:49
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:42
 #, elixir-autogen, elixir-format
 msgid "Username"
 msgstr ""
@@ -730,12 +720,12 @@ msgstr ""
 msgid "You must log in to access this page."
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:63
+#: lib/testiroom_web/live/exam_live/testing.ex:68
 #, elixir-autogen, elixir-format
 msgid "Your attempt has already been completed."
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:19
+#: lib/testiroom_web/live/exam_live/testing.ex:20
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
 msgstr ""
@@ -750,7 +740,7 @@ msgstr ""
 msgid "Fullname"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:26
+#: lib/testiroom_web/live/exam_live/testing.ex:27
 #, elixir-autogen, elixir-format
 msgid "You have already opened this attempt in another tab."
 msgstr ""
@@ -770,7 +760,12 @@ msgstr ""
 msgid "My Tests"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:8
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:3
 #, elixir-autogen, elixir-format
 msgid "Time per task"
+msgstr ""
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:42
+#, elixir-autogen, elixir-format
+msgid "Suspicious activities"
 msgstr ""

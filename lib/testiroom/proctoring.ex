@@ -47,11 +47,18 @@ defmodule Testiroom.Proctoring do
     notify_proctor(%Event.ProvidedAnswer{test: test, user: user, student_answer: answer})
   end
 
-  @events [Event.Started, Event.OpenedTask, Event.ProvidedAnswer, Event.Ended]
+  def notify_started_cheating(test, user) do
+    notify_proctor(%Event.MaybeCheated{test: test, user: user, process: :started})
+  end
+
+  def notify_ended_cheating(test, user) do
+    notify_proctor(%Event.MaybeCheated{test: test, user: user, process: :ended})
+  end
+
+  @events [Event.Started, Event.OpenedTask, Event.ProvidedAnswer, Event.Ended, Event.MaybeCheated]
   def get_monitor(test_id) do
     @events
     |> Enum.flat_map(&get_events(test_id, &1))
-
     |> Enum.sort_by(& &1.inserted_at, DateTime)
     |> Enum.reduce(%Monitor{}, &Monitor.handle(&2, &1))
   end
@@ -59,7 +66,7 @@ defmodule Testiroom.Proctoring do
   defp get_events(test_id, event_type) do
     preload_fields =
       case event_type do
-        type when type in [Event.Started, Event.Ended] -> [:user]
+        type when type in [Event.Started, Event.Ended, Event.MaybeCheated] -> [:user]
         Event.OpenedTask -> [:user, :task]
         Event.ProvidedAnswer -> [user: [], student_answer: [task: [:options], selected_options: []]]
       end

@@ -86,6 +86,20 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   @impl Phoenix.LiveView
+  def handle_event("start-cheating", _params, socket) do
+    %{attempt: attempt, current_user: user} = socket.assigns
+
+    Proctoring.notify_started_cheating(attempt.test, user)
+    {:noreply, socket}
+  end
+
+  def handle_event("stop-cheating", _params, socket) do
+    %{attempt: attempt, current_user: user} = socket.assigns
+
+    Proctoring.notify_ended_cheating(attempt.test, user)
+    {:noreply, socket}
+  end
+
   def handle_event("wrap-up", _params, socket) do
     {:noreply, wrap_up(socket)}
   end

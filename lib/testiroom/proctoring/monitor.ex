@@ -3,6 +3,7 @@ defmodule Testiroom.Proctoring.Monitor do
   use Testiroom.Proctoring.Dispatcher
 
   alias Testiroom.Proctoring.AnswersTracker
+  alias Testiroom.Proctoring.CheatingTracker
   alias Testiroom.Proctoring.Counter
   alias Testiroom.Proctoring.CurrentTaskTracker
   alias Testiroom.Proctoring.Event
@@ -21,4 +22,6 @@ defmodule Testiroom.Proctoring.Monitor do
   defhandler Event.Ended, TimeTracker
 
   defhandler Event.ProvidedAnswer, AnswersTracker
+
+  defhandler Event.MaybeCheated, CheatingTracker
 end

@@ -101,6 +101,12 @@ defmodule TestiroomWeb.ProctorLive.Progress do
   defp correctness_color(false), do: "bg-incorrect"
   defp correctness_color(nil), do: ""
 
+  defp cheating_outline(monitor, user_id) do
+    if Map.get(monitor.maybe_cheating, user_id, false) do
+      "border-2 border-incorrect"
+    end
+  end
+
   slot :inner_block, required: true
 
   defp column(assigns) do

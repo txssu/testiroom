@@ -56,6 +56,35 @@ Hooks.LinkCopier = {
   }
 }
 
+Hooks.Proctor = {
+  mounted() {
+    const stopCheating = () => this.pushEvent("stop-cheating", {})
+    const startCheating = () => this.pushEvent("start-cheating", {})
+    const isMobile = 'ontouchstart' in document.documentElement;
+
+    let ratioCheated = false
+
+    function checkWindowRatio() {
+      const ratio = Math.min(window.innerWidth, window.innerHeight) / Math.max(window.innerWidth, window.innerHeight)
+
+      if (ratio > 0.80) {
+        startCheating()
+        ratioCheated = true
+      }
+      else if (ratioCheated)
+        stopCheating()
+
+      document.querySelector("#proctor").textContent = ratio
+    }
+
+    window.addEventListener("focus", () => stopCheating())
+    window.addEventListener("blur", () => startCheating())
+    if (isMobile) {
+      window.addEventListener("resize", () => checkWindowRatio())
+      checkWindowRatio()
+    }
+  }}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks, params: { _csrf_token: csrfToken } })
 

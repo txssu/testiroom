@@ -39,7 +39,7 @@
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
         <tr>
-          <th :for={label <- [gettext("Username"), gettext("Grade"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
+          <th :for={label <- [gettext("Suspicious activities"), gettext("Username"), gettext("Grade"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
             <%= label %>
           </th>
           <th :for={order <- 1..@tasks_count} class="p-0 px-3 pb-4 text-center font-normal">
@@ -48,7 +48,10 @@
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-        <tr :for={{user_id, user} <- @monitor.users} class="group hover:bg-zinc-50">
+        <tr :for={{user_id, user} <- @monitor.users} class={cheating_outline(@monitor, user_id)}>
+          <.column>
+            <%= Map.get(@monitor.maybe_cheated_counter, user_id, 0) %>
+          </.column>
           <.column>
             <%= user.fullname %>
           </.column>
