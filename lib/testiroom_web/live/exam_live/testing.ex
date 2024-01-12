@@ -50,7 +50,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
     current_answer = answers[order]
     current_task = current_answer.task
 
-    Proctoring.notify_open_task(attempt.test_id, user, current_task)
+    Proctoring.notify_open_task(attempt.test, user, current_task)
 
     {:noreply,
      socket
@@ -72,7 +72,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   def handle_info({AnswerForm, answer}, socket) do
     %{answers: answers, order: order, attempt: attempt, current_user: user} = socket.assigns
 
-    Proctoring.notify_answer(attempt.test_id, user, answer)
+    Proctoring.notify_answer(attempt.test, user, answer)
 
     {:noreply,
      socket
@@ -96,7 +96,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
     attempt = Map.put(socket.assigns.attempt, :student_answers, student_answers)
 
     Exams.wrap_up_attempt!(attempt)
-    Proctoring.notify_wrap_up(attempt.test_id, socket.assigns.current_user)
+    Proctoring.notify_wrap_up(attempt.test, socket.assigns.current_user)
 
     push_navigate(socket, to: ~p"/exams/#{attempt}/result")
   end

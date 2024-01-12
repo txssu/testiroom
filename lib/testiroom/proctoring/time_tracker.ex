@@ -1,6 +1,8 @@
 defmodule Testiroom.Proctoring.TimeTracker do
   @moduledoc false
   alias Testiroom.Proctoring.Event
+  alias Testiroom.Proctoring.Event.Ended
+  alias Testiroom.Proctoring.Event.OpenedTask
 
   def init([]) do
     {:ok, [], [last_opened: %{}, spended_time_per_task: %{}]}
@@ -12,12 +14,12 @@ defmodule Testiroom.Proctoring.TimeTracker do
     |> update_last_opened_task(event)
   end
 
-  defp update_spended_time_per_task(data, %{user: user, at: datetime}) do
+  defp update_spended_time_per_task(data, %module{user: user, inserted_at: datetime}) when module in [OpenedTask, Ended] do
     case data.last_opened[user.id] do
       nil ->
         data
 
-      %{at: last_opened_at, task: updated_task} ->
+      %{inserted_at: last_opened_at, task: updated_task} ->
         Map.update!(data, :spended_time_per_task, fn tasks_time ->
           append_time = DateTime.diff(datetime, last_opened_at, :millisecond)
           Map.update(tasks_time, updated_task.order, append_time, &(&1 + append_time))

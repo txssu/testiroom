@@ -14,7 +14,7 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     |> set_correctness(event)
   end
 
-  defp maybe_update_counter(data, %Event.ProvidedAnswer{user: user, answer: answer}) do
+  defp maybe_update_counter(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
     result = Map.fetch!(data, :user_answers)
 
     with {:ok, answers} <- Map.fetch(result, user.id),
@@ -26,7 +26,7 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     end
   end
 
-  defp insert_user_answer(data, %Event.ProvidedAnswer{user: user, answer: answer}) do
+  defp insert_user_answer(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
     Map.update!(
       data,
       :user_answers,
@@ -34,7 +34,7 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     )
   end
 
-  defp set_correctness(data, %Event.ProvidedAnswer{user: user, answer: answer}) do
+  defp set_correctness(data, %Event.ProvidedAnswer{user: user, student_answer: answer}) do
     correct? = StudentAnswer.correct?(answer)
 
     Map.update!(

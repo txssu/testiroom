@@ -1,5 +1,16 @@
 defmodule Testiroom.Proctoring.Event.Started do
   @moduledoc false
-  @enforce_keys :user
-  defstruct user: nil
+  use Ecto.Schema
+
+  alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Test
+
+  @primary_key {:id, :binary_id, autogenerate: true}
+  @foreign_key_type :binary_id
+  schema "started_events" do
+    belongs_to :test, Test
+    belongs_to :user, User
+
+    timestamps(type: :utc_datetime, updated_at: false)
+  end
 end
