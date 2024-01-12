@@ -1,6 +1,9 @@
 defmodule Testiroom.Proctoring do
   @moduledoc false
+  import Ecto.Query, warn: false
+
   alias Testiroom.Proctoring.Event
+  alias Testiroom.Proctoring.Monitor
   alias Testiroom.Repo
 
   def register_proctor(test_id) do
@@ -42,5 +45,30 @@ defmodule Testiroom.Proctoring do
 
   def notify_answer(test, user, answer) do
     notify_proctor(%Event.ProvidedAnswer{test: test, user: user, student_answer: answer})
+  end
+
+  @events [Event.Started, Event.OpenedTask, Event.ProvidedAnswer, Event.Ended]
+  def get_monitor(test_id) do
+    @events
+    |> Enum.flat_map(&get_events(test_id, &1))
+
+    |> Enum.sort_by(& &1.inserted_at, DateTime)
+    |> Enum.reduce(%Monitor{}, &Monitor.handle(&2, &1))
+  end
+
+  defp get_events(test_id, event_type) do
+    preload_fields =
+      case event_type do
+        type when type in [Event.Started, Event.Ended] -> [:user]
+        Event.OpenedTask -> [:user, :task]
+        Event.ProvidedAnswer -> [user: [], student_answer: [task: [:options], selected_options: []]]
+      end
+
+    query =
+      from event in event_type,
+        where: event.test_id == ^test_id,
+        preload: ^preload_fields
+
+    Repo.all(query)
   end
 end
