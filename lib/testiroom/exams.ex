@@ -484,7 +484,8 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def get_attempt!(id), do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
+  def get_attempt!(id),
+    do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
 
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->

@@ -45,7 +45,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   @impl Phoenix.LiveView
   def handle_params(%{"order" => order_param}, _uri, socket) do
     order = String.to_integer(order_param)
-    %{attempt: attempt, answers: answers, max_order: max_order, current_user: user} = socket.assigns
+    %{attempt: attempt, answers: answers, max_order: max_order} = socket.assigns
 
     current_answer = answers[order]
     current_task = current_answer.task
@@ -70,7 +70,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   end
 
   def handle_info({AnswerForm, answer}, socket) do
-    %{answers: answers, order: order, attempt: attempt, current_user: user} = socket.assigns
+    %{answers: answers, order: order, attempt: attempt} = socket.assigns
 
     Proctoring.notify_answer(attempt.test, attempt, answer)
 
@@ -87,14 +87,14 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
   @impl Phoenix.LiveView
   def handle_event("start-cheating", _params, socket) do
-    %{attempt: attempt, current_user: user} = socket.assigns
+    %{attempt: attempt} = socket.assigns
 
     Proctoring.notify_started_cheating(attempt.test, attempt)
     {:noreply, socket}
   end
 
   def handle_event("stop-cheating", _params, socket) do
-    %{attempt: attempt, current_user: user} = socket.assigns
+    %{attempt: attempt} = socket.assigns
 
     Proctoring.notify_ended_cheating(attempt.test, attempt)
     {:noreply, socket}

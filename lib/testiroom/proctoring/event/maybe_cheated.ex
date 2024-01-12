@@ -2,8 +2,8 @@ defmodule Testiroom.Proctoring.Event.MaybeCheated do
   @moduledoc false
   use Ecto.Schema
 
-  alias Testiroom.Exams.Test
   alias Testiroom.Exams.Attempt
+  alias Testiroom.Exams.Test
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
