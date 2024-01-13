@@ -33,7 +33,7 @@
 <% end %>
 
 <div>
-  <div>
+  <div class="mt-2.5">
     <.button tag={:link} navigate={~p"/tests/#{@test}/exam"} kind={:tall} class="w-full"><%= gettext("Exit") %></.button>
   </div>
   <.modal :if={@live_action == :show} id="result-modal" show on_cancel={JS.patch(~p"/exams/#{@attempt}/result/")}>
