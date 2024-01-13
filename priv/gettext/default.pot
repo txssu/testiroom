@@ -399,7 +399,7 @@ msgstr ""
 msgid "one or more answers"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:140
+#: lib/testiroom_web/live/exam_live/testing.ex:139
 #, elixir-autogen, elixir-format
 msgid "Task"
 msgstr ""
@@ -720,12 +720,12 @@ msgstr ""
 msgid "You must log in to access this page."
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:68
+#: lib/testiroom_web/live/exam_live/testing.ex:67
 #, elixir-autogen, elixir-format
 msgid "Your attempt has already been completed."
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:20
+#: lib/testiroom_web/live/exam_live/testing.ex:19
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
 msgstr ""
@@ -740,7 +740,7 @@ msgstr ""
 msgid "Fullname"
 msgstr ""
 
-#: lib/testiroom_web/live/exam_live/testing.ex:27
+#: lib/testiroom_web/live/exam_live/testing.ex:37
 #, elixir-autogen, elixir-format
 msgid "You have already opened this attempt in another tab."
 msgstr ""
@@ -773,4 +773,9 @@ msgstr ""
 #: lib/testiroom_web/live/exam_live/result.html.heex:37
 #, elixir-autogen, elixir-format
 msgid "Exit"
+msgstr ""
+
+#: lib/testiroom_web/live/proctor_live/progress.ex:28
+#, elixir-autogen, elixir-format
+msgid "Currently you cannot open the monitoring page in multiple tabs"
 msgstr ""

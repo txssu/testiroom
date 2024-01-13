@@ -13,32 +13,31 @@ defmodule TestiroomWeb.ExamLive.Testing do
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
 
-    cond do
-      attempt.user_id != socket.assigns.current_user.id ->
-        navigate_with_error(
-          socket,
-          gettext("You do not have permission to open other testing sessions."),
-          ~p"/tests/#{attempt.test_id}/exam"
-        )
+    if attempt.user_id != socket.assigns.current_user.id do
+      navigate_with_error(
+        socket,
+        gettext("You do not have permission to open other testing sessions."),
+        ~p"/tests/#{attempt.test_id}/exam"
+      )
+    else
+      answers = Map.new(attempt.student_answers, &{&1.order, &1})
 
-      Proctoring.examinee_passing_test?(id) ->
-        navigate_with_error(
-          socket,
-          gettext("You have already opened this attempt in another tab."),
-          ~p"/tests/#{attempt.test_id}/exam"
-        )
+      case Proctoring.register_examinee(attempt.id) do
+        {:ok, _pid} ->
+          {:ok,
+           socket
+           |> assign(:attempt, attempt)
+           |> assign(:answers, answers)
+           |> assign(:max_order, answers |> Map.keys() |> Enum.max())
+           |> check_attempt_duration()}
 
-      true ->
-        answers = Map.new(attempt.student_answers, &{&1.order, &1})
-
-        Proctoring.register_examinee(attempt.id)
-
-        {:ok,
-         socket
-         |> assign(:attempt, attempt)
-         |> assign(:answers, answers)
-         |> assign(:max_order, answers |> Map.keys() |> Enum.max())
-         |> check_attempt_duration()}
+        {:error, _error} ->
+          navigate_with_error(
+            socket,
+            gettext("You have already opened this attempt in another tab."),
+            ~p"/tests/#{attempt.test_id}/exam"
+          )
+      end
     end
   end
 

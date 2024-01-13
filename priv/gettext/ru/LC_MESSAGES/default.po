@@ -400,7 +400,7 @@ msgstr "один ответ"
 msgid "one or more answers"
 msgstr "один или несколько ответов"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:140
+#: lib/testiroom_web/live/exam_live/testing.ex:139
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr "Задание"
@@ -721,12 +721,12 @@ msgstr "Добро пожаловать!"
 msgid "You must log in to access this page."
 msgstr "Вы должны войти, чтобы получить доступ к этой странице."
 
-#: lib/testiroom_web/live/exam_live/testing.ex:68
+#: lib/testiroom_web/live/exam_live/testing.ex:67
 #, elixir-autogen, elixir-format
 msgid "Your attempt has already been completed."
 msgstr "Ваша попытка уже завершена."
 
-#: lib/testiroom_web/live/exam_live/testing.ex:20
+#: lib/testiroom_web/live/exam_live/testing.ex:19
 #, elixir-autogen, elixir-format
 msgid "You do not have permission to open other testing sessions."
 msgstr "У вас нет разрешения на открытие чужих сессий тестирования."
@@ -741,7 +741,7 @@ msgstr "Вы не можете редактировать чужие тесты.
 msgid "Fullname"
 msgstr "ФИО"
 
-#: lib/testiroom_web/live/exam_live/testing.ex:27
+#: lib/testiroom_web/live/exam_live/testing.ex:37
 #, elixir-autogen, elixir-format
 msgid "You have already opened this attempt in another tab."
 msgstr "Вы уже открыли эту попытку в другой вкладке."
@@ -775,3 +775,8 @@ msgstr "Подозрительные действия"
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Exit"
 msgstr "Выйти"
+
+#: lib/testiroom_web/live/proctor_live/progress.ex:28
+#, elixir-autogen, elixir-format
+msgid "Currently you cannot open the monitoring page in multiple tabs"
+msgstr "На данный момент вы не можете открыть страницу мониторинга в нескольких вкладках"

@@ -14,15 +14,6 @@ defmodule Testiroom.Proctoring do
     Registry.register(__MODULE__, {:examinee, attempt_id}, [])
   end
 
-  def examinee_passing_test?(attempt_id) do
-    no_examinee? =
-      __MODULE__
-      |> Registry.lookup({:examinee, attempt_id})
-      |> Enum.empty?()
-
-    not no_examinee?
-  end
-
   def notify_proctor(event) do
     db_event = Repo.insert!(event)
 
