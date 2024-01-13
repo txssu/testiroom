@@ -460,7 +460,7 @@ msgstr "Имя пользователя"
 #: lib/testiroom_web/live/user_registration_live.ex:14
 #, elixir-autogen, elixir-format
 msgid "Already registered?"
-msgstr "Уже зарегестрированы?"
+msgstr "Уже зарегистрированы?"
 
 #: lib/testiroom_web/live/user_registration_live.ex:40
 #, elixir-autogen, elixir-format
@@ -503,7 +503,7 @@ msgstr "Войти в аккаунт"
 #: lib/testiroom_web/live/user_login_live.ex:13
 #, elixir-autogen, elixir-format
 msgid "Sign up"
-msgstr "Зарегестрируйтесь"
+msgstr "Зарегистрируйтесь"
 
 #: lib/testiroom_web/live/user_login_live.ex:15
 #, elixir-autogen, elixir-format
