@@ -17,8 +17,8 @@ defmodule TestiroomWeb.ExamLive.Start do
     %{current_user: user, test: test} = socket.assigns
     now = DateTime.utc_now()
 
-    if (!test.starts_at || DateTime.after?(now, test.starts_at)) &&
-         (!test.ends_at || DateTime.before?(now, test.ends_at)) do
+    if (is_nil(test.starts_at) or DateTime.after?(now, test.starts_at)) and
+         (is_nil(test.ends_at) or DateTime.before?(now, test.ends_at)) do
       {:ok, attempt} = Exams.start_attempt(user, test)
 
       Proctoring.notify_started(test, attempt, attempt.student_answers)
