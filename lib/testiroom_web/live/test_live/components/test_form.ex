@@ -19,8 +19,10 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           <.input field={@form[:description]} type="textarea" label={gettext("Description")} />
 
           <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Synchronization") %></h2>
-          <.input field={@form[:starts_at]} type="datetime-local" label={gettext("Starts at")} />
-          <.input field={@form[:ends_at]} type="datetime-local" label={gettext("Ends at")} />
+
+          <.input field={@form[:timezone]} type="hidden" id="timezone" phx-hook="TimeZoneGetter" />
+          <.input field={@form[:starts_at_local]} type="datetime-local" label={gettext("Starts at")} />
+          <.input field={@form[:ends_at_local]} type="datetime-local" label={gettext("Ends at")} />
           <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
 
           <fieldset phx-feedback-for={@form[:grades].name}>

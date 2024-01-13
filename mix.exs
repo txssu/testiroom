@@ -53,6 +53,7 @@ defmodule Testiroom.MixProject do
       {:dns_cluster, "~> 0.1.1"},
       {:plug_cowboy, "~> 2.5"},
       {:ecto_boot_migration, "~> 0.3.0"},
+      {:tzdata, "~> 1.1"},
       {:credo, "~> 1.7.1", only: [:dev, :test], runtime: false},
       {:dialyxir, "~> 1.4.2", only: [:dev, :test], runtime: false},
       {:mix_audit, "~> 2.1.1", only: [:dev, :test], runtime: false},

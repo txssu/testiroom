@@ -85,6 +85,12 @@ Hooks.Proctor = {
     }
   }}
 
+Hooks.TimeZoneGetter = {
+  mounted() {
+    this.el.value = Intl.DateTimeFormat().resolvedOptions().timeZone
+  }
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks, params: { _csrf_token: csrfToken } })
 

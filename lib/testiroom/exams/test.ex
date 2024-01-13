@@ -13,8 +13,15 @@ defmodule Testiroom.Exams.Test do
   schema "tests" do
     field :description, :string
     field :title, :string
+
+    field :timezone, :string, virtual: true
+
+    field :starts_at_local, :naive_datetime, virtual: true
     field :starts_at, :utc_datetime
+
+    field :ends_at_local, :naive_datetime, virtual: true
     field :ends_at, :utc_datetime
+
     field :duration_in_seconds, :integer
     field :duration_in_minutes, :integer, virtual: true
     field :show_correctness_for_student, :boolean, default: true
@@ -36,8 +43,9 @@ defmodule Testiroom.Exams.Test do
     |> cast(attrs, [
       :title,
       :description,
-      :starts_at,
-      :ends_at,
+      :timezone,
+      :starts_at_local,
+      :ends_at_local,
       :duration_in_minutes,
       :show_correctness_for_student,
       :show_score_for_student,
@@ -50,8 +58,25 @@ defmodule Testiroom.Exams.Test do
       drop_param: :grades_delete
     )
     |> validate_length(:grades, min: 1)
+    |> convert_local_time_to_utc()
     |> convert_duration_to_seconds()
     |> validate_grades()
+  end
+
+  def convert_local_time_to_utc(changeset) do
+    for_result =
+      for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
+        inner_changeset ->
+          case get_change(inner_changeset, local_key) do
+            nil ->
+              inner_changeset
+
+            local ->
+              timezone = get_change(inner_changeset, :timezone)
+              utc_datetime = local |> DateTime.from_naive!(timezone) |> DateTime.shift_zone!("Etc/UTC")
+              put_change(changeset, utc_key, utc_datetime)
+          end
+      end
   end
 
   def convert_duration_to_seconds(changeset) do
