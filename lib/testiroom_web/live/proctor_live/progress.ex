@@ -110,7 +110,7 @@ defmodule TestiroomWeb.ProctorLive.Progress do
 
   defp cheating_outline(monitor, user_id) do
     if Map.get(monitor.maybe_cheating, user_id, false) do
-      "border-2 border-incorrect"
+      "outline outline-2 outline-incorrect"
     end
   end
 
