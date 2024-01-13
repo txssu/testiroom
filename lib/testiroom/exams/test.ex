@@ -64,19 +64,18 @@ defmodule Testiroom.Exams.Test do
   end
 
   def convert_local_time_to_utc(changeset) do
-    for_result =
-      for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
-        inner_changeset ->
-          case get_change(inner_changeset, local_key) do
-            nil ->
-              inner_changeset
+    for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
+      inner_changeset ->
+        case get_change(inner_changeset, local_key) do
+          nil ->
+            inner_changeset
 
-            local ->
-              timezone = get_change(inner_changeset, :timezone)
-              utc_datetime = local |> DateTime.from_naive!(timezone) |> DateTime.shift_zone!("Etc/UTC")
-              put_change(changeset, utc_key, utc_datetime)
-          end
-      end
+          local ->
+            timezone = get_change(inner_changeset, :timezone)
+            utc_datetime = local |> DateTime.from_naive!(timezone) |> DateTime.shift_zone!("Etc/UTC")
+            put_change(changeset, utc_key, utc_datetime)
+        end
+    end
   end
 
   def convert_duration_to_seconds(changeset) do
