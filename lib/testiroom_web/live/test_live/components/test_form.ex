@@ -28,8 +28,17 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
             id="starts-at"
             phx-hook="DateTimeWithTZSetter"
             data-datetime={@form.data.starts_at}
+            phx-update="ignore"
           />
-          <.input field={@form[:ends_at_local]} type="datetime-local" label={gettext("Ends at")} id="ends-at" phx-hook="DateTimeWithTZSetter" data-datetime={@form.data.ends_at} />
+          <.input
+            field={@form[:ends_at_local]}
+            type="datetime-local"
+            label={gettext("Ends at")}
+            id="ends-at"
+            phx-hook="DateTimeWithTZSetter"
+            data-datetime={@form.data.ends_at}
+            phx-update="ignore"
+          />
           <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
 
           <fieldset phx-feedback-for={@form[:grades].name}>
@@ -93,11 +102,15 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
     """
   end
 
+  @zero_day ~N[0000-01-01 00:00:00]
+
   @impl Phoenix.LiveComponent
   def update(%{test: test} = assigns, socket) do
     changeset =
       test
       |> Map.put(:duration_in_minutes, test.duration_in_seconds && div(test.duration_in_seconds, 60))
+      |> Map.put(:starts_at_local, @zero_day)
+      |> Map.put(:ends_at_local, @zero_day)
       |> Exams.change_test()
 
     {:ok,

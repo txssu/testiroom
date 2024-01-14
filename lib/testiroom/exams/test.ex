@@ -14,7 +14,7 @@ defmodule Testiroom.Exams.Test do
     field :description, :string
     field :title, :string
 
-    field :timezone, :string, virtual: true
+    field :timezone, :string, virtual: true, default: "Etc/UTC"
 
     field :starts_at_local, :naive_datetime, virtual: true
     field :starts_at, :utc_datetime
@@ -66,12 +66,15 @@ defmodule Testiroom.Exams.Test do
   def convert_local_time_to_utc(changeset) do
     for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
       inner_changeset ->
-        case get_change(inner_changeset, local_key) do
+        case get_field(inner_changeset, local_key) do
           nil ->
+            put_change(inner_changeset, utc_key, nil)
+
+          ~N[0000-01-01 00:00:00] ->
             inner_changeset
 
           local ->
-            timezone = get_change(inner_changeset, :timezone)
+            timezone = get_field(inner_changeset, :timezone)
             utc_datetime = local |> DateTime.from_naive!(timezone) |> DateTime.shift_zone!("Etc/UTC")
             put_change(inner_changeset, utc_key, utc_datetime)
         end
