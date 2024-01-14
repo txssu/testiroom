@@ -59,7 +59,8 @@ defmodule TestiroomWeb.Router do
 
     live_session :proctor,
       on_mount: [{TestiroomWeb.UserAuth, :ensure_authenticated}] do
-      live "/tests/:test_id/proctor", ProctorLive.Progress
+      live "/tests/:test_id/proctor", ProctorLive.Progress, :index
+      live "/tests/:test_id/proctor/:attempt_id", ProctorLive.Progress, :show
     end
   end
 

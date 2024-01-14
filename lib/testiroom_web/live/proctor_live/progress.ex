@@ -31,6 +31,15 @@ defmodule TestiroomWeb.ProctorLive.Progress do
   end
 
   @impl Phoenix.LiveView
+  def handle_params(%{"attempt_id" => attempt_id}, _uri, socket) do
+    {:noreply, assign(socket, :selected_attempt, attempt_id)}
+  end
+
+  def handle_params(_params, _uri, socket) do
+    {:noreply, socket}
+  end
+
+  @impl Phoenix.LiveView
   def handle_info({:proctoring, event}, socket) do
     {:noreply, update(socket, :monitor, &Monitor.handle(&1, event))}
   end
