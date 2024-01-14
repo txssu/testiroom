@@ -37,11 +37,15 @@ defmodule Testiroom.Proctoring.TimeTracker do
         Map.update!(data, :spended_time_per_task_by_user, fn users ->
           append_time = DateTime.diff(datetime, last_opened_at, :millisecond)
 
-          Map.update(users, attempt.id, %{updated_task.order => append_time}, fn user_time_per_task ->
-            Map.update(user_time_per_task, updated_task.order, append_time, &(&1 + append_time))
-          end)
+          update_user_time(users, attempt, updated_task, append_time)
         end)
     end
+  end
+
+  defp update_user_time(users, attempt, updated_task, append_time) do
+    Map.update(users, attempt.id, %{updated_task.order => append_time}, fn user_time_per_task ->
+      Map.update(user_time_per_task, updated_task.order, append_time, &(&1 + append_time))
+    end)
   end
 
   defp update_last_opened_task(data, %Event.OpenedTask{attempt: attempt} = event) do
