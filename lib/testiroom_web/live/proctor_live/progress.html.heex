@@ -112,7 +112,7 @@
           </.column>
           <% time_per_task = @monitor.spended_time_per_task_by_user[@selected_attempt] %>
           <td :for={order <- 0..@max_task_order} class="text-center">
-            <%= format_millisecodns(time_per_task[order]) %>
+            <%= time_per_task |> Map.get(order, 0) |> format_millisecodns() %>
           </td>
         </tr>
       </tbody>
@@ -125,7 +125,7 @@
         <%= case answer.task.type do %>
           <% :text -> %>
             <p><%= gettext("Student answer") %>: <%= answer.text_input %></p>
-            <p><%= gettext("Result") %>: <%= format_is_correct(@monitor.user_answers_correctness[@selected_attempt][order]) %></p>
+            <p><%= gettext("Result") %>: <%= @monitor.user_answers_correctness |> Map.get(@selected_attempt, %{}) |> Map.get(order, false) |> format_is_correct() %></p>
             <%= if @test.show_answer_for_student do %>
               <p><%= gettext("Possible correct answers") %>:</p>
               <ul>
