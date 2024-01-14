@@ -48,12 +48,12 @@
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-        <tr :for={{attempt_id, user} <- @monitor.users} class={cheating_outline(@monitor, attempt_id)} phx-click={JS.navigate(~p"/tests/#{@test}/proctor/#{attempt_id}")}>
+        <tr :for={{attempt_id, attempt} <- @monitor.attempts} class={cheating_outline(@monitor, attempt_id)} phx-click={JS.navigate(~p"/tests/#{@test}/proctor/#{attempt_id}")}>
           <.column>
             <%= Map.get(@monitor.maybe_cheated_counter, attempt_id, 0) %>
           </.column>
           <.column>
-            <%= user.fullname %>
+            <%= attempt.user.fullname %>
           </.column>
           <% ratio = calculate_correctness_ratio_by_user(@monitor, attempt_id, @tasks_count) %>
           <.column>
@@ -73,9 +73,8 @@
 </div>
 
 <.modal :if={@live_action == :show} id="result-modal" show on_cancel={JS.patch(~p"/tests/#{@test}/proctor")}>
-  <% user = @monitor.users[@selected_attempt] %>
   <div>
-    <h1 class="text-3xl"><%= user.fullname %></h1>
+    <h1 class="text-3xl"><%= @monitor.attempts[@selected_attempt].user.fullname %></h1>
   </div>
   <div class="mt-6">
     <% ratio = calculate_correctness_ratio_by_user(@monitor, @selected_attempt, @tasks_count) %>
