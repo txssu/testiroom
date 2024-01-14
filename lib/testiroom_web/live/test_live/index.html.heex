@@ -9,8 +9,16 @@
 
 <.table id="tests" rows={@streams.tests} row_click={fn {_id, test} -> JS.navigate(~p"/tests/#{test}/proctor") end}>
   <:col :let={{_id, test}} label={gettext("Title")}><%= test.title %></:col>
-  <:col :let={{_id, test}} label={gettext("Starts at")}><%= test.starts_at %></:col>
-  <:col :let={{_id, test}} label={gettext("Ends at")}><%= test.ends_at %></:col>
+  <:col :let={{id, test}} label={gettext("Starts at")}>
+    <span id={"test-#{id}-starts-at"} phx-hook="DateTimeWithTZSetter" data-datetime={test.starts_at}>
+      <%= test.starts_at %>
+    </span>
+  </:col>
+  <:col :let={{id, test}} label={gettext("Ends at")}>
+    <span id={"test-#{id}-ends-at"} phx-hook="DateTimeWithTZSetter" data-datetime={test.ends_at}>
+      <%= test.ends_at %>
+    </span>
+  </:col>
   <:action :let={{id, test}}>
     <button id={"#{id}-link"} phx-hook="LinkCopier" data-link={~p"/tests/#{test}/exam"}>
       <%= gettext("Copy Link") %>

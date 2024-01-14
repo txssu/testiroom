@@ -73,7 +73,7 @@ defmodule Testiroom.Exams.Test do
           local ->
             timezone = get_change(inner_changeset, :timezone)
             utc_datetime = local |> DateTime.from_naive!(timezone) |> DateTime.shift_zone!("Etc/UTC")
-            put_change(changeset, utc_key, utc_datetime)
+            put_change(inner_changeset, utc_key, utc_datetime)
         end
     end
   end

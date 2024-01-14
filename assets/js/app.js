@@ -91,6 +91,42 @@ Hooks.TimeZoneGetter = {
   }
 }
 
+Hooks.DateTimeWithTZSetter = {
+  updateTime() {
+    function getLocalISOString(date) {
+      const offset = date.getTimezoneOffset()
+      const isoString = new Date(date.getTime() - offset * 60 * 1000).toISOString()
+      return isoString.split(".")[0]
+    }
+
+    function zeroPad(num) {
+      return String(num).padStart(2, '0')
+    }
+
+    function formatDateTime(date) {
+      const hours = zeroPad(date.getHours())
+      const minutes = zeroPad(date.getMinutes())
+      const day = zeroPad(date.getDate())
+      const month = zeroPad(date.getMonth() + 1)
+      const year = date.getFullYear()
+      return `${hours}:${minutes} ${day}.${month}.${year}`
+    }
+
+    const isInput = this.el.tagName === "INPUT"
+    const datetimeAttribute = this.el.dataset.datetime
+
+    if (this.el.value !== "" && isInput || !datetimeAttribute) return
+
+    const datetime = new Date(datetimeAttribute)
+    if (isInput)
+      this.el.value = getLocalISOString(datetime)
+    else
+      this.el.textContent = formatDateTime(datetime)
+  },
+  mounted() { this.updateTime() },
+  updated() { this.updateTime() },
+}
+
 let csrfToken = document.querySelector("meta[name='csrf-token']").getAttribute("content")
 let liveSocket = new LiveSocket("/live", Socket, { hooks: Hooks, params: { _csrf_token: csrfToken } })
 
