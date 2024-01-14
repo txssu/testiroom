@@ -117,5 +117,45 @@
         </tr>
       </tbody>
     </table>
+    <% fallback_answers = @monitor.attempts[@selected_attempt].student_answers %>
+    <% answers = answers_with_fallback(@monitor.user_answers[@selected_attempt] || %{}, fallback_answers) %>
+    <div class="mt-11 space-y-4">
+      <div :for={{order, answer} <- answers}>
+        <h2 class="mb-2 text-lg font-medium"><%= gettext("Task") %> <%= order %></h2>
+        <%= case answer.task.type do %>
+          <% :text -> %>
+            <p><%= gettext("Student answer") %>: <%= answer.text_input %></p>
+            <p><%= gettext("Result") %>: <%= format_is_correct(@monitor.user_answers_correctness[@selected_attempt][order]) %></p>
+            <%= if @test.show_answer_for_student do %>
+              <p><%= gettext("Possible correct answers") %>:</p>
+              <ul>
+                <li :for={option <- answer.task.options}>
+                  <%= option.text %>
+                </li>
+              </ul>
+            <% end %>
+          <% type when type in [:single, :multiple] -> %>
+            <ul class="flex flex-col gap-2.5">
+              <li :for={option <- answer.task.options} class="flex gap-4">
+                <% selected_option_ids = Enum.map(answer.selected_options, & &1.id) %>
+                <div class={[
+                  "flex grow select-none rounded-lg px-6 py-4 outline outline-1",
+                  "outline-ink-gray text-ink-dark",
+                  option.id in selected_option_ids && "outline-primary bg-ink-light-gray outline-2"
+                ]}>
+                  <%= option.text %>
+                </div>
+                <div class="w-[20px] flex flex-none items-center">
+                  <%= if option.is_correct do %>
+                    <.icon name="hero-check-circle-solid" class="bg-primary" />
+                  <% else %>
+                    <div class="h-5 w-5"></div>
+                  <% end %>
+                </div>
+              </li>
+            </ul>
+        <% end %>
+      </div>
+    </div>
   </div>
 </.modal>

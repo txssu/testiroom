@@ -96,7 +96,7 @@ msgstr ""
 
 #: lib/testiroom_web/live/exam_live/result.html.heex:7
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:42
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:83
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:82
 #: lib/testiroom_web/live/test_live/components/test_form.ex:46
 #, elixir-autogen, elixir-format
 msgid "Grade"
@@ -401,6 +401,7 @@ msgid "one or more answers"
 msgstr ""
 
 #: lib/testiroom_web/live/exam_live/testing.ex:139
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:124
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Task"
 msgstr ""
@@ -411,12 +412,14 @@ msgid "This test is over or hasn't started yet"
 msgstr ""
 
 #: lib/testiroom_web/live/exam_live/result.html.heex:49
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:130
 #, elixir-autogen, elixir-format
 msgid "Possible correct answers"
 msgstr ""
 
 #: lib/testiroom_web/live/exam_live/result.ex:15
 #: lib/testiroom_web/live/exam_live/result.html.heex:17
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:128
 #, elixir-autogen, elixir-format
 msgid "Result"
 msgstr ""
@@ -448,7 +451,7 @@ msgstr ""
 
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:19
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:42
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:86
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:85
 #, elixir-autogen, elixir-format
 msgid "Ratio"
 msgstr ""
@@ -763,12 +766,13 @@ msgid "My Tests"
 msgstr ""
 
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:3
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:111
 #, elixir-autogen, elixir-format
 msgid "Time per task"
 msgstr ""
 
 #: lib/testiroom_web/live/proctor_live/progress.html.heex:42
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:89
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:88
 #, elixir-autogen, elixir-format
 msgid "Suspicious activities"
 msgstr ""
@@ -783,7 +787,22 @@ msgstr ""
 msgid "Currently you cannot open the monitoring page in multiple tabs"
 msgstr ""
 
-#: lib/testiroom_web/live/proctor_live/progress.html.heex:103
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:102
 #, elixir-autogen, elixir-format, fuzzy
 msgid "Correctness"
+msgstr ""
+
+#: lib/testiroom_web/live/proctor_live/progress.html.heex:127
+#, elixir-autogen, elixir-format, fuzzy
+msgid "Student answer"
+msgstr ""
+
+#: lib/testiroom_web/live/proctor_live/progress.ex:134
+#, elixir-autogen, elixir-format, fuzzy
+msgid "correct answer"
+msgstr ""
+
+#: lib/testiroom_web/live/proctor_live/progress.ex:135
+#, elixir-autogen, elixir-format, fuzzy
+msgid "incorrect answer"
 msgstr ""

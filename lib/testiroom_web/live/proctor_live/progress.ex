@@ -123,6 +123,17 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     end
   end
 
+  defp answers_with_fallback(answers, fallback) do
+    fallback
+    |> Map.new(fn answer -> {answer.order, answer} end)
+    |> Map.merge(answers, fn _key, _fallback, answer ->
+      answer
+    end)
+  end
+
+  defp format_is_correct(true), do: gettext("correct answer")
+  defp format_is_correct(false), do: gettext("incorrect answer")
+
   slot :inner_block, required: true
 
   defp column(assigns) do
