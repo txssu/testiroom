@@ -109,7 +109,7 @@
         </tr>
         <tr>
           <.column>
-            <%= gettext("Time per task") %>
+            <%= gettext("Time") %>
           </.column>
           <% time_per_task = @monitor.spended_time_per_task_by_user[@selected_attempt] %>
           <td :for={order <- 0..@max_task_order} class="text-center">
