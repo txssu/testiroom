@@ -107,6 +107,15 @@
           <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1", correctness_color(current_user_correctness[order])]}>
           </td>
         </tr>
+        <tr>
+          <.column>
+            <%= gettext("Time per task") %>
+          </.column>
+          <% time_per_task = @monitor.spended_time_per_task_by_user[@selected_attempt] %>
+          <td :for={order <- 0..@max_task_order} class="text-center">
+            <%= format_millisecodns(time_per_task[order]) %>
+          </td>
+        </tr>
       </tbody>
     </table>
   </div>

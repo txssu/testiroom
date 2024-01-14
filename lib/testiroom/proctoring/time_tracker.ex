@@ -5,12 +5,13 @@ defmodule Testiroom.Proctoring.TimeTracker do
   alias Testiroom.Proctoring.Event.OpenedTask
 
   def init([]) do
-    {:ok, [], [last_opened: %{}, spended_time_per_task: %{}]}
+    {:ok, [], [last_opened: %{}, spended_time_per_task: %{}, spended_time_per_task_by_user: %{}]}
   end
 
   def call(data, event, []) do
     data
     |> update_spended_time_per_task(event)
+    |> update_spended_time_per_task_by_user(event)
     |> update_last_opened_task(event)
   end
 
@@ -23,6 +24,22 @@ defmodule Testiroom.Proctoring.TimeTracker do
         Map.update!(data, :spended_time_per_task, fn tasks_time ->
           append_time = DateTime.diff(datetime, last_opened_at, :millisecond)
           Map.update(tasks_time, updated_task.order, append_time, &(&1 + append_time))
+        end)
+    end
+  end
+
+  defp update_spended_time_per_task_by_user(data, %module{attempt: attempt, inserted_at: datetime}) when module in [OpenedTask, Ended] do
+    case data.last_opened[attempt.id] do
+      nil ->
+        data
+
+      %{inserted_at: last_opened_at, task: updated_task} ->
+        Map.update!(data, :spended_time_per_task_by_user, fn users ->
+          append_time = DateTime.diff(datetime, last_opened_at, :millisecond)
+
+          Map.update(users, attempt.id, %{updated_task.order => append_time}, fn user_time_per_task ->
+            Map.update(user_time_per_task, updated_task.order, append_time, &(&1 + append_time))
+          end)
         end)
     end
   end
