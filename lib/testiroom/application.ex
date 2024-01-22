@@ -20,7 +20,8 @@ defmodule Testiroom.Application do
       # {Testiroom.Worker, arg},
       # Start to serve requests, typically the last entry
       TestiroomWeb.Endpoint,
-      {Registry, keys: :unique, name: Testiroom.Proctoring}
+      {Registry, keys: :unique, name: Testiroom.Proctoring},
+      {Registry, keys: :unique, name: Testiroom.Proctoring.ExamineesRegistry}
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

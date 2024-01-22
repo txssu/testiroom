@@ -3,6 +3,7 @@ defmodule Testiroom.Proctoring do
   import Ecto.Query, warn: false
 
   alias Testiroom.Proctoring.Event
+  alias Testiroom.Proctoring.ExamineesRegistry
   alias Testiroom.Proctoring.Monitor
   alias Testiroom.Repo
 
@@ -11,7 +12,7 @@ defmodule Testiroom.Proctoring do
   end
 
   def register_examinee(attempt_id) do
-    Registry.register(__MODULE__, {:examinee, attempt_id}, [])
+    ExamineesRegistry.register(attempt_id)
   end
 
   def notify_proctor(event) do
