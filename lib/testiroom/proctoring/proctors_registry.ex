@@ -1,4 +1,5 @@
 defmodule Testiroom.Proctoring.ProctorsRegistry do
+  @moduledoc false
   alias Testiroom.Repo
 
   def register(test_id) do

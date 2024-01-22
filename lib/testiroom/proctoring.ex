@@ -4,8 +4,8 @@ defmodule Testiroom.Proctoring do
 
   alias Testiroom.Proctoring.Event
   alias Testiroom.Proctoring.ExamineesRegistry
-  alias Testiroom.Proctoring.ProctorsRegistry
   alias Testiroom.Proctoring.Monitor
+  alias Testiroom.Proctoring.ProctorsRegistry
   alias Testiroom.Repo
 
   def register_proctor(test_id) do
