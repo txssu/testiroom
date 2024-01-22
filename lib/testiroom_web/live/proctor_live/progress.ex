@@ -13,21 +13,14 @@ defmodule TestiroomWeb.ProctorLive.Progress do
 
     max_task_order = Exams.get_max_task_order(id)
 
-    case Proctoring.register_proctor(id) do
-      {:ok, _pid} ->
-        {:ok,
-         socket
-         |> assign(:test, test)
-         |> assign(:monitor, monitor)
-         |> assign(:max_task_order, max_task_order)
-         |> assign(:tasks_count, max_task_order + 1)}
+    Proctoring.register_proctor(id)
 
-      {:error, _error} ->
-        {:ok,
-         socket
-         |> put_flash(:error, gettext("Currently you cannot open the monitoring page in multiple tabs"))
-         |> push_navigate(to: ~p"/tests/")}
-    end
+    {:ok,
+     socket
+     |> assign(:test, test)
+     |> assign(:monitor, monitor)
+     |> assign(:max_task_order, max_task_order)
+     |> assign(:tasks_count, max_task_order + 1)}
   end
 
   @impl Phoenix.LiveView
