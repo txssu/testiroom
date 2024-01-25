@@ -38,10 +38,6 @@ defmodule Testiroom.Exams.Attempt do
     {score, max_score}
   end
 
-  def get_score(attempt) do
-    attempt |> get_score_and_max_score() |> elem(0)
-  end
-
   def get_correctness_ratio(attempt) do
     {score, max_score} = get_score_and_max_score(attempt)
 

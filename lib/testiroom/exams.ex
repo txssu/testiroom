@@ -8,7 +8,6 @@ defmodule Testiroom.Exams do
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Attempt
   alias Testiroom.Exams.Grade
-  alias Testiroom.Exams.Option
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
@@ -114,100 +113,6 @@ defmodule Testiroom.Exams do
   """
   def change_test(%Test{} = test, attrs \\ %{}) do
     Test.changeset(test, attrs)
-  end
-
-  @doc """
-  Returns the list of grades.
-
-  ## Examples
-
-      iex> list_grades()
-      [%Grade{}, ...]
-
-  """
-  def list_grades do
-    Repo.all(Grade)
-  end
-
-  @doc """
-  Gets a single grade.
-
-  Raises `Ecto.NoResultsError` if the Grade does not exist.
-
-  ## Examples
-
-      iex> get_grade!(123)
-      %Grade{}
-
-      iex> get_grade!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_grade!(id), do: Repo.get!(Grade, id)
-
-  @doc """
-  Creates a grade.
-
-  ## Examples
-
-      iex> create_grade(%{field: value})
-      {:ok, %Grade{}}
-
-      iex> create_grade(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_grade(attrs \\ %{}) do
-    %Grade{}
-    |> Grade.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a grade.
-
-  ## Examples
-
-      iex> update_grade(grade, %{field: new_value})
-      {:ok, %Grade{}}
-
-      iex> update_grade(grade, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_grade(%Grade{} = grade, attrs) do
-    grade
-    |> Grade.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a grade.
-
-  ## Examples
-
-      iex> delete_grade(grade)
-      {:ok, %Grade{}}
-
-      iex> delete_grade(grade)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_grade(%Grade{} = grade) do
-    Repo.delete(grade)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking grade changes.
-
-  ## Examples
-
-      iex> change_grade(grade)
-      %Ecto.Changeset{data: %Grade{}}
-
-  """
-  def change_grade(%Grade{} = grade, attrs \\ %{}) do
-    Grade.changeset(grade, attrs)
   end
 
   @doc """
@@ -319,100 +224,6 @@ defmodule Testiroom.Exams do
     Task.changeset(task, attrs)
   end
 
-  @doc """
-  Returns the list of task_options.
-
-  ## Examples
-
-      iex> list_task_options()
-      [%Option{}, ...]
-
-  """
-  def list_task_options do
-    Repo.all(Option)
-  end
-
-  @doc """
-  Gets a single option.
-
-  Raises `Ecto.NoResultsError` if the Option does not exist.
-
-  ## Examples
-
-      iex> get_option!(123)
-      %Option{}
-
-      iex> get_option!(456)
-      ** (Ecto.NoResultsError)
-
-  """
-  def get_option!(id), do: Repo.get!(Option, id)
-
-  @doc """
-  Creates a option.
-
-  ## Examples
-
-      iex> create_option(%{field: value})
-      {:ok, %Option{}}
-
-      iex> create_option(%{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def create_option(attrs \\ %{}) do
-    %Option{}
-    |> Option.changeset(attrs)
-    |> Repo.insert()
-  end
-
-  @doc """
-  Updates a option.
-
-  ## Examples
-
-      iex> update_option(option, %{field: new_value})
-      {:ok, %Option{}}
-
-      iex> update_option(option, %{field: bad_value})
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def update_option(%Option{} = option, attrs) do
-    option
-    |> Option.changeset(attrs)
-    |> Repo.update()
-  end
-
-  @doc """
-  Deletes a option.
-
-  ## Examples
-
-      iex> delete_option(option)
-      {:ok, %Option{}}
-
-      iex> delete_option(option)
-      {:error, %Ecto.Changeset{}}
-
-  """
-  def delete_option(%Option{} = option) do
-    Repo.delete(option)
-  end
-
-  @doc """
-  Returns an `%Ecto.Changeset{}` for tracking option changes.
-
-  ## Examples
-
-      iex> change_option(option)
-      %Ecto.Changeset{data: %Option{}}
-
-  """
-  def change_option(%Option{} = option, attrs \\ %{}) do
-    Option.changeset(option, attrs)
-  end
-
   def start_attempt(user, test) do
     attempt = maybe_add_ended_at(%Attempt{user: user, test: test})
 
@@ -503,8 +314,8 @@ defmodule Testiroom.Exams do
     end
   end
 
-  def change_student_answer(%StudentAnswer{} = student_answer, attrs \\ %{}) do
-    StudentAnswer.changeset(student_answer, attrs)
+  def change_student_answer(%StudentAnswer{} = student_answer) do
+    StudentAnswer.changeset(student_answer, %{})
   end
 
   def update_student_answer(%StudentAnswer{} = student_answer, selected_options, attrs) do
