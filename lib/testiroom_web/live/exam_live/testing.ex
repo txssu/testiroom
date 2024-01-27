@@ -156,4 +156,12 @@ defmodule TestiroomWeb.ExamLive.Testing do
     |> Integer.to_string()
     |> String.pad_leading(2, "0")
   end
+
+  defp page_kind(answer, page_order, current_order) do
+    cond do
+      page_order == current_order -> :page_outline
+      answer.text_input || answer.selected_options != [] -> :page
+      true -> :page_outline_inactive
+    end
+  end
 end

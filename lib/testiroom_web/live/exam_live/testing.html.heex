@@ -42,13 +42,7 @@
       <ul class="mb-16 flex w-auto flex-wrap gap-2.5">
         <li :for={{order, answer} <- @answers}>
           <.link patch={~p"/exams/#{@attempt}/#{order}"}>
-            <.button kind={
-              cond do
-                order == @order -> :page_outline
-                answer.text_input || answer.selected_options != [] -> :page
-                true -> :page_outline_inactive
-              end
-            }>
+            <.button kind={page_kind(answer, order, @order)}>
               <div class="flex h-full items-center justify-center">
                 <%= order + 1 %>
               </div>
