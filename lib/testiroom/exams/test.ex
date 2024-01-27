@@ -4,9 +4,12 @@ defmodule Testiroom.Exams.Test do
   import Ecto.Changeset
   import TestiroomWeb.Gettext
 
+  alias Ecto.Changeset
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Grade
   alias Testiroom.Exams.Task
+
+  @type t :: %__MODULE__{}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -38,6 +41,7 @@ defmodule Testiroom.Exams.Test do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Changeset.t()
   def changeset(test, attrs) do
     test
     |> cast(attrs, [
@@ -63,6 +67,7 @@ defmodule Testiroom.Exams.Test do
     |> validate_grades()
   end
 
+  @spec convert_local_time_to_utc(Changeset.t()) :: Changeset.t()
   def convert_local_time_to_utc(changeset) do
     for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
       inner_changeset ->
@@ -81,12 +86,14 @@ defmodule Testiroom.Exams.Test do
     end
   end
 
+  @spec convert_duration_to_seconds(Changeset.t()) :: Changeset.t()
   def convert_duration_to_seconds(changeset) do
     minutes = get_change(changeset, :duration_in_minutes)
 
     put_change(changeset, :duration_in_seconds, minutes && minutes * 60)
   end
 
+  @spec validate_grades(Changeset.t()) :: Changeset.t()
   def validate_grades(changeset) do
     grades = get_field(changeset, :grades)
 

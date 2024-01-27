@@ -6,6 +6,8 @@ defmodule Testiroom.Exams.Grade do
 
   alias Testiroom.Exams.Test
 
+  @type t :: %__MODULE__{}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "grades" do
@@ -18,12 +20,14 @@ defmodule Testiroom.Exams.Grade do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Ecto.Changeset.t()
   def changeset(grade, attrs) do
     grade
     |> cast(attrs, [:grade, :from])
     |> validate_required([:grade, :from])
   end
 
+  @spec default_grades() :: [t(), ...]
   def default_grades do
     [
       %__MODULE__{from: 82, grade: "5"},

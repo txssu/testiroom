@@ -5,8 +5,11 @@ defmodule Testiroom.Exams.Attempt do
   import Ecto.Changeset
 
   alias Testiroom.Accounts.User
+  alias Testiroom.Exams.Option
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
+
+  @type t :: %__MODULE__{}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -22,10 +25,13 @@ defmodule Testiroom.Exams.Attempt do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Ecto.Changeset.t()
   def changeset(attempt, attrs) do
     cast(attempt, attrs, [:ended_at])
   end
 
+  @spec get_score_and_max_score(t()) :: {score, max_score}
+        when score: integer(), max_score: integer()
   def get_score_and_max_score(attempt) do
     {scores, max_scores} =
       attempt.student_answers
@@ -38,12 +44,14 @@ defmodule Testiroom.Exams.Attempt do
     {score, max_score}
   end
 
+  @spec get_correctness_ratio(t()) :: float()
   def get_correctness_ratio(attempt) do
     {score, max_score} = get_score_and_max_score(attempt)
 
     score / max_score * 100
   end
 
+  @spec get_grade(t()) :: Option.t()
   def get_grade(attempt) do
     ratio = get_correctness_ratio(attempt)
     Enum.find(attempt.test.grades, fn grade -> ratio >= grade.from end)

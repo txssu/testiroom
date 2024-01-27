@@ -8,10 +8,15 @@ defmodule Testiroom.Exams do
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Attempt
   alias Testiroom.Exams.Grade
+  alias Testiroom.Exams.Option
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
   alias Testiroom.Repo
+
+  @type test_changeset :: {:ok, Test.t()} | {:error, Ecto.Changeset.t()}
+  @type task_changeset :: {:ok, Task.t()} | {:error, Ecto.Changeset.t()}
+  @type student_answer_changeset :: {:ok, Task.t()} | {:error, Ecto.Changeset.t()} | {:error, :attempt_is_ended}
 
   @doc """
   Returns the list of tests.
@@ -22,6 +27,7 @@ defmodule Testiroom.Exams do
       [%Test{}, ...]
 
   """
+  @spec list_user_tests(Ecto.UUID.t()) :: [Test.t()]
   def list_user_tests(user_id) do
     query =
       from test in Test,
@@ -30,6 +36,7 @@ defmodule Testiroom.Exams do
     Repo.all(query)
   end
 
+  @spec list_tests() :: [Test.t()]
   def list_tests, do: Repo.all(Test)
 
   @doc """
@@ -46,6 +53,7 @@ defmodule Testiroom.Exams do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_test!(Ecto.UUID.t()) :: Test.t()
   def get_test!(id), do: Test |> Repo.get!(id) |> Repo.preload([:grades, :tasks])
 
   @doc """
@@ -60,6 +68,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_test(map, User.t()) :: test_changeset()
   def create_test(attrs \\ %{}, %User{} = user) do
     user
     |> Ecto.build_assoc(:tests)
@@ -80,6 +89,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_test(Test.t(), map()) :: test_changeset()
   def update_test(%Test{} = test, attrs) do
     test
     |> Test.changeset(attrs)
@@ -98,6 +108,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_test(Test.t()) :: test_changeset()
   def delete_test(%Test{} = test) do
     Repo.delete(test)
   end
@@ -111,6 +122,7 @@ defmodule Testiroom.Exams do
       %Ecto.Changeset{data: %Test{}}
 
   """
+  @spec change_test(Test.t(), map()) :: Ecto.Changeset.t()
   def change_test(%Test{} = test, attrs \\ %{}) do
     Test.changeset(test, attrs)
   end
@@ -124,6 +136,7 @@ defmodule Testiroom.Exams do
       [%Task{}, ...]
 
   """
+  @spec list_tasks(Ecto.UUID.t(), integer() | String.t()) :: [Task.t()]
   def list_tasks(test_id, order) do
     query =
       from task in Task,
@@ -133,6 +146,7 @@ defmodule Testiroom.Exams do
     Repo.all(query)
   end
 
+  @spec get_max_task_order(Ecto.UUID.t()) :: integer()
   def get_max_task_order(test_id) do
     query =
       from task in Task,
@@ -156,6 +170,7 @@ defmodule Testiroom.Exams do
       ** (Ecto.NoResultsError)
 
   """
+  @spec get_task!(Ecto.UUID.t()) :: Task.t()
   def get_task!(id), do: Task |> Repo.get!(id) |> Repo.preload(:options)
 
   @doc """
@@ -170,6 +185,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec create_task(map(), Test.t()) :: task_changeset()
   def create_task(attrs \\ %{}, test) do
     test
     |> Ecto.build_assoc(:tasks)
@@ -189,6 +205,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec update_task(Task.t(), map()) :: task_changeset()
   def update_task(%Task{} = task, attrs) do
     task
     |> Task.changeset(attrs)
@@ -207,6 +224,7 @@ defmodule Testiroom.Exams do
       {:error, %Ecto.Changeset{}}
 
   """
+  @spec delete_task(Task.t()) :: task_changeset()
   def delete_task(%Task{} = task) do
     Repo.delete(task)
   end
@@ -220,10 +238,12 @@ defmodule Testiroom.Exams do
       %Ecto.Changeset{data: %Task{}}
 
   """
+  @spec change_task(Task.t(), map()) :: Ecto.Changeset.t()
   def change_task(%Task{} = task, attrs \\ %{}) do
     Task.changeset(task, attrs)
   end
 
+  @spec start_attempt(User.t(), Test.t()) :: {:ok, Attempt.t()} | {:error, Ecto.Changeset.t()}
   def start_attempt(user, test) do
     attempt = maybe_add_ended_at(%Attempt{user: user, test: test})
 
@@ -241,6 +261,7 @@ defmodule Testiroom.Exams do
     end
   end
 
+  @spec wrap_up_attempt!(Attempt.t()) :: Attempt.t()
   def wrap_up_attempt!(attempt) do
     attrs =
       maybe_update_ended_time(%{}, attempt)
@@ -250,6 +271,7 @@ defmodule Testiroom.Exams do
     |> Repo.update!()
   end
 
+  @spec maybe_update_ended_time(map(), Attempt.t()) :: map()
   def maybe_update_ended_time(attrs, attempt) do
     now = DateTime.utc_now()
 
@@ -260,6 +282,7 @@ defmodule Testiroom.Exams do
     end
   end
 
+  @spec maybe_add_ended_at(Attempt.t()) :: Attempt.t()
   defp maybe_add_ended_at(attempt) do
     if duration = attempt.test.duration_in_seconds do
       now = DateTime.utc_now(:second)
@@ -270,6 +293,7 @@ defmodule Testiroom.Exams do
     end
   end
 
+  @spec get_varitant(Test.t()) :: [Task.t()]
   defp get_varitant(test) do
     test.tasks
     |> Enum.group_by(& &1.order)
@@ -278,6 +302,7 @@ defmodule Testiroom.Exams do
     end)
   end
 
+  @spec create_answers(Attempt.t(), [Task.t(), ...]) :: {:ok, %{integer() => StudentAnswer.t()}} | {:error, Ecto.Changeset.t()}
   defp create_answers(attempt, tasks) do
     multi =
       tasks
@@ -295,9 +320,11 @@ defmodule Testiroom.Exams do
     end
   end
 
+  @spec get_attempt!(Ecto.UUID.t()) :: Attempt.t()
   def get_attempt!(id),
     do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
 
+  @spec maybe_shuffle_options(Attempt.t()) :: Attempt.t()
   def maybe_shuffle_options(attempt) do
     Map.update!(attempt, :student_answers, fn answers ->
       Enum.map(answers, fn answer ->
@@ -306,6 +333,7 @@ defmodule Testiroom.Exams do
     end)
   end
 
+  @spec maybe_shuffle_task_options(Task.t()) :: Task.t()
   defp maybe_shuffle_task_options(task) do
     if task.shuffle_options do
       Map.update!(task, :options, &Enum.shuffle/1)
@@ -314,10 +342,12 @@ defmodule Testiroom.Exams do
     end
   end
 
+  @spec change_student_answer(StudentAnswer.t()) :: Ecto.Changeset.t()
   def change_student_answer(%StudentAnswer{} = student_answer) do
     StudentAnswer.changeset(student_answer, %{})
   end
 
+  @spec update_student_answer(StudentAnswer.t(), [Option.t()], map()) :: student_answer_changeset()
   def update_student_answer(%StudentAnswer{} = student_answer, selected_options, attrs) do
     answer_in_db = Repo.get!(Attempt, student_answer.attempt_id)
     now = DateTime.utc_now()

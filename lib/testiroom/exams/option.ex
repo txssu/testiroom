@@ -6,6 +6,8 @@ defmodule Testiroom.Exams.Option do
 
   alias Testiroom.Exams.Task
 
+  @type t :: %__MODULE__{}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "task_options" do
@@ -18,6 +20,7 @@ defmodule Testiroom.Exams.Option do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Ecto.Changeset.t()
   def changeset(option, attrs) do
     option
     |> cast(attrs, [:text, :is_correct])

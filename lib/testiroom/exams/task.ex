@@ -5,6 +5,7 @@ defmodule Testiroom.Exams.Task do
   import Ecto.Changeset
   import TestiroomWeb.Gettext
 
+  alias Ecto.Changeset
   alias Testiroom.Exams.Option
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
@@ -12,6 +13,11 @@ defmodule Testiroom.Exams.Task do
   @types ~w[multiple single text]a
   @type_names [gettext("Multiple select"), gettext("Single select"), gettext("Text input")]
   @types_with_names Enum.zip(@type_names, @types)
+
+  task_type = Enum.reduce(@types, &quote(do: unquote(&2) | unquote(&1)))
+  @type task_type() :: unquote(task_type)
+
+  @type t :: %__MODULE__{}
 
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
@@ -33,6 +39,7 @@ defmodule Testiroom.Exams.Task do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Changeset.t()
   def changeset(task, attrs) do
     task
     |> cast(attrs, [:order, :type, :question, :media_path, :shuffle_options, :score])
@@ -45,6 +52,7 @@ defmodule Testiroom.Exams.Task do
     |> validate_options_count()
   end
 
+  @spec validate_options_count(Changeset.t()) :: Changeset.t()
   defp validate_options_count(changeset) do
     case get_field(changeset, :type) do
       :text -> validate_length(changeset, :options, min: 1)
@@ -53,6 +61,7 @@ defmodule Testiroom.Exams.Task do
     end
   end
 
+  @spec validate_correct_options_count(Changeset.t()) :: Changeset.t()
   defp validate_correct_options_count(changeset) do
     correct_count =
       changeset
@@ -64,6 +73,7 @@ defmodule Testiroom.Exams.Task do
     check_correct_options_count(changeset, type, correct_count)
   end
 
+  @spec check_correct_options_count(Changeset.t(), task_type(), integer()) :: Changeset.t()
   def check_correct_options_count(changeset, :multiple, correct_count) do
     if correct_count >= 1 do
       changeset
@@ -84,7 +94,11 @@ defmodule Testiroom.Exams.Task do
     changeset
   end
 
+  @spec types() :: [{String.t(), task_type()}, ...]
   def types, do: @types_with_names
+
+  @spec type_to_name(task_type()) :: String.t()
+  def type_to_name(type)
 
   for {name, type} <- @types_with_names do
     def type_to_name(unquote(type)), do: unquote(name)

@@ -8,6 +8,8 @@ defmodule Testiroom.Exams.StudentAnswer do
   alias Testiroom.Exams.Option
   alias Testiroom.Exams.Task
 
+  @type t :: %__MODULE__{}
+
   @primary_key {:id, :binary_id, autogenerate: true}
   @foreign_key_type :binary_id
   schema "student_answers" do
@@ -23,12 +25,15 @@ defmodule Testiroom.Exams.StudentAnswer do
   end
 
   @doc false
+  @spec changeset(Ecto.Schema.t(), map()) :: Ecto.Changeset.t()
   def changeset(student_answer, attrs) do
     student_answer
     |> cast(attrs, [:text_input])
     |> validate_required([])
   end
 
+  @spec get_score(t) :: {score, max_score}
+        when score: integer(), max_score: integer()
   def get_score(student_answer) do
     max = student_answer.task.score
 
@@ -39,6 +44,7 @@ defmodule Testiroom.Exams.StudentAnswer do
     end
   end
 
+  @spec correct?(t()) :: boolean()
   def correct?(student_answer) do
     task = student_answer.task
 
@@ -62,6 +68,7 @@ defmodule Testiroom.Exams.StudentAnswer do
     end
   end
 
+  @spec answer_given?(t()) :: boolean()
   def answer_given?(student_answer) do
     case student_answer.task.type do
       type when type in [:single, :multiple] -> student_answer.selected_options != []
@@ -69,10 +76,12 @@ defmodule Testiroom.Exams.StudentAnswer do
     end
   end
 
+  @spec all_selected_correct?([Option.t()]) :: boolean()
   defp all_selected_correct?(selected_options) do
     Enum.all?(selected_options, & &1.is_correct)
   end
 
+  @spec exact_correct_count?([Option.t()], [Option.t()]) :: boolean()
   defp exact_correct_count?(selected_options, task_options) do
     Enum.count(selected_options) == Enum.count(task_options, & &1.is_correct)
   end
