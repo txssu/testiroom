@@ -39,15 +39,15 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
                     </div>
                   <% end %>
                 </div>
-                <.button class="mt-2" tag={:label} name="task[options_delete][]" value={option.index}>
+                <.label_button class="mt-2" name="task[options_delete][]" value={option.index}>
                   <%= gettext("Delete") %>
-                </.button>
+                </.label_button>
               </div>
             </.inputs_for>
           </div>
-          <.button tag={:label} name="task[options_order][]" class="mt-3">
+          <.label_button name="task[options_order][]" class="mt-3">
             <%= gettext("Add option") %>
-          </.button>
+          </.label_button>
           <.error :for={msg <- Enum.map(@form[:options].errors, &translate_error/1)}>
             <%= msg %>
           </.error>

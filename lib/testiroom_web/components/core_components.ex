@@ -187,38 +187,29 @@ defmodule TestiroomWeb.CoreComponents do
     """
   end
 
+  @kinds_list ~w[base default
+  page_base page page_outline page_outline_inactive
+  tall_base tall tall_outline tall_outline_inactive]a
+
   @doc """
   Renders a button.
+
+  To manipulate form's nested items see `label_button/1`.
 
   ## Examples
 
       <.button>Send!</.button>
       <.button phx-click="go" class="ml-2">Send!</.button>
-
-      <.inputs_for :let={item} field={@form[:items]}>
-        ...
-      </.inputs_for>
-      <.button tag="link" name="schema[items_order][]">
-        <%= gettext("add more") %>
-      </button>
   """
   attr :type, :string, default: nil
   attr :class, :string, default: nil
-  attr :rest, :global, include: ~w(disabled form name value navigate patch
-                                   href replace method csrf_token download hreflang
-                                   referrerpolicy rel target type)
+  attr :rest, :global, include: ~w(disabled form name value)
 
-  attr :tag, :atom, default: :button, values: ~w[button link label]a
-  attr :kind, :atom, default: :default, values: ~w[base default
-                                                   page_base page page_outline page_outline_inactive
-                                                   tall_base tall tall_outline tall_outline_inactive]a
-
-  attr :name, :string, default: nil
-  attr :value, :string, default: nil
+  attr :kind, :atom, default: :default, values: @kinds_list
 
   slot :inner_block, required: true
 
-  def button(%{tag: :button} = assigns) do
+  def button(assigns) do
     ~H"""
     <button type={@type} class={[button_class(@kind), @class]} {@rest}>
       <%= render_slot(@inner_block) %>
@@ -226,15 +217,27 @@ defmodule TestiroomWeb.CoreComponents do
     """
   end
 
-  def button(%{tag: :link} = assigns) do
-    ~H"""
-    <.link class={["inline-block text-center", button_class(@kind), @class]} {@rest}>
-      <%= render_slot(@inner_block) %>
-    </.link>
-    """
-  end
+  @doc """
+  Renders a label that looks like a button.
 
-  def button(%{tag: :label} = assigns) do
+  ## Examples
+
+      <.inputs_for :let={item} field={@form[:items]}>
+        ...
+      </.inputs_for>
+      <.label_button name="schema[items_order][]">
+        <%= gettext("Add more items") %>
+      </label_button>
+  """
+  attr :class, :string, default: nil
+  attr :name, :string, required: true
+  attr :value, :string, default: nil
+
+  attr :kind, :atom, default: :default, values: @kinds_list
+
+  slot :inner_block, required: true
+
+  def label_button(assigns) do
     ~H"""
     <label class={["inline-block cursor-pointer", button_class(@kind), @class]}>
       <input type="checkbox" name={@name} value={@value} class="hidden" />

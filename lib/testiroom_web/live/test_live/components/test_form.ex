@@ -65,7 +65,7 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
                       </span>
                     </div>
                     <div class="col-span-2 pl-0 sm:col-span-1 sm:pl-2">
-                      <.button tag={:label} name="test[grades_delete][]" value={grade.index}>
+                      <.label_button name="test[grades_delete][]" value={grade.index}>
                         <span class="hidden sm:inline">
                           <.icon name="hero-x-mark-mini" />
                         </span>
@@ -73,15 +73,15 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
                         <span class="inline sm:hidden">
                           <%= gettext("Delete grade") %>
                         </span>
-                      </.button>
+                      </.label_button>
                     </div>
                   </fieldset>
                 </div>
               </.inputs_for>
             </div>
-            <.button tag={:label} name="test[grades_order][]" class="mt-3">
+            <.label_button name="test[grades_order][]" class="mt-3">
               <%= gettext("Add grade") %>
-            </.button>
+            </.label_button>
             <.error :for={msg <- Enum.map(@form[:grades].errors, &translate_error/1)}>
               <%= msg %>
             </.error>

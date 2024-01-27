@@ -23,12 +23,16 @@
     <%= @order + 1 %> <%= gettext("/") %> <%= @max_order + 1 %>
   </div>
   <div class="flex w-full gap-2.5">
-    <.button tag={:link} patch={~p"/exams/#{@attempt}/#{@previous_order}"} kind={if @order == 0, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
-      <%= gettext("Previous") %>
-    </.button>
-    <.button tag={:link} patch={~p"/exams/#{@attempt}/#{@next_order}"} kind={if @order == @max_order, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
-      <%= gettext("Next") %>
-    </.button>
+    <.link patch={~p"/exams/#{@attempt}/#{@previous_order}"} class="w-full">
+      <.button kind={if @order == 0, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
+        <%= gettext("Previous") %>
+      </.button>
+    </.link>
+    <.link patch={~p"/exams/#{@attempt}/#{@next_order}"} class="w-full">
+      <.button kind={if @order == @max_order, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
+        <%= gettext("Next") %>
+      </.button>
+    </.link>
   </div>
   <div class="w-full">
     <.button kind={:tall} class="w-full" phx-click={show_modal("review-modal")}>
@@ -37,21 +41,19 @@
     <.bottom_modal id="review-modal">
       <ul class="mb-16 flex w-auto flex-wrap gap-2.5">
         <li :for={{order, answer} <- @answers}>
-          <.button
-            tag={:link}
-            kind={
+          <.link patch={~p"/exams/#{@attempt}/#{order}"}>
+            <.button kind={
               cond do
                 order == @order -> :page_outline
                 answer.text_input || answer.selected_options != [] -> :page
                 true -> :page_outline_inactive
               end
-            }
-            patch={~p"/exams/#{@attempt}/#{order}"}
-          >
-            <div class="flex h-full items-center justify-center">
-              <%= order + 1 %>
-            </div>
-          </.button>
+            }>
+              <div class="flex h-full items-center justify-center">
+                <%= order + 1 %>
+              </div>
+            </.button>
+          </.link>
         </li>
       </ul>
       <.button kind={:tall} class="w-full" phx-click="wrap-up"><%= gettext("Wrap up") %></.button>

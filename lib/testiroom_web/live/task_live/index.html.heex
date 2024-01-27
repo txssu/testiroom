@@ -4,14 +4,18 @@
 
 <ul class="mt-4 flex flex-wrap gap-4">
   <li :for={order <- 0..@max_order}>
-    <.button kind={if order == @order, do: :page_outline, else: :page_outline_inactive} tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{order}"}>
-      <%= order + 1 %>
-    </.button>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{order}"}>
+      <.button kind={if order == @order, do: :page_outline, else: :page_outline_inactive}>
+        <%= order + 1 %>
+      </.button>
+    </.link>
   </li>
   <li>
-    <.button kind={:page_outline_inactive} class="px-0" tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{@max_order + 1}/new"}>
-      <.icon name="hero-plus-small-solid" />
-    </.button>
+    <.link patch={~p"/tests/#{@test_id}/tasks/#{@max_order + 1}/new"}>
+      <.button kind={:page_outline_inactive} class="px-0">
+        <.icon name="hero-plus-small-solid" />
+      </.button>
+    </.link>
   </li>
 </ul>
 
@@ -30,9 +34,11 @@
   </:action>
 </.table>
 
-<.button class="mt-3" tag={:link} patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
-  <%= gettext("New Task") %>
-</.button>
+<.link patch={~p"/tests/#{@test_id}/tasks/#{@order}/new"}>
+  <.button class="mt-3">
+    <%= gettext("New Task") %>
+  </.button>
+</.link>
 
 <.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}>
   <.live_component

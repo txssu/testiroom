@@ -16,12 +16,16 @@ defmodule TestiroomWeb.Live.Components.TestEditorHeader do
       <:subtitle><%= render_slot(@subtitle) %></:subtitle>
       <:actions>
         <div class="flex h-full flex-nowrap items-end space-x-4">
-          <.button tag={:link} kind={:base} patch={~p"/tests/#{@test_id}/"} class={active_class(@active == :editor)}>
-            <%= gettext("Editor") %>
-          </.button>
-          <.button tag={:link} kind={:base} patch={~p"/tests/#{@test_id}/tasks/0"} class={active_class(@active == :tasks)}>
-            <%= gettext("Tasks") %>
-          </.button>
+          <.link patch={~p"/tests/#{@test_id}/"}>
+            <.button kind={:base} class={active_class(@active == :editor)}>
+              <%= gettext("Editor") %>
+            </.button>
+          </.link>
+          <.link patch={~p"/tests/#{@test_id}/tasks/0"}>
+            <.button kind={:base} class={active_class(@active == :tasks)}>
+              <%= gettext("Tasks") %>
+            </.button>
+          </.link>
         </div>
       </:actions>
     </.header>
