@@ -151,7 +151,7 @@ defmodule Testiroom.Exams do
     query =
       from task in Task,
         where: task.test_id == ^test_id,
-        select: max(task.order)
+        select: coalesce(max(task.order), 0)
 
     Repo.one(query)
   end

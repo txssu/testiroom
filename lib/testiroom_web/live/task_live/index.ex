@@ -17,7 +17,7 @@ defmodule TestiroomWeb.TaskLive.Index do
     {:noreply,
      socket
      |> assign(:test_id, test_id)
-     |> assign(:max_order, Exams.get_max_task_order(test_id) || 0)
+     |> assign(:max_order, Exams.get_max_task_order(test_id))
      |> assign(:order, String.to_integer(order))
      |> apply_action(socket.assigns.live_action, params)
      |> stream(:tasks, Exams.list_tasks(test_id, order), reset: true)}
