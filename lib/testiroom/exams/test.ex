@@ -68,7 +68,7 @@ defmodule Testiroom.Exams.Test do
   end
 
   @spec convert_local_time_to_utc(Changeset.t()) :: Changeset.t()
-  def convert_local_time_to_utc(changeset) do
+  defp convert_local_time_to_utc(changeset) do
     for {local_key, utc_key} <- [{:starts_at_local, :starts_at}, {:ends_at_local, :ends_at}], reduce: changeset do
       inner_changeset ->
         case get_field(inner_changeset, local_key) do
@@ -87,14 +87,14 @@ defmodule Testiroom.Exams.Test do
   end
 
   @spec convert_duration_to_seconds(Changeset.t()) :: Changeset.t()
-  def convert_duration_to_seconds(changeset) do
+  defp convert_duration_to_seconds(changeset) do
     minutes = get_change(changeset, :duration_in_minutes)
 
     put_change(changeset, :duration_in_seconds, minutes && minutes * 60)
   end
 
   @spec validate_grades(Changeset.t()) :: Changeset.t()
-  def validate_grades(changeset) do
+  defp validate_grades(changeset) do
     grades = get_field(changeset, :grades)
 
     if grades == [] or Enum.find(grades, &(&1.from == 0)) do

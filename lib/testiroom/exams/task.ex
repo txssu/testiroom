@@ -74,7 +74,7 @@ defmodule Testiroom.Exams.Task do
   end
 
   @spec check_correct_options_count(Changeset.t(), task_type(), integer()) :: Changeset.t()
-  def check_correct_options_count(changeset, :multiple, correct_count) do
+  defp check_correct_options_count(changeset, :multiple, correct_count) do
     if correct_count >= 1 do
       changeset
     else
@@ -82,7 +82,7 @@ defmodule Testiroom.Exams.Task do
     end
   end
 
-  def check_correct_options_count(changeset, :single, correct_count) do
+  defp check_correct_options_count(changeset, :single, correct_count) do
     if correct_count == 1 do
       changeset
     else
@@ -90,7 +90,7 @@ defmodule Testiroom.Exams.Task do
     end
   end
 
-  def check_correct_options_count(changeset, _type, _correct_count) do
+  defp check_correct_options_count(changeset, _type, _correct_count) do
     changeset
   end
 

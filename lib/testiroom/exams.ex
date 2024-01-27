@@ -272,7 +272,7 @@ defmodule Testiroom.Exams do
   end
 
   @spec maybe_update_ended_time(map(), Attempt.t()) :: map()
-  def maybe_update_ended_time(attrs, attempt) do
+  defp maybe_update_ended_time(attrs, attempt) do
     now = DateTime.utc_now()
 
     if is_nil(attempt.ended_at) or DateTime.before?(now, attempt.ended_at) do
