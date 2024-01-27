@@ -6,6 +6,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
 
   alias Phoenix.HTML
   alias Testiroom.Exams
+  alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Proctoring
   alias TestiroomWeb.ExamLive.Components.AnswerForm
 
@@ -160,7 +161,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
   defp page_kind(answer, page_order, current_order) do
     cond do
       page_order == current_order -> :page_outline
-      answer.text_input || answer.selected_options != [] -> :page
+      StudentAnswer.answer_given?(answer) -> :page
       true -> :page_outline_inactive
     end
   end

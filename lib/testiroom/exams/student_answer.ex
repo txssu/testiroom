@@ -62,6 +62,13 @@ defmodule Testiroom.Exams.StudentAnswer do
     end
   end
 
+  def answer_given?(student_answer) do
+    case student_answer.task.type do
+      type when type in [:single, :multiple] -> student_answer.selected_options != []
+      :text -> student_answer.text_input
+    end
+  end
+
   defp all_selected_correct?(selected_options) do
     Enum.all?(selected_options, & &1.is_correct)
   end
