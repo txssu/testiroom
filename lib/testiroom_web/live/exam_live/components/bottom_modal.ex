@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Readability.Specs
 defmodule TestiroomWeb.ExamLive.Components.BottomModal do
   @moduledoc false
   use TestiroomWeb, :html

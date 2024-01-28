@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Readability.Specs
 defmodule Testiroom.Release do
   @moduledoc """
   Used for executing DB release tasks when run in production without Mix

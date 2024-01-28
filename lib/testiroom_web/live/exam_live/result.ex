@@ -5,6 +5,7 @@ defmodule TestiroomWeb.ExamLive.Result do
   alias Testiroom.Exams
   alias Testiroom.Exams.Attempt
 
+  @impl Phoenix.LiveView
   def mount(%{"attempt_id" => id}, _session, socket) do
     attempt = Exams.get_attempt!(id)
     now = DateTime.utc_now()
@@ -29,6 +30,7 @@ defmodule TestiroomWeb.ExamLive.Result do
     end
   end
 
+  @impl Phoenix.LiveView
   def handle_params(%{"order" => order_param}, _uri, socket) do
     order = String.to_integer(order_param)
     attempt = socket.assigns.attempt

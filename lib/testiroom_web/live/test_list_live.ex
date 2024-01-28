@@ -4,6 +4,7 @@ defmodule TestiroomWeb.TestListLive do
 
   alias Testiroom.Exams
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <.table id="tests" rows={@tests} row_click={fn test -> JS.navigate(~p"/tests/#{test}/exam") end}>
@@ -22,6 +23,7 @@ defmodule TestiroomWeb.TestListLive do
     """
   end
 
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     {:ok, assign(socket, :tests, Exams.list_tests())}
   end

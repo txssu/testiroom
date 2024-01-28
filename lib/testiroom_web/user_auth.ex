@@ -6,6 +6,8 @@ defmodule TestiroomWeb.UserAuth do
   import Plug.Conn
   import TestiroomWeb.Gettext
 
+  alias Phoenix.LiveView
+  alias Phoenix.LiveView.Socket
   alias Testiroom.Accounts
 
   # Make the remember me cookie valid for 60 days.
@@ -27,6 +29,7 @@ defmodule TestiroomWeb.UserAuth do
   disconnected on log out. The line can be safely removed
   if you are not using LiveView.
   """
+  @spec log_in_user(Plug.Conn.t(), Accounts.User.t(), map()) :: Plug.Conn.t()
   def log_in_user(conn, user, params \\ %{}) do
     token = Accounts.generate_user_session_token(user)
     user_return_to = get_session(conn, :user_return_to)
@@ -72,6 +75,7 @@ defmodule TestiroomWeb.UserAuth do
 
   It clears all session data for safety. See renew_session.
   """
+  @spec log_out_user(Plug.Conn.t()) :: Plug.Conn.t()
   def log_out_user(conn) do
     user_token = get_session(conn, :user_token)
     user_token && Accounts.delete_user_session_token(user_token)
@@ -90,6 +94,7 @@ defmodule TestiroomWeb.UserAuth do
   Authenticates the user by looking into the session
   and remember me token.
   """
+  @spec fetch_current_user(Plug.Conn.t(), Keyword.t()) :: Plug.Conn.t()
   def fetch_current_user(conn, _opts) do
     {user_token, conn} = ensure_user_token(conn)
     user = user_token && Accounts.get_user_by_session_token(user_token)
@@ -145,6 +150,7 @@ defmodule TestiroomWeb.UserAuth do
         live "/profile", ProfileLive, :index
       end
   """
+  @spec on_mount(atom(), LiveView.unsigned_params(), map(), Socket.t()) :: {:cont, Socket.t()} | {:halt, Socket.t()}
   def on_mount(:mount_current_user, _params, session, socket) do
     {:cont, mount_current_user(socket, session)}
   end
@@ -185,6 +191,7 @@ defmodule TestiroomWeb.UserAuth do
   @doc """
   Used for routes that require the user to not be authenticated.
   """
+  @spec redirect_if_user_is_authenticated(Plug.Conn.t(), Keyword.t()) :: Plug.Conn.t()
   def redirect_if_user_is_authenticated(conn, _opts) do
     if conn.assigns[:current_user] do
       conn
@@ -201,6 +208,7 @@ defmodule TestiroomWeb.UserAuth do
   If you want to enforce the user email is confirmed before
   they use the application at all, here would be a good place.
   """
+  @spec require_authenticated_user(Plug.Conn.t(), Keyword.t()) :: Plug.Conn.t()
   def require_authenticated_user(conn, _opts) do
     if conn.assigns[:current_user] do
       conn

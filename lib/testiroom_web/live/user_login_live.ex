@@ -2,6 +2,7 @@ defmodule TestiroomWeb.UserLoginLive do
   @moduledoc false
   use TestiroomWeb, :live_view
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -36,6 +37,7 @@ defmodule TestiroomWeb.UserLoginLive do
     """
   end
 
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     email = live_flash(socket.assigns.flash, :email)
     form = to_form(%{"email" => email}, as: "user")

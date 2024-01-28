@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Readability.Specs
 defmodule TestiroomWeb.TaskLive.Components.TaskForm do
   @moduledoc false
   use TestiroomWeb, :live_component
@@ -65,7 +66,6 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
   end
 
   @impl Phoenix.LiveComponent
-
   def update(%{task: task} = assigns, socket) do
     changeset = Exams.change_task(task)
 

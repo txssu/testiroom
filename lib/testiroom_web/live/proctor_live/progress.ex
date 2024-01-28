@@ -37,7 +37,7 @@ defmodule TestiroomWeb.ProctorLive.Progress do
     {:noreply, update(socket, :monitor, &Monitor.handle(&1, event))}
   end
 
-  def format_time_per_task(%Monitor{spended_time_per_task: spended_time, started_counter: started}, tasks_count) do
+  defp format_time_per_task(%Monitor{spended_time_per_task: spended_time, started_counter: started}, tasks_count) do
     milliseconds =
       if started == 0 do
         0

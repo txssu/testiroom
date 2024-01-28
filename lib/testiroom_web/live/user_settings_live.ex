@@ -4,6 +4,7 @@ defmodule TestiroomWeb.UserSettingsLive do
 
   alias Testiroom.Accounts
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <.header class="text-center">
@@ -60,6 +61,7 @@ defmodule TestiroomWeb.UserSettingsLive do
     """
   end
 
+  @impl Phoenix.LiveView
   def mount(%{"token" => token}, _session, socket) do
     socket =
       case Accounts.update_user_email(socket.assigns.current_user, token) do
@@ -90,6 +92,7 @@ defmodule TestiroomWeb.UserSettingsLive do
     {:ok, socket}
   end
 
+  @impl Phoenix.LiveView
   def handle_event("validate_email", params, socket) do
     %{"current_password" => password, "user" => user_params} = params
 

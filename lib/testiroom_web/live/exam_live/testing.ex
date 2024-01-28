@@ -80,7 +80,6 @@ defmodule TestiroomWeb.ExamLive.Testing do
      |> assign(:answers, Map.put(answers, order, answer))}
   end
 
-  @impl Phoenix.LiveView
   def handle_info(:wrap_up, socket) do
     {:noreply, wrap_up(socket)}
   end
@@ -104,7 +103,7 @@ defmodule TestiroomWeb.ExamLive.Testing do
     {:noreply, wrap_up(socket)}
   end
 
-  def wrap_up(socket) do
+  defp wrap_up(socket) do
     student_answers = Enum.map(socket.assigns.answers, &elem(&1, 1))
 
     attempt = Map.put(socket.assigns.attempt, :student_answers, student_answers)

@@ -4,6 +4,7 @@ defmodule TestiroomWeb.UserResetPasswordLive do
 
   alias Testiroom.Accounts
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -28,6 +29,7 @@ defmodule TestiroomWeb.UserResetPasswordLive do
     """
   end
 
+  @impl Phoenix.LiveView
   def mount(params, _session, socket) do
     socket = assign_user_and_token(socket, params)
 
@@ -45,6 +47,7 @@ defmodule TestiroomWeb.UserResetPasswordLive do
 
   # Do not log in the user after reset password to avoid a
   # leaked token giving the user access to the account.
+  @impl Phoenix.LiveView
   def handle_event("reset_password", %{"user" => user_params}, socket) do
     case Accounts.reset_user_password(socket.assigns.user, user_params) do
       {:ok, _} ->

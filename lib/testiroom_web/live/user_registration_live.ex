@@ -5,6 +5,7 @@ defmodule TestiroomWeb.UserRegistrationLive do
   alias Testiroom.Accounts
   alias Testiroom.Accounts.User
 
+  @impl Phoenix.LiveView
   def render(assigns) do
     ~H"""
     <div class="mx-auto max-w-sm">
@@ -44,6 +45,7 @@ defmodule TestiroomWeb.UserRegistrationLive do
     """
   end
 
+  @impl Phoenix.LiveView
   def mount(_params, _session, socket) do
     changeset = Accounts.change_user_registration(%User{})
 
@@ -55,6 +57,7 @@ defmodule TestiroomWeb.UserRegistrationLive do
     {:ok, socket, temporary_assigns: [form: nil]}
   end
 
+  @impl Phoenix.LiveView
   def handle_event("save", %{"user" => user_params}, socket) do
     case Accounts.register_user(user_params) do
       {:ok, user} ->

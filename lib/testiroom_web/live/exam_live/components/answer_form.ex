@@ -1,3 +1,4 @@
+# credo:disable-for-this-file Credo.Check.Readability.Specs
 defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
   @moduledoc false
   use TestiroomWeb, :live_component
