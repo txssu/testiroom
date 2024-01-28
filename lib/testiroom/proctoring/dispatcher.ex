@@ -24,6 +24,7 @@ defmodule Testiroom.Proctoring.Dispatcher do
     quote do
       unquote(struct)
 
+      @spec handle(t(), term()) :: t()
       def handle(data, %event_type{} = event) do
         do_handle(event_type, event, data)
       end

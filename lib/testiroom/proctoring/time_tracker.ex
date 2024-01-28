@@ -1,13 +1,18 @@
 defmodule Testiroom.Proctoring.TimeTracker do
   @moduledoc false
+
+  @behaviour Testiroom.Proctoring.Tracker
+
   alias Testiroom.Proctoring.Event
   alias Testiroom.Proctoring.Event.Ended
   alias Testiroom.Proctoring.Event.OpenedTask
 
+  @impl Testiroom.Proctoring.Tracker
   def init([]) do
     {:ok, [], [last_opened: %{}, spended_time_per_task: %{}, spended_time_per_task_by_user: %{}]}
   end
 
+  @impl Testiroom.Proctoring.Tracker
   def call(data, event, []) do
     data
     |> update_spended_time_per_task(event)

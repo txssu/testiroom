@@ -1,12 +1,16 @@
 defmodule Testiroom.Proctoring.AnswersTracker do
   @moduledoc false
+  @behaviour Testiroom.Proctoring.Tracker
+
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Proctoring.Event
 
+  @impl Testiroom.Proctoring.Tracker
   def init([]) do
     {:ok, [], [user_answers: %{}, provided_answers_counter: 0, user_answers_correctness: %{}]}
   end
 
+  @impl Testiroom.Proctoring.Tracker
   def call(data, event, []) do
     data
     |> maybe_update_counter(event)

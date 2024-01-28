@@ -10,6 +10,8 @@ defmodule Testiroom.Proctoring.Monitor do
   alias Testiroom.Proctoring.Event
   alias Testiroom.Proctoring.TimeTracker
 
+  @type t :: %__MODULE__{}
+
   defhandler Event.Started, Counter, :started_counter
   defhandler Event.Ended, Counter, :ended_counter
 
