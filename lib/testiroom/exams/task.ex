@@ -10,9 +10,16 @@ defmodule Testiroom.Exams.Task do
   alias Testiroom.Exams.StudentAnswer
   alias Testiroom.Exams.Test
 
-  @types ~w[multiple single text]a
-  @type_names [gettext("Multiple select"), gettext("Single select"), gettext("Text input")]
-  @types_with_names Enum.zip(@type_names, @types)
+  @types_with_names Enum.map(
+                      [
+                        multiple: gettext("Multiple select"),
+                        single: gettext("Single select"),
+                        text: gettext("Text input")
+                      ],
+                      fn {a, b} -> {b, a} end
+                    )
+
+  @types Enum.map(@types_with_names, &elem(&1, 1))
 
   task_type = Enum.reduce(@types, &quote(do: unquote(&2) | unquote(&1)))
   @type task_type() :: unquote(task_type)
