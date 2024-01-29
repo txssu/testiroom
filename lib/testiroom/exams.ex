@@ -322,25 +322,7 @@ defmodule Testiroom.Exams do
 
   @spec get_attempt!(Ecto.UUID.t()) :: Attempt.t()
   def get_attempt!(id),
-    do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> maybe_shuffle_options()
-
-  @spec maybe_shuffle_options(Attempt.t()) :: Attempt.t()
-  def maybe_shuffle_options(attempt) do
-    Map.update!(attempt, :student_answers, fn answers ->
-      Enum.map(answers, fn answer ->
-        Map.update!(answer, :task, &maybe_shuffle_task_options/1)
-      end)
-    end)
-  end
-
-  @spec maybe_shuffle_task_options(Task.t()) :: Task.t()
-  defp maybe_shuffle_task_options(task) do
-    if task.shuffle_options do
-      Map.update!(task, :options, &Enum.shuffle/1)
-    else
-      task
-    end
-  end
+    do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> Attempt.shuffle_task_options()
 
   @spec change_student_answer(StudentAnswer.t()) :: Ecto.Changeset.t()
   def change_student_answer(%StudentAnswer{} = student_answer) do

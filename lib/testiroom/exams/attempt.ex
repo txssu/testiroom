@@ -7,6 +7,7 @@ defmodule Testiroom.Exams.Attempt do
   alias Testiroom.Accounts.User
   alias Testiroom.Exams.Option
   alias Testiroom.Exams.StudentAnswer
+  alias Testiroom.Exams.Task
   alias Testiroom.Exams.Test
 
   @type t :: %__MODULE__{}
@@ -55,5 +56,14 @@ defmodule Testiroom.Exams.Attempt do
   def get_grade(attempt) do
     ratio = get_correctness_ratio(attempt)
     Enum.find(attempt.test.grades, fn grade -> ratio >= grade.from end)
+  end
+
+  @spec shuffle_task_options(t()) :: t()
+  def shuffle_task_options(attempt) do
+    Map.update!(attempt, :student_answers, fn answers ->
+      Enum.map(answers, fn answer ->
+        Map.update!(answer, :task, &Task.shuffle_options/1)
+      end)
+    end)
   end
 end

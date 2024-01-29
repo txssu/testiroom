@@ -94,6 +94,17 @@ defmodule Testiroom.Exams.Task do
     changeset
   end
 
+  @spec shuffle_options(t()) :: t()
+  def shuffle_options(task)
+
+  def shuffle_options(%__MODULE__{shuffle_options: true} = task) do
+    Map.update!(task, :options, &Enum.shuffle/1)
+  end
+
+  def shuffle_options(%__MODULE__{} = task) do
+    task
+  end
+
   @spec types() :: [{String.t(), task_type()}, ...]
   def types, do: @types_with_names
 
