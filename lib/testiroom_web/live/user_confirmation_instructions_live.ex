@@ -23,7 +23,8 @@ defmodule TestiroomWeb.UserConfirmationInstructionsLive do
       </.simple_form>
 
       <p class="mt-4 text-center">
-        <.link href={~p"/users/register"}><%= gettext("Register") %></.link> | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
+        <.link href={~p"/users/register"}><%= gettext("Register") %></.link>
+        | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
       </p>
     </div>
     """
@@ -44,7 +45,9 @@ defmodule TestiroomWeb.UserConfirmationInstructionsLive do
     end
 
     info =
-      gettext("If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly.")
+      gettext(
+        "If your email is in our system and it has not been confirmed yet, you will receive an email with instructions shortly."
+      )
 
     {:noreply,
      socket

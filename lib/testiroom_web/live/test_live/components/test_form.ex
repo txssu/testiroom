@@ -13,14 +13,28 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           <%= @title %>
         </.header>
       <% end %>
-      <.simple_form for={@form} id="test-form" phx-target={@myself} phx-change="validate" phx-submit="save">
+      <.simple_form
+        for={@form}
+        id="test-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save"
+      >
         <.input field={@form[:title]} type="text" label={gettext("Title")} />
         <%= if @action == :edit do %>
           <.input field={@form[:description]} type="textarea" label={gettext("Description")} />
 
-          <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Synchronization") %></h2>
+          <h2 class="block text-lg font-semibold leading-6 text-zinc-800">
+            <%= gettext("Synchronization") %>
+          </h2>
 
-          <.input field={@form[:timezone]} type="hidden" id="timezone" phx-hook="TimeZoneGetter" phx-update="ignore" />
+          <.input
+            field={@form[:timezone]}
+            type="hidden"
+            id="timezone"
+            phx-hook="TimeZoneGetter"
+            phx-update="ignore"
+          />
           <.input
             field={@form[:starts_at_local]}
             type="datetime-local"
@@ -39,7 +53,12 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
             data-datetime={@form.data.ends_at}
             phx-update="ignore"
           />
-          <.input field={@form[:duration_in_minutes]} type="number" label={gettext("Duration in minutes")} min="1" />
+          <.input
+            field={@form[:duration_in_minutes]}
+            type="number"
+            label={gettext("Duration in minutes")}
+            min="1"
+          />
 
           <fieldset phx-feedback-for={@form[:grades].name}>
             <legend class="block text-lg font-semibold leading-6 text-zinc-800">
@@ -59,7 +78,14 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
                       <%= gettext("from") %>
                     </span>
                     <div class="flex">
-                      <.input field={grade[:from]} type="number" subtype="inline" size="17" min="0" max="100" />
+                      <.input
+                        field={grade[:from]}
+                        type="number"
+                        subtype="inline"
+                        size="17"
+                        min="0"
+                        max="100"
+                      />
                       <span class="p-2">
                         %
                       </span>
@@ -88,11 +114,29 @@ defmodule TestiroomWeb.TestLive.Components.TestForm do
           </fieldset>
           <input type="hidden" name="test[grades_delete][]" />
 
-          <h2 class="block text-lg font-semibold leading-6 text-zinc-800"><%= gettext("Student report settings") %></h2>
-          <.input field={@form[:show_correctness_for_student]} type="checkbox" label={gettext("Show correctness for student")} />
-          <.input field={@form[:show_score_for_student]} type="checkbox" label={gettext("Show score for student")} />
-          <.input field={@form[:show_grade_for_student]} type="checkbox" label={gettext("Show grade for student")} />
-          <.input field={@form[:show_answer_for_student]} type="checkbox" label={gettext("Show answer for student")} />
+          <h2 class="block text-lg font-semibold leading-6 text-zinc-800">
+            <%= gettext("Student report settings") %>
+          </h2>
+          <.input
+            field={@form[:show_correctness_for_student]}
+            type="checkbox"
+            label={gettext("Show correctness for student")}
+          />
+          <.input
+            field={@form[:show_score_for_student]}
+            type="checkbox"
+            label={gettext("Show score for student")}
+          />
+          <.input
+            field={@form[:show_grade_for_student]}
+            type="checkbox"
+            label={gettext("Show grade for student")}
+          />
+          <.input
+            field={@form[:show_answer_for_student]}
+            type="checkbox"
+            label={gettext("Show answer for student")}
+          />
         <% end %>
         <:actions>
           <.button phx-disable-with={gettext("Saving...")}><%= gettext("Save Test") %></.button>

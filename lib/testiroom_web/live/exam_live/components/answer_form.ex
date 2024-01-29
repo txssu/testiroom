@@ -12,12 +12,27 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
       <.form for={@form} phx-change="validate" phx-submit="validate" phx-target={@myself}>
         <%= case @answer.task.type do %>
           <% :text -> %>
-            <.input type="text" subtype="wide" field={@form[:text_input]} placeholder={prompt_message(:text)} autocomplete="off" phx-debounce="blur" />
+            <.input
+              type="text"
+              subtype="wide"
+              field={@form[:text_input]}
+              placeholder={prompt_message(:text)}
+              autocomplete="off"
+              phx-debounce="blur"
+            />
           <% type when type in [:single, :multiple] -> %>
             <fieldset>
               <div phx-feedback-for={@form[:selected_options].name}>
-                <legend class="text-ink-gray w-full text-center text-sm leading-5"><%= prompt_message(type) %></legend>
-                <.option :for={{option, index} <- Stream.with_index(@answer.task.options)} field={@form[:selected_options]} type={@answer.task.type} option={option} index={index} />
+                <legend class="text-ink-gray w-full text-center text-sm leading-5">
+                  <%= prompt_message(type) %>
+                </legend>
+                <.option
+                  :for={{option, index} <- Stream.with_index(@answer.task.options)}
+                  field={@form[:selected_options]}
+                  type={@answer.task.type}
+                  option={option}
+                  index={index}
+                />
                 <.error :for={msg <- Enum.map(@form[:selected_options].errors, &translate_error/1)}>
                   <%= msg %>
                 </.error>
@@ -49,7 +64,14 @@ defmodule TestiroomWeb.ExamLive.Components.AnswerForm do
 
     ~H"""
     <div phx-feedback-for={@name} class="mt-2.5">
-      <input class="peer invisible absolute h-0 w-0" id={@id} type={@input_type} name={@name} value={@option.id} checked={@checked?} />
+      <input
+        class="peer invisible absolute h-0 w-0"
+        id={@id}
+        type={@input_type}
+        name={@name}
+        value={@option.id}
+        checked={@checked?}
+      />
       <label
         class={[
           "flex select-none rounded-lg px-6 py-4 outline outline-1",

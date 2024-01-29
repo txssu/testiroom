@@ -10,20 +10,33 @@ defmodule TestiroomWeb.UserResetPasswordLive do
     <div class="mx-auto max-w-sm">
       <.header class="text-center"><%= gettext("Reset Password") %></.header>
 
-      <.simple_form for={@form} id="reset_password_form" phx-submit="reset_password" phx-change="validate">
+      <.simple_form
+        for={@form}
+        id="reset_password_form"
+        phx-submit="reset_password"
+        phx-change="validate"
+      >
         <.error :if={@form.errors != []}>
           <%= gettext("Oops, something went wrong! Please check the errors below.") %>
         </.error>
 
         <.input field={@form[:password]} type="password" label={gettext("New password")} required />
-        <.input field={@form[:password_confirmation]} type="password" label={gettext("Confirm new password")} required />
+        <.input
+          field={@form[:password_confirmation]}
+          type="password"
+          label={gettext("Confirm new password")}
+          required
+        />
         <:actions>
-          <.button phx-disable-with={gettext("Resetting...")} class="w-full"><%= gettext("Reset Password") %></.button>
+          <.button phx-disable-with={gettext("Resetting...")} class="w-full">
+            <%= gettext("Reset Password") %>
+          </.button>
         </:actions>
       </.simple_form>
 
       <p class="mt-4 text-center text-sm">
-        <.link href={~p"/users/register"}><%= gettext("Register") %></.link> | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
+        <.link href={~p"/users/register"}><%= gettext("Register") %></.link>
+        | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
       </p>
     </div>
     """

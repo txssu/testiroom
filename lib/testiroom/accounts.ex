@@ -178,8 +178,10 @@ defmodule Testiroom.Accounts do
       {:ok, %{to: ..., body: ...}}
 
   """
-  @spec deliver_user_update_email_instructions(User.t(), String.t(), (String.t() -> String.t())) :: {:ok, Swoosh.Email.t()}
-  def deliver_user_update_email_instructions(%User{} = user, current_email, update_email_url_fun) when is_function(update_email_url_fun, 1) do
+  @spec deliver_user_update_email_instructions(User.t(), String.t(), (String.t() -> String.t())) ::
+          {:ok, Swoosh.Email.t()}
+  def deliver_user_update_email_instructions(%User{} = user, current_email, update_email_url_fun)
+      when is_function(update_email_url_fun, 1) do
     {encoded_token, user_token} = UserToken.build_email_token(user, "change:#{current_email}")
 
     Repo.insert!(user_token)
@@ -276,8 +278,10 @@ defmodule Testiroom.Accounts do
       {:error, :already_confirmed}
 
   """
-  @spec deliver_user_confirmation_instructions(User.t(), (String.t() -> String.t())) :: {:ok, Swoosh.Email.t()} | {:error, :already_confirmed}
-  def deliver_user_confirmation_instructions(%User{} = user, confirmation_url_fun) when is_function(confirmation_url_fun, 1) do
+  @spec deliver_user_confirmation_instructions(User.t(), (String.t() -> String.t())) ::
+          {:ok, Swoosh.Email.t()} | {:error, :already_confirmed}
+  def deliver_user_confirmation_instructions(%User{} = user, confirmation_url_fun)
+      when is_function(confirmation_url_fun, 1) do
     if user.confirmed_at do
       {:error, :already_confirmed}
     else
@@ -323,7 +327,8 @@ defmodule Testiroom.Accounts do
 
   """
   @spec deliver_user_reset_password_instructions(User.t(), (String.t() -> String.t())) :: {:ok, Swoosh.Email.t()}
-  def deliver_user_reset_password_instructions(%User{} = user, reset_password_url_fun) when is_function(reset_password_url_fun, 1) do
+  def deliver_user_reset_password_instructions(%User{} = user, reset_password_url_fun)
+      when is_function(reset_password_url_fun, 1) do
     {encoded_token, user_token} = UserToken.build_email_token(user, "reset_password")
     Repo.insert!(user_token)
     UserNotifier.deliver_reset_password_instructions(user, reset_password_url_fun.(encoded_token))

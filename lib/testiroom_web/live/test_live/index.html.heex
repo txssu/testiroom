@@ -7,10 +7,18 @@
   </:actions>
 </.header>
 
-<.table id="tests" rows={@streams.tests} row_click={fn {_id, test} -> JS.navigate(~p"/tests/#{test}/proctor") end}>
+<.table
+  id="tests"
+  rows={@streams.tests}
+  row_click={fn {_id, test} -> JS.navigate(~p"/tests/#{test}/proctor") end}
+>
   <:col :let={{_id, test}} label={gettext("Title")}><%= test.title %></:col>
   <:col :let={{id, test}} label={gettext("Starts at")}>
-    <span id={"test-#{id}-starts-at"} phx-hook="DateTimeWithTZSetter" data-datetime={test.starts_at}>
+    <span
+      id={"test-#{id}-starts-at"}
+      phx-hook="DateTimeWithTZSetter"
+      data-datetime={test.starts_at}
+    >
       <%= test.starts_at %>
     </span>
   </:col>
@@ -30,12 +38,22 @@
     </.link>
   </:action>
   <:action :let={{id, test}}>
-    <.link phx-click={JS.push("delete", value: %{id: test.id}) |> hide("##{id}")} data-confirm={gettext("Are you sure?")}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: test.id}) |> hide("##{id}")}
+      data-confirm={gettext("Are you sure?")}
+    >
       <%= gettext("Delete") %>
     </.link>
   </:action>
 </.table>
 
 <.modal :if={@live_action == :new} id="test-modal" show on_cancel={JS.patch(~p"/tests")}>
-  <.live_component module={TestiroomWeb.TestLive.Components.TestForm} id="new-test" title={@page_title} test={@test} current_user={@current_user} action={:new} />
+  <.live_component
+    module={TestiroomWeb.TestLive.Components.TestForm}
+    id="new-test"
+    title={@page_title}
+    test={@test}
+    current_user={@current_user}
+    action={:new}
+  />
 </.modal>

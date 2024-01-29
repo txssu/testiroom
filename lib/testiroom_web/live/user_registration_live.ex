@@ -38,7 +38,9 @@ defmodule TestiroomWeb.UserRegistrationLive do
         <.input field={@form[:password]} type="password" label={gettext("Password")} required />
 
         <:actions>
-          <.button phx-disable-with={gettext("Creating account...")} class="w-full"><%= gettext("Create an account") %></.button>
+          <.button phx-disable-with={gettext("Creating account...")} class="w-full">
+            <%= gettext("Create an account") %>
+          </.button>
         </:actions>
       </.simple_form>
     </div>

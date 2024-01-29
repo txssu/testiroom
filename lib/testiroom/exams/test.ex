@@ -56,7 +56,13 @@ defmodule Testiroom.Exams.Test do
       :show_grade_for_student,
       :show_answer_for_student
     ])
-    |> validate_required([:title, :show_correctness_for_student, :show_score_for_student, :show_grade_for_student, :show_answer_for_student])
+    |> validate_required([
+      :title,
+      :show_correctness_for_student,
+      :show_score_for_student,
+      :show_grade_for_student,
+      :show_answer_for_student
+    ])
     |> cast_assoc(:grades,
       sort_param: :grades_order,
       drop_param: :grades_delete

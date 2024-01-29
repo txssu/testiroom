@@ -63,9 +63,14 @@ defmodule Testiroom.Proctoring do
   defp get_events(test_id, event_type) do
     preload_fields =
       case event_type do
-        type when type in [Event.Started, Event.Ended, Event.MaybeCheated] -> [attempt: [user: [], student_answers: [task: [:options], selected_options: []]]]
-        Event.OpenedTask -> [attempt: [:user], task: []]
-        Event.ProvidedAnswer -> [attempt: [:user], student_answer: [task: [:options], selected_options: []]]
+        type when type in [Event.Started, Event.Ended, Event.MaybeCheated] ->
+          [attempt: [user: [], student_answers: [task: [:options], selected_options: []]]]
+
+        Event.OpenedTask ->
+          [attempt: [:user], task: []]
+
+        Event.ProvidedAnswer ->
+          [attempt: [:user], student_answer: [task: [:options], selected_options: []]]
       end
 
     query =

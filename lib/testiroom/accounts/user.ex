@@ -161,7 +161,8 @@ defmodule Testiroom.Accounts.User do
   `Bcrypt.no_user_verify/0` to avoid timing attacks.
   """
   @spec valid_password?(t(), String.t()) :: boolean()
-  def valid_password?(%Testiroom.Accounts.User{hashed_password: hashed_password}, password) when is_binary(hashed_password) and byte_size(password) > 0 do
+  def valid_password?(%Testiroom.Accounts.User{hashed_password: hashed_password}, password)
+      when is_binary(hashed_password) and byte_size(password) > 0 do
     Bcrypt.verify_pass(password, hashed_password)
   end
 

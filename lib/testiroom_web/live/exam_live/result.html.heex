@@ -18,7 +18,11 @@
         </tr>
       </thead>
       <tbody>
-        <tr :for={answer <- @attempt.student_answers} phx-click={JS.patch(~p"/exams/#{@attempt}/result/#{answer.task.order}")} class="h-10 cursor-pointer">
+        <tr
+          :for={answer <- @attempt.student_answers}
+          phx-click={JS.patch(~p"/exams/#{@attempt}/result/#{answer.task.order}")}
+          class="h-10 cursor-pointer"
+        >
           <td class="text-center"><%= answer.task.order + 1 %></td>
           <td class={
             if Exams.StudentAnswer.correct?(answer),
@@ -40,7 +44,12 @@
       </.button>
     </.link>
   </div>
-  <.modal :if={@live_action == :show} id="result-modal" show on_cancel={JS.patch(~p"/exams/#{@attempt}/result/")}>
+  <.modal
+    :if={@live_action == :show}
+    id="result-modal"
+    show
+    on_cancel={JS.patch(~p"/exams/#{@attempt}/result/")}
+  >
     <div>
       <h1 class="text-3xl"><%= @answer.task.question %></h1>
     </div>

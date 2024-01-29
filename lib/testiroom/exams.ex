@@ -302,7 +302,8 @@ defmodule Testiroom.Exams do
     end)
   end
 
-  @spec create_answers(Attempt.t(), [Task.t(), ...]) :: {:ok, %{integer() => StudentAnswer.t()}} | {:error, Ecto.Changeset.t()}
+  @spec create_answers(Attempt.t(), [Task.t(), ...]) ::
+          {:ok, %{integer() => StudentAnswer.t()}} | {:error, Ecto.Changeset.t()}
   defp create_answers(attempt, tasks) do
     multi =
       tasks
@@ -322,7 +323,11 @@ defmodule Testiroom.Exams do
 
   @spec get_attempt!(Ecto.UUID.t()) :: Attempt.t()
   def get_attempt!(id),
-    do: Attempt |> Repo.get!(id) |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades]) |> Attempt.shuffle_task_options()
+    do:
+      Attempt
+      |> Repo.get!(id)
+      |> Repo.preload(user: [], student_answers: [task: [:options], selected_options: []], test: [:grades])
+      |> Attempt.shuffle_task_options()
 
   @spec change_student_answer(StudentAnswer.t()) :: Ecto.Changeset.t()
   def change_student_answer(%StudentAnswer{} = student_answer) do

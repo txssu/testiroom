@@ -34,7 +34,9 @@ defmodule Testiroom.Proctoring.AnswersTracker do
     Map.update!(
       data,
       :user_answers,
-      &Map.update(&1, attempt.id, %{answer.task.order => answer}, fn answers -> Map.put(answers, answer.task.order, answer) end)
+      &Map.update(&1, attempt.id, %{answer.task.order => answer}, fn answers ->
+        Map.put(answers, answer.task.order, answer)
+      end)
     )
   end
 

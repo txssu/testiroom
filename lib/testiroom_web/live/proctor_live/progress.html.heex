@@ -1,6 +1,8 @@
 <div>
   <h1 class="mb-5 text-2xl font-medium"><%= @test.title %></h1>
-  <p><%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %></p>
+  <p>
+    <%= gettext("Completed test") %>: <%= @monitor.ended_counter %> <%= gettext("/") %> <%= @monitor.started_counter %>
+  </p>
   <p><%= gettext("Time per task") %>: <%= format_time_per_task(@monitor, @tasks_count) %></p>
   <div class="overflow-y-auto px-4 sm:overflow-visible sm:px-0">
     <table class="w-[40rem] mt-11 sm:w-full">
@@ -40,7 +42,17 @@
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
         <tr>
-          <th :for={label <- [gettext("Suspicious activities"), gettext("Username"), gettext("Grade"), gettext("Ratio")]} class="p-0 pr-6 pb-4 font-normal">
+          <th
+            :for={
+              label <- [
+                gettext("Suspicious activities"),
+                gettext("Username"),
+                gettext("Grade"),
+                gettext("Ratio")
+              ]
+            }
+            class="p-0 pr-6 pb-4 font-normal"
+          >
             <%= label %>
           </th>
           <th :for={order <- 1..@tasks_count} class="p-0 px-3 pb-4 text-center font-normal">
@@ -49,7 +61,11 @@
         </tr>
       </thead>
       <tbody class="relative divide-y divide-zinc-100 border-t border-zinc-200 text-sm leading-6 text-zinc-700">
-        <tr :for={{attempt_id, attempt} <- @monitor.attempts} class={cheating_outline(@monitor, attempt_id)} phx-click={JS.navigate(~p"/tests/#{@test}/proctor/#{attempt_id}")}>
+        <tr
+          :for={{attempt_id, attempt} <- @monitor.attempts}
+          class={cheating_outline(@monitor, attempt_id)}
+          phx-click={JS.navigate(~p"/tests/#{@test}/proctor/#{attempt_id}")}
+        >
           <.column>
             <%= Map.get(@monitor.maybe_cheated_counter, attempt_id, 0) %>
           </.column>
@@ -63,9 +79,16 @@
           <.column>
             <%= ratio_to_percents(ratio) %>%
           </.column>
-          <% current_order = @monitor.current_task[attempt_id] && @monitor.current_task[attempt_id].order %>
+          <% current_order =
+            @monitor.current_task[attempt_id] && @monitor.current_task[attempt_id].order %>
           <% current_user_correctness = @monitor.user_answers_correctness[attempt_id] %>
-          <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1", correctness_color(current_user_correctness[order])]}>
+          <td
+            :for={order <- 0..@max_task_order}
+            class={[
+              current_order == order && "outline-primary outline outline-1",
+              correctness_color(current_user_correctness[order])
+            ]}
+          >
           </td>
         </tr>
       </tbody>
@@ -73,7 +96,12 @@
   </div>
 </div>
 
-<.modal :if={@live_action == :show} id="result-modal" show on_cancel={JS.patch(~p"/tests/#{@test}/proctor")}>
+<.modal
+  :if={@live_action == :show}
+  id="result-modal"
+  show
+  on_cancel={JS.patch(~p"/tests/#{@test}/proctor")}
+>
   <div>
     <h1 class="text-3xl"><%= @monitor.attempts[@selected_attempt].user.fullname %></h1>
   </div>
@@ -86,7 +114,11 @@
       <%= gettext("Ratio") %>: <%= ratio_to_percents(ratio) %>%
     </p>
     <p>
-      <%= gettext("Suspicious activities") %>: <%= Map.get(@monitor.maybe_cheated_counter, @selected_attempt, 0) %>
+      <%= gettext("Suspicious activities") %>: <%= Map.get(
+        @monitor.maybe_cheated_counter,
+        @selected_attempt,
+        0
+      ) %>
     </p>
     <table class="w-[40rem] mt-11 sm:w-full">
       <thead class="text-left text-sm leading-6 text-zinc-500">
@@ -102,9 +134,17 @@
           <.column>
             <%= gettext("Correctness") %>
           </.column>
-          <% current_order = @monitor.current_task[@selected_attempt] && @monitor.current_task[@selected_attempt].order %>
+          <% current_order =
+            @monitor.current_task[@selected_attempt] &&
+              @monitor.current_task[@selected_attempt].order %>
           <% current_user_correctness = @monitor.user_answers_correctness[@selected_attempt] %>
-          <td :for={order <- 0..@max_task_order} class={[current_order == order && "outline-primary outline outline-1", correctness_color(current_user_correctness[order])]}>
+          <td
+            :for={order <- 0..@max_task_order}
+            class={[
+              current_order == order && "outline-primary outline outline-1",
+              correctness_color(current_user_correctness[order])
+            ]}
+          >
           </td>
         </tr>
         <tr>
@@ -119,14 +159,20 @@
       </tbody>
     </table>
     <% fallback_answers = @monitor.attempts[@selected_attempt].student_answers %>
-    <% answers = answers_with_fallback(@monitor.user_answers[@selected_attempt] || %{}, fallback_answers) %>
+    <% answers =
+      answers_with_fallback(@monitor.user_answers[@selected_attempt] || %{}, fallback_answers) %>
     <div class="mt-11 space-y-4">
       <div :for={{order, answer} <- answers}>
         <h2 class="mb-2 text-lg font-medium"><%= gettext("Task") %> <%= order %></h2>
         <%= case answer.task.type do %>
           <% :text -> %>
             <p><%= gettext("Student answer") %>: <%= answer.text_input %></p>
-            <p><%= gettext("Result") %>: <%= @monitor.user_answers_correctness |> Map.get(@selected_attempt, %{}) |> Map.get(order, false) |> format_is_correct() %></p>
+            <p>
+              <%= gettext("Result") %>: <%= @monitor.user_answers_correctness
+              |> Map.get(@selected_attempt, %{})
+              |> Map.get(order, false)
+              |> format_is_correct() %>
+            </p>
             <%= if @test.show_answer_for_student do %>
               <p><%= gettext("Possible correct answers") %>:</p>
               <ul>
@@ -142,7 +188,8 @@
                 <div class={[
                   "flex grow select-none rounded-lg px-6 py-4 outline outline-1",
                   "outline-ink-gray text-ink-dark",
-                  option.id in selected_option_ids && "outline-primary bg-ink-light-gray outline-2"
+                  option.id in selected_option_ids &&
+                    "outline-primary bg-ink-light-gray outline-2"
                 ]}>
                   <%= option.text %>
                 </div>

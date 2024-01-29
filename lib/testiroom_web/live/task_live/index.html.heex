@@ -28,7 +28,10 @@
     </.link>
   </:action>
   <:action :let={{id, task}}>
-    <.link phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")} data-confirm={gettext("Are you sure?")}>
+    <.link
+      phx-click={JS.push("delete", value: %{id: task.id}) |> hide("##{id}")}
+      data-confirm={gettext("Are you sure?")}
+    >
       <%= gettext("Delete") %>
     </.link>
   </:action>
@@ -40,7 +43,12 @@
   </.button>
 </.link>
 
-<.modal :if={@live_action in [:new, :edit]} id="task-modal" show on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}>
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="task-modal"
+  show
+  on_cancel={JS.patch(~p"/tests/#{@test_id}/tasks/#{@order}")}
+>
   <.live_component
     module={TestiroomWeb.TaskLive.Components.TaskForm}
     id={@task.id || :new}

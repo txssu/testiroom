@@ -10,17 +10,30 @@
     </div>
     <div class="flex items-center gap-4 font-semibold leading-6 text-zinc-900">
       <%= if @current_user do %>
-        <.link href={~p"/users/settings"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+        <.link
+          href={~p"/users/settings"}
+          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+        >
           <%= TestiroomWeb.Gettext.gettext("Settings") %>
         </.link>
-        <.link href={~p"/users/log_out"} method="delete" class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+        <.link
+          href={~p"/users/log_out"}
+          method="delete"
+          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+        >
           <%= TestiroomWeb.Gettext.gettext("Log out") %>
         </.link>
       <% else %>
-        <.link href={~p"/users/register"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+        <.link
+          href={~p"/users/register"}
+          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+        >
           <%= TestiroomWeb.Gettext.gettext("Register") %>
         </.link>
-        <.link href={~p"/users/log_in"} class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700">
+        <.link
+          href={~p"/users/log_in"}
+          class="text-[0.8125rem] leading-6 text-zinc-900 font-semibold hover:text-zinc-700"
+        >
           <%= TestiroomWeb.Gettext.gettext("Log in") %>
         </.link>
       <% end %>

@@ -22,7 +22,8 @@ defmodule TestiroomWeb.UserForgotPasswordLive do
         </:actions>
       </.simple_form>
       <p class="mt-4 text-center text-sm">
-        <.link href={~p"/users/register"}><%= gettext("Register") %></.link> | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
+        <.link href={~p"/users/register"}><%= gettext("Register") %></.link>
+        | <.link href={~p"/users/log_in"}><%= gettext("Log in") %></.link>
       </p>
     </div>
     """

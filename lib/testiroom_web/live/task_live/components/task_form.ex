@@ -15,13 +15,27 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
         <%= @title %>
       </.header>
 
-      <.simple_form for={@form} id="task-form" phx-target={@myself} phx-change="validate" phx-submit="save">
+      <.simple_form
+        for={@form}
+        id="task-form"
+        phx-target={@myself}
+        phx-change="validate"
+        phx-submit="save"
+      >
         <.input field={@form[:order]} type="hidden" value={@order} />
-        <.input field={@form[:type]} type="select" label={gettext("Type")} prompt={gettext("Choose a type")} options={Exams.Task.types()} />
+        <.input
+          field={@form[:type]}
+          type="select"
+          label={gettext("Type")}
+          prompt={gettext("Choose a type")}
+          options={Exams.Task.types()}
+        />
         <.input field={@form[:question]} type="textarea" label={gettext("Question")} />
         <.live_file_input upload={@uploads.image} />
         <fieldset phx-feedback-for={@form[:options].name}>
-          <legend class="block text-sm font-semibold leading-6 text-zinc-800"><%= gettext("Options") %></legend>
+          <legend class="block text-sm font-semibold leading-6 text-zinc-800">
+            <%= gettext("Options") %>
+          </legend>
           <div class="space-y-2">
             <.inputs_for :let={option} field={@form[:options]}>
               <div>
@@ -36,7 +50,11 @@ defmodule TestiroomWeb.TaskLive.Components.TaskForm do
                     </div>
                   <% else %>
                     <div class="mt-0 sm:mt-4">
-                      <.input field={option[:is_correct]} type="checkbox" label={gettext("Correct answer")} />
+                      <.input
+                        field={option[:is_correct]}
+                        type="checkbox"
+                        label={gettext("Correct answer")}
+                      />
                     </div>
                   <% end %>
                 </div>

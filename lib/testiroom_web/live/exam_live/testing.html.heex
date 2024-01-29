@@ -3,7 +3,13 @@
     <%= restore_new_lines(@current_answer.task.question) %>
   </h2>
   <%= if assigns[:ends_at] do %>
-    <div id="test-timer" class="text-ink-dark-gray mt-2 text-center" phx-hook="TestTimer" phx-update="ignore" data-ends-at={@ends_at}>
+    <div
+      id="test-timer"
+      class="text-ink-dark-gray mt-2 text-center"
+      phx-hook="TestTimer"
+      phx-update="ignore"
+      data-ends-at={@ends_at}
+    >
       <%= format_remaining_time(@ends_after) %>
     </div>
   <% end %>
@@ -15,7 +21,11 @@
 </div>
 
 <div class="w-full">
-  <.live_component id="answer-form" answer={@current_answer} module={TestiroomWeb.ExamLive.Components.AnswerForm} />
+  <.live_component
+    id="answer-form"
+    answer={@current_answer}
+    module={TestiroomWeb.ExamLive.Components.AnswerForm}
+  />
 </div>
 
 <nav class="flex w-full flex-col items-center gap-2.5">
@@ -24,12 +34,18 @@
   </div>
   <div class="flex w-full gap-2.5">
     <.link patch={~p"/exams/#{@attempt}/#{@previous_order}"} class="w-full">
-      <.button kind={if @order == 0, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
+      <.button
+        kind={if @order == 0, do: :tall_outline_inactive, else: :tall_outline}
+        class="w-full"
+      >
         <%= gettext("Previous") %>
       </.button>
     </.link>
     <.link patch={~p"/exams/#{@attempt}/#{@next_order}"} class="w-full">
-      <.button kind={if @order == @max_order, do: :tall_outline_inactive, else: :tall_outline} class="w-full">
+      <.button
+        kind={if @order == @max_order, do: :tall_outline_inactive, else: :tall_outline}
+        class="w-full"
+      >
         <%= gettext("Next") %>
       </.button>
     </.link>
