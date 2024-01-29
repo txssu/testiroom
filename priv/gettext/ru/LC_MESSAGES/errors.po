@@ -110,12 +110,12 @@ msgstr "должно быть не меньше %{number}"
 msgid "must be equal to %{number}"
 msgstr "должно быть равно %{number}"
 
-#: lib/testiroom/exams/task.ex:71
+#: lib/testiroom/exams/task.ex:88
 #, elixir-autogen, elixir-format
 msgid "must be at least one correct answer"
 msgstr "должен быть хотя бы один верный ответ"
 
-#: lib/testiroom/exams/task.ex:79
+#: lib/testiroom/exams/task.ex:96
 #, elixir-autogen, elixir-format
 msgid "must be exactly one correct answer"
 msgstr "должен быть ровно один верный ответ"
